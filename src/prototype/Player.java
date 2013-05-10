@@ -18,6 +18,7 @@ public class Player {
 	private int worldsize_y;
 	private BufferedImage play;
 	
+	
 	public Player(int x, int y, int worldsize_x, int worldsize_y){
 		try {
 			play = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/ugly.png"));
@@ -43,6 +44,8 @@ public class Player {
 		
 		bounding.x = (int) f_playposx;
 		bounding.y = (int) f_playposy;
+		
+		
 		
 	}
 	

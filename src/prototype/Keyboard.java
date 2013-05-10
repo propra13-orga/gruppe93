@@ -33,7 +33,7 @@ public class Keyboard implements KeyListener {
 	
 	
 	
-	// Not in use
+	// Ohne Funktion
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
