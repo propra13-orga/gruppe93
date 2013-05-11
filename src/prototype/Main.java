@@ -10,6 +10,7 @@ public class Main {
 		int worldsizey = 720;
 		int startx = 500;
 		int starty = 500;
+		Map map=new Map();
 
 		
 		//Framerater
@@ -20,11 +21,11 @@ public class Main {
 		long berechnungsZeit=0;
 
 		
-		Map.setMap();
+		map.erstelleTestMap();
 		Player player = new Player(startx,starty,worldsizex,worldsizey);
 		
 		//Spielfenster
-		Frame spielFenster = new Frame("Gruppe93",player, Map.getMap());
+		Frame spielFenster = new Frame("Gruppe93",player, map);
 		spielFenster.makeBuff();		//ist für die BufferStrategy zwingend erforderlich
 		spielFenster.setSizeRight(worldsizex,worldsizey);	//Größe kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
 		spielFenster.setLocationRelativeTo(null);

@@ -11,10 +11,10 @@ public class Frame extends JFrame{
 	//DEKLARATION
 	private BufferStrategy buff;
 	final Player player;
-	private Tiles[][] map;
+	private Map map;
 	
 	
-	public Frame(String name,Player player, Tiles[][] map){
+	public Frame(String name,Player player, Map map){
 		super(name);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -32,7 +32,7 @@ public class Frame extends JFrame{
 	}
 	
 	
-//METHODEN
+	//METHODEN
 	public void makeBuff(){		//kann das auch in den konstruktor...test später
 		createBufferStrategy(2);
 		buff= getBufferStrategy();
@@ -47,10 +47,9 @@ public class Frame extends JFrame{
 	public void nextFrame(){
 		Graphics g=buff.getDrawGraphics();//übergibt ein malobjekt aus der bufferstrat
 			
-		for(int a = 0; a < 32 ; a++){
-			for(int b = 0 ; b< 18 ; b++){
-				Tiles c = map[a][b];
-				g.drawImage(c.getLook(), c.getBounding().x+getInsets().left, c.getBounding().y+getInsets().top, null);
+		for(int x = 0; x < 32 ; x++){
+			for(int y = 0 ; y< 18 ; y++){
+				g.drawImage(map.getTile(x, y).getLook(), map.getTile(x, y).getBounding().x+getInsets().left, map.getTile(x, y).getBounding().y+getInsets().top, null);
 			}
 		}
 		
