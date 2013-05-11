@@ -14,15 +14,18 @@ public class Player {
 	private Rectangle bounding;
 	private float f_playposx;
 	private float f_playposy;
+	private short kartenPositionX;
+	private short kartenPositionY;
 	private float speedX;
 	private float speedY;
-	private float speedReductionRate=5;
+	private float speedReductionRate=10;
 	private int worldsize_x;
 	private int worldsize_y;
+	private Map map;
 	private BufferedImage bimg;
 	
 	
-	public Player(int x, int y, int worldsize_x, int worldsize_y){
+	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map){
 		try {
 			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/ugly.png"));
 		} catch (IOException e) {e.printStackTrace();}
@@ -31,7 +34,7 @@ public class Player {
 		f_playposy = y;
 		this.worldsize_x=worldsize_x;
 		this.worldsize_y=worldsize_y;
-		
+		this.map=map;
 	}
 	
 	public void update(float frametime){
@@ -58,7 +61,8 @@ public class Player {
 		
 		
 		
-		
+		kartenPositionX=(short)(f_playposx/Tile.getFeldGröße());
+		kartenPositionY=(short)(f_playposy/Tile.getFeldGröße());
 		bounding.x = (int) f_playposx;
 		bounding.y = (int) f_playposy;
 	}

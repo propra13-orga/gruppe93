@@ -10,6 +10,7 @@ public class Tile {
 	
 	private int posx;
 	private int posy;
+	private static short feldGröße=40;
 	private int textur;
 	private Rectangle bounding;
 	private boolean calcBounding;  //z.Zt ohne Funktion, soll ünnötige Kolisionsabfragen verhindern
@@ -40,7 +41,7 @@ public class Tile {
 		this.textur=textur;
 			
 		
-		bounding = new Rectangle(posx, posy, 40, 40); // 40 bei derzeitiger Texturauflösung
+		bounding = new Rectangle(posx, posy, feldGröße, feldGröße); // 40 bei derzeitiger Texturauflösung
 		
 		}
 	
@@ -66,6 +67,10 @@ public class Tile {
 	
 	public Rectangle getBounding(){
 		return bounding;
+	}
+	
+	public static int getFeldGröße(){
+		return feldGröße;
 	}
 	
 

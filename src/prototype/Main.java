@@ -22,7 +22,7 @@ public class Main {
 
 		
 		map.erstelleTestMap();
-		Player player = new Player(startx,starty,worldsizex,worldsizey);
+		Player player = new Player(startx,starty,worldsizex,worldsizey,map);
 		
 		//Spielfenster
 		Frame spielFenster = new Frame("Gruppe93",player, map);
