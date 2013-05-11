@@ -44,7 +44,8 @@ public class Map {
 			for(int b = 17; b<18; b++){
 				tiles[a][b] = new Tile(a*40,b*40,true,2);
 			}
-		}	
+		}
+		tiles[5][5].setTrap();
 	}
 
 }      

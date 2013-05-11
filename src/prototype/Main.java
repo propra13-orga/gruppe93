@@ -47,6 +47,9 @@ public class Main {
 			player.update(timeSinceLastFrame);
 			spielFenster.nextFrame();			//nächster frame
 			if(Keyboard.isKeyDown(KeyEvent.VK_ESCAPE))System.exit(0);
+			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
+			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
+			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
 			
 			
 			//Schlafen

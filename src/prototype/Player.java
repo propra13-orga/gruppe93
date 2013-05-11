@@ -20,11 +20,13 @@ public class Player {
 	private float speedY;
 	private float speedGainRate=2000;
 	private float speedReductionRate=1000;
-	private float maximumSpeed=125;
+	private float maximumSpeed=300;
 	private int worldsize_x;
 	private int worldsize_y;
 	private Map map;
 	private BufferedImage bimg;
+	private boolean isAlive = true;
+	private boolean bCheck = false;
 	
 	
 	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map){
@@ -40,6 +42,9 @@ public class Player {
 	}
 	
 	public void update(float frametime){
+		
+		if(!isAlive)return;
+		
 		if(Keyboard.isKeyDown(KeyEvent.VK_W))speedY -= speedGainRate*frametime;
 		if(Keyboard.isKeyDown(KeyEvent.VK_S))speedY += speedGainRate*frametime;
 		if(Keyboard.isKeyDown(KeyEvent.VK_A))speedX -= speedGainRate*frametime;
@@ -71,6 +76,51 @@ public class Player {
 		kartenPositionY=(short)(f_playposy/Tile.getFeldGröße());
 		bounding.x = ((int) f_playposx)-10;	//Aufgrund der Natur des Bilds machen diese einrückungen Sinn
 		bounding.y = ((int) f_playposy)-10;
+		
+		System.out.println(kartenPositionX);
+		System.out.println(kartenPositionY);
+		
+		//Schalter Kollision
+		
+		
+	
+		if(bCheck){
+		
+		//WAndprüfung
+		for(int tx = kartenPositionX - 1; tx < kartenPositionX + 1; tx++){
+			if(tx<0)tx=0;
+			if(tx>31)break;
+			for(int ty = kartenPositionY - 1; ty< kartenPositionY + 1; ty++){
+				if(ty<0)ty=0;
+				if(ty>17)break;
+				if(map.getTile(tx, tx).getWalkOver()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
+					
+					// TODO Durch bessere Methode ersetzen.
+					
+					f_playposx = 500;
+					f_playposy = 500;					
+					
+				}
+			}
+		}
+		
+		// Fallen überprüfung
+		for(int tx = kartenPositionX - 1; tx < kartenPositionX + 1; tx++){
+			if(tx<0)tx=0;
+			if(tx>31)break;
+			for(int ty = kartenPositionY - 1; ty< kartenPositionY + 1; ty++){
+				if(ty<0)ty=0;
+				if(ty>17)break;
+				if(map.getTile(tx, ty).getKillYou()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
+					
+					//ggf. Ersetzen
+					
+					isAlive = false;					
+					
+				}
+			}
+		}
+		}
 	}
 	
 	public Rectangle getBounding(){
@@ -80,5 +130,20 @@ public class Player {
 	public BufferedImage getBimg(){
 		return bimg;
 	}
+	
+	public void respawn(){
+		f_playposx = 500;
+		f_playposy = 500;	
+		isAlive = true;
+	}
+	
+	public void bCheckOn(){
+		bCheck = true;
+	}
+	
+	public void bCheckOff(){
+		bCheck = false;
+	}
+	
 
 }

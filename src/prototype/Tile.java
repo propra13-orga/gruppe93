@@ -13,23 +13,28 @@ public class Tile {
 	private static short feldGröße=40;
 	private int textur;
 	private Rectangle bounding;
-	private boolean calcBounding;  //z.Zt ohne Funktion, soll ünnötige Kolisionsabfragen verhindern
+	private boolean walkover;
+	private boolean killYou = false;
 	
 	
 	
-	
+	private static BufferedImage err;
 	private static BufferedImage floor;
 	private static BufferedImage wall;
-	private static BufferedImage err;
-	
+	private static BufferedImage trap;
+	private static BufferedImage exit;
 	
 	
 	// Texturen laden
 	static{
 		try{
+			err = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyerr.png"));
 			floor = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyfloor.png"));
 			wall = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglywall.png"));
-			err = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyerr.png"));
+			trap = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglytrap.png"));
+			exit = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyexit.png"));
+			
+			
 			}catch (IOException e) {e.printStackTrace();}
 		
 	}
@@ -37,15 +42,12 @@ public class Tile {
 	public Tile(int x,int y, boolean calcBounding, int textur){
 		this.posx=x;
 		this.posy=y;
-		this.calcBounding=calcBounding;
+		this.walkover=calcBounding;
 		this.textur=textur;
 			
-		
-		bounding = new Rectangle(posx, posy, feldGröße, feldGröße); // 40 bei derzeitiger Texturauflösung
+		bounding = new Rectangle(posx, posy, feldGröße, feldGröße);
 		
 		}
-	
-
 	
 	public static BufferedImage getLook(int tex){
 		switch(tex){
@@ -53,12 +55,21 @@ public class Tile {
 			return floor;
 		case 2:
 			return wall;
+		case 3:
+			return trap;
+		case 4:
+			return exit;
 		default:
 			return err;
 		
 		
 				
 		}
+	}
+	
+	public void setTrap(){
+		killYou = true;
+		textur = 3;		
 	}
 	
 	public int getTex(){
@@ -71,6 +82,14 @@ public class Tile {
 	
 	public static int getFeldGröße(){
 		return feldGröße;
+	}
+	
+	public boolean getWalkOver(){
+		return walkover;		
+	}
+	
+	public boolean getKillYou(){
+		return killYou;
 	}
 	
 
