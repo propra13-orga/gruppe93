@@ -14,7 +14,7 @@ public class Player {
 	private Rectangle bounding;
 	private float f_playposx;
 	private float f_playposy;
-	private short kartenPositionX;
+	private short kartenPositionX;	//enstpricht dem Feld auf der Map. Zur überprüfung welche Felder auf Kollision geprüft werden
 	private short kartenPositionY;
 	private float speedX;
 	private float speedY;
@@ -27,9 +27,9 @@ public class Player {
 	
 	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map){
 		try {
-			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/ugly.png"));
+			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/Rossi.png"));
 		} catch (IOException e) {e.printStackTrace();}
-		bounding = new Rectangle(x,y,bimg.getWidth(),bimg.getHeight());
+		bounding = new Rectangle(x+10,y+10,bimg.getWidth()-20,bimg.getHeight()-20);
 		f_playposx = x;
 		f_playposy = y;
 		this.worldsize_x=worldsize_x;
@@ -63,8 +63,8 @@ public class Player {
 		
 		kartenPositionX=(short)(f_playposx/Tile.getFeldGröße());
 		kartenPositionY=(short)(f_playposy/Tile.getFeldGröße());
-		bounding.x = (int) f_playposx;
-		bounding.y = (int) f_playposy;
+		bounding.x = ((int) f_playposx)-10;	//Aufgrund der Natur des Bilds machen diese einrückungen Sinn
+		bounding.y = ((int) f_playposy)-10;
 	}
 	
 	public Rectangle getBounding(){
