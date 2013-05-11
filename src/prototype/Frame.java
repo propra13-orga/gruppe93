@@ -49,8 +49,8 @@ public class Frame extends JFrame{
 			
 		for(int x = 0; x < 32 ; x++){
 			for(int y = 0 ; y< 18 ; y++){
-				 g.drawImage(map.getTile(x, y).getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+getInsets().left, map.getTile(x, y).getBounding().y+getInsets().top, null);
-				
+				map.getTile(x, y);
+				g.drawImage(Tile.getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+getInsets().left, map.getTile(x, y).getBounding().y+getInsets().top, null);
 			}
 		}
 		
