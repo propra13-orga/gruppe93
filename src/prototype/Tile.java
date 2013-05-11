@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Tiles {
+public class Tile {
 	
 	private int posx;
 	private int posy;
@@ -25,13 +25,13 @@ public class Tiles {
 	// Texturen laden
 	static{
 		try{
-			floor = ImageIO.read(Tiles.class.getClassLoader().getResourceAsStream("gfx/uglyfloor.png"));
-			wall = ImageIO.read(Tiles.class.getClassLoader().getResourceAsStream("gfx/uglywall.png"));
+			floor = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyfloor.png"));
+			wall = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglywall.png"));
 			}catch (IOException e) {e.printStackTrace();}
 		
 	}
 	
-	public Tiles(int x,int y, boolean calcBounding, int textur){
+	public Tile(int x,int y, boolean calcBounding, int textur){
 		this.posx=x;
 		this.posy=y;
 		this.calcBounding=calcBounding;
