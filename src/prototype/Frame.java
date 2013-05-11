@@ -53,7 +53,7 @@ public class Frame extends JFrame{
 			}
 		}
 		
-		g.drawImage(player.getPlay(), player.getBounding().x+getInsets().left, player.getBounding().y+getInsets().top, null);
+		g.drawImage(player.getBimg(), player.getBounding().x+getInsets().left, player.getBounding().y+getInsets().top, null);
 		
 		g.dispose();	//gibt den zeichner wieder frei
 		buff.show();	//zeigt dann den aktuellen buffer
