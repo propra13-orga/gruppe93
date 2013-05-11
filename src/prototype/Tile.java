@@ -13,12 +13,13 @@ public class Tile {
 	private int textur;
 	private Rectangle bounding;
 	private boolean calcBounding;  //z.Zt ohne Funktion, soll ünnötige Kolisionsabfragen verhindern
-	private BufferedImage look;
+	
 	
 	
 	
 	private static BufferedImage floor;
 	private static BufferedImage wall;
+	private static BufferedImage err;
 	
 	
 	
@@ -27,6 +28,7 @@ public class Tile {
 		try{
 			floor = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyfloor.png"));
 			wall = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglywall.png"));
+			err = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyerr.png"));
 			}catch (IOException e) {e.printStackTrace();}
 		
 	}
@@ -35,24 +37,31 @@ public class Tile {
 		this.posx=x;
 		this.posy=y;
 		this.calcBounding=calcBounding;
-		switch(textur){
-		case 1:
-			look = floor;
-			break;
-		case 2:
-			look = wall;
-			break;
-			// Bei bedarf neue cases hinzufügen.	
+		this.textur=textur;
 			
-		}
-		bounding = new Rectangle(posx, posy, look.getWidth(), look.getHeight());
+		
+		bounding = new Rectangle(posx, posy, 40, 40); // 40 bei derzeitiger Texturauflösung
 		
 		}
 	
 
 	
-	public BufferedImage getLook(){
-		return look;
+	public static BufferedImage getLook(int tex){
+		switch(tex){
+		case 1:
+			return floor;
+		case 2:
+			return wall;
+		default:
+			return err;
+		
+		
+				
+		}
+	}
+	
+	public int getTex(){
+		return textur;
 	}
 	
 	public Rectangle getBounding(){
