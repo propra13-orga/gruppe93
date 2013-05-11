@@ -6,12 +6,18 @@ import java.awt.event.KeyListener;
 public class Keyboard implements KeyListener {
 	private static boolean[] keys = new boolean[512];
 	
+	
+	// Übergabe der Tastenstatus 
+	
 	public static boolean isKeyDown(int keyCode){
 		if (keyCode>=0&&keyCode<keys.length) return keys[keyCode];
 		else return false;
 		
 	}
-	
+	/*
+	 *   Gedrückte Tasten werden in static Array registriert.
+	 *   
+	 */
 
 	@Override
 	public void keyPressed(KeyEvent e) {
