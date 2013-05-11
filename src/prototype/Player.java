@@ -53,7 +53,7 @@ public class Player {
 		return bounding;
 	}
 	
-	public BufferedImage getplay(){
+	public BufferedImage getPlay(){
 		return play;
 	}
 

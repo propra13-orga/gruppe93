@@ -2,58 +2,59 @@ package prototype;
 
 import java.awt.event.KeyEvent;
 
-import javax.swing.JFrame;
-
-
-
-
 public class Main {
 	
-
-	
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {	
 		//Start Einstellungen 
 		int worldsizex = 1280;
 		int worldsizey = 720;
 		int startx = 500;
 		int starty = 500;
-		//Windows 7 Anpassungen 
-		int offx = 6;
-		int offy = 28;
+
+		
+		//Framerater
+		float timeSinceLastFrame =0;
+		long lastFrame=0;
+		long currentFrame = 0;
+		long nachBerechnungsZeit=0;
+		long berechnungsZeit=0;
 
 		
 		Map.setMap();
 		Player player = new Player(startx,starty,worldsizex,worldsizey);
 		
-		Frame f = new Frame(worldsizex,worldsizey,player, Map.getMap());
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setSize(worldsizex+offx,worldsizey+offy);
-		f.setVisible(true);
-		f.setResizable(false);
+		//Spielfenster
+		Frame spielFenster = new Frame("Gruppe93",player, Map.getMap());
+		spielFenster.makeBuff();		//ist für die BufferStrategy zwingend erforderlich
+		spielFenster.setSizeRight(worldsizex,worldsizey);	//Größe kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
+		spielFenster.setLocationRelativeTo(null);
+
 		
-		long lastFrame=System.currentTimeMillis();
 		
-		
+		lastFrame=System.currentTimeMillis();
 		// Haupschleife mit FPS Limiter (ca 60 FPS
 		while(true){
-			long currentFrame = System.currentTimeMillis();
-			float frameTime = ((float)(currentFrame - lastFrame)/1000f);
+			currentFrame = System.currentTimeMillis();
+			timeSinceLastFrame = ((float)(currentFrame - lastFrame)/1000f);
 			lastFrame = currentFrame;
-			player.update(frameTime);
-			f.repaint();
-			long currentFrame2 = System.currentTimeMillis();
-			if(currentFrame2-lastFrame<=14){
-			try {
-				Thread.sleep(14-(currentFrame2-lastFrame));
-			} catch (InterruptedException e) {e.printStackTrace();}
-			}
+//			System.out.println(timeSinceLastFrame);		//evtl für debugging benötigt
+//			System.out.println(berechnungsZeit);
+//			System.out.println(player.getBounding().x+"    "+player.getBounding().y);
+//			System.out.println(spielFenster.getInsets());
+//			System.out.println(spielFenster.getSize());
+			
+			player.update(timeSinceLastFrame);
+			spielFenster.nextFrame();			//nächster frame
 			if(Keyboard.isKeyDown(KeyEvent.VK_ESCAPE))System.exit(0);
-			lastFrame = currentFrame;
+			
+			
+			//Schlafen
+			nachBerechnungsZeit=System.currentTimeMillis();
+			berechnungsZeit=nachBerechnungsZeit-currentFrame;
+			if(berechnungsZeit<15){
+				try {Thread.sleep(15-berechnungsZeit);} 
+				catch (InterruptedException e) {e.printStackTrace();}
+			}	
 		}
-		
-
-
-	}
-
+	}//main Ende
 }
