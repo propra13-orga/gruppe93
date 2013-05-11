@@ -18,7 +18,9 @@ public class Player {
 	private short kartenPositionY;
 	private float speedX;
 	private float speedY;
-	private float speedReductionRate=10;
+	private float speedGainRate=750;
+	private float speedReductionRate=250;
+	private float maximumSpeed=250;
 	private int worldsize_x;
 	private int worldsize_y;
 	private Map map;
@@ -38,20 +40,24 @@ public class Player {
 	}
 	
 	public void update(float frametime){
-		if(Keyboard.isKeyDown(KeyEvent.VK_W))speedY -= 50*frametime;
-		if(Keyboard.isKeyDown(KeyEvent.VK_S))speedY += 50*frametime;
-		if(Keyboard.isKeyDown(KeyEvent.VK_A))speedX -= 50*frametime;
-		if(Keyboard.isKeyDown(KeyEvent.VK_D))speedX += 50*frametime;
+		if(Keyboard.isKeyDown(KeyEvent.VK_W))speedY -= speedGainRate*frametime;
+		if(Keyboard.isKeyDown(KeyEvent.VK_S))speedY += speedGainRate*frametime;
+		if(Keyboard.isKeyDown(KeyEvent.VK_A))speedX -= speedGainRate*frametime;
+		if(Keyboard.isKeyDown(KeyEvent.VK_D))speedX += speedGainRate*frametime;
 		
-		f_playposy+=speedY;
-		f_playposx+=speedX;
+		f_playposy+=speedY*frametime;
+		f_playposx+=speedX*frametime;
 		
 		if(Math.abs(speedY)<1&&!Keyboard.isKeyDown(KeyEvent.VK_W)&&!Keyboard.isKeyDown(KeyEvent.VK_S)){speedY=0;}else	//Speed geht mit der Zeit wieder runter und unter 1 geht er direkt auf 0
-		if(speedY>0){speedY-=speedReductionRate*frametime;}else
-		if(speedY<0){speedY+=speedReductionRate*frametime;}
+		if(speedY>maximumSpeed){speedY=maximumSpeed;}else
+		if(speedY<-maximumSpeed){speedY=-maximumSpeed;}else
+		if(speedY>1){speedY-=speedReductionRate*frametime;}else
+		if(speedY<1){speedY+=speedReductionRate*frametime;}
 		if(Math.abs(speedX)<1&&!Keyboard.isKeyDown(KeyEvent.VK_A)&&!Keyboard.isKeyDown(KeyEvent.VK_D)){speedX=0;}else
-		if(speedX>0){speedX-=speedReductionRate*frametime;}else
-		if(speedX<0){speedX+=speedReductionRate*frametime;}
+		if(speedX>maximumSpeed){speedX=maximumSpeed;}else
+		if(speedX<-maximumSpeed){speedX=-maximumSpeed;}else
+		if(speedX>1){speedX-=speedReductionRate*frametime;}else
+		if(speedX<1){speedX+=speedReductionRate*frametime;}
 		
 		
 		if(f_playposx<0){f_playposx=0;speedX=-speedX;}else
