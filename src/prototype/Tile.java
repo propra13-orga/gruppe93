@@ -23,6 +23,7 @@ public class Tile {
 	private static BufferedImage wall;
 	private static BufferedImage trap;
 	private static BufferedImage exit;
+	private static BufferedImage tot;
 	
 	
 	// Texturen laden
@@ -33,6 +34,7 @@ public class Tile {
 			wall = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglywall.png"));
 			trap = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglytrap.png"));
 			exit = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyexit.png"));
+			tot = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot.png"));
 			
 			
 			}catch (IOException e) {e.printStackTrace();}
@@ -59,12 +61,18 @@ public class Tile {
 			return trap;
 		case 4:
 			return exit;
+		case 5:
+			return tot;
 		default:
 			return err;
 		
 		
 				
 		}
+	}
+	
+	public void setTex(int tex){
+		textur = tex;
 	}
 	
 	public void setTrap(){
@@ -92,5 +100,4 @@ public class Tile {
 		return killYou;
 	}
 	
-
 }

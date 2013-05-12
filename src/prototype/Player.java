@@ -116,7 +116,7 @@ public class Player {
 					//ggf. Ersetzen
 					
 					isAlive = false;					
-					
+					map.setTot();
 				}
 			}
 		}
@@ -135,6 +135,7 @@ public class Player {
 		f_playposx = 500;
 		f_playposy = 500;	
 		isAlive = true;
+		map.erstelleTestMap();
 	}
 	
 	public void bCheckOn(){

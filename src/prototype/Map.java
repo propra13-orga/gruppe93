@@ -47,5 +47,13 @@ public class Map {
 		}
 		tiles[5][5].setTrap();
 	}
+	
+	public void setTot(){
+		for(int x = 0; x <32; x++){
+			for(int y = 0; y < 18; y++){
+				tiles[x][y].setTex(5);
+			}
+		}
+	}
 
 }      
