@@ -26,7 +26,7 @@ public class Player {
 	private Map map;
 	private BufferedImage bimg;
 	private boolean isAlive = true;
-	private boolean bCheck = false;
+	private boolean bCheck = true;  // Aktiviert Kollisionsabfrage
 	
 	
 	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map){
@@ -93,7 +93,7 @@ public class Player {
 			for(int ty = kartenPositionY - 1; ty< kartenPositionY + 1; ty++){
 				if(ty<0)ty=0;
 				if(ty>17)break;
-				if(map.getTile(tx, tx).getWalkOver()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
+				if(map.getTile(tx, ty).getWalkOver()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
 					
 					// TODO Durch bessere Methode ersetzen.
 					
