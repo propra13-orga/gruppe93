@@ -15,6 +15,7 @@ public class Tile {
 	private Rectangle bounding;
 	private boolean blockiert;	//in blockiert umbenannt zur besseren verständlichkeit. vorher war walkover= true wenn man nicht drüber walken konnte
 	private boolean killYou = false;
+	private boolean isTeleporter = false;
 	
 	
 	
@@ -25,6 +26,7 @@ public class Tile {
 	private static BufferedImage exit;
 	private static BufferedImage tot;
 	private static BufferedImage tot2;
+	private static BufferedImage teleporter;
 	
 	
 	// Texturen laden
@@ -37,6 +39,7 @@ public class Tile {
 			exit = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyexit.png"));
 			tot = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot.png"));
 			tot2 = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot2.png"));
+			teleporter = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyteleporter.png"));
 			
 			
 			}catch (IOException e) {e.printStackTrace();}
@@ -55,6 +58,42 @@ public class Tile {
 		
 	}
 	
+//	Tiletypechanger
+	
+	public void setFloor(){
+		blockiert = false;
+		killYou = false;
+		isTeleporter = false;
+		textur = 1;
+	}
+	
+	public void setTrap(){
+		killYou = true;
+		blockiert = false;
+		isTeleporter = false;
+		textur = 3;		
+	}
+	
+	public void setTeleporter(){
+		isTeleporter = true;
+		killYou = false;
+		blockiert = false;
+		textur = 7; 
+	}
+	
+	public void setWall(){
+		isTeleporter = false;
+		killYou = false;
+		blockiert = true;
+		textur = 2;
+	}
+	
+	public void setErr(){
+		isTeleporter = false;
+		killYou = false;
+		blockiert = false;
+		textur = 0;
+	}
 	
 	//Getter und Setter
 	public static BufferedImage getLook(int tex){
@@ -71,6 +110,8 @@ public class Tile {
 			return tot;
 		case 6:
 			return tot2;
+		case 7:
+			return teleporter;
 		default:
 			return err;			
 		}
@@ -80,15 +121,34 @@ public class Tile {
 		textur = tex;
 	}
 	
-	public void setTrap(){
-		killYou = true;
-		textur = 3;		
-	}
-	
 	public int getTex(){
 		return textur;
 	}
 	
+	public void setKillYou(boolean killYou){
+		this.killYou=killYou;
+	}
+	
+	public boolean getKillYou(){
+		return killYou;
+	}
+	
+	public void setBlockiert(boolean blockiert){
+		this.blockiert=blockiert;
+	}
+	
+	public boolean getBlockiert(){
+		return blockiert;
+	}
+	
+	public void setIsTeleporter(boolean isTeleporter){
+		this.isTeleporter = isTeleporter;
+	}
+	
+	public boolean getIsTeleporter(){
+		return isTeleporter;
+	}
+		
 	public Rectangle getBounding(){
 		return bounding;
 	}
@@ -97,12 +157,8 @@ public class Tile {
 		return feldGröße;
 	}
 	
-	public boolean getBlockiert(){
-		return blockiert;		
-	}
+
 	
-	public boolean getKillYou(){
-		return killYou;
-	}
+
 	
 }

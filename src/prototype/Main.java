@@ -1,6 +1,7 @@
 package prototype;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 public class Main {
 	
@@ -59,7 +60,17 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
-			
+			//Nur zu Besuch
+			if(Keyboard.isKeyDown(KeyEvent.VK_M)){
+				try{
+					File f = new File("Maps/test.map");
+					MapLoader ml = new MapLoader(f, map);
+					ml.lesen();
+					ml.schliesen();
+				}catch(Exception e){
+					map.errMap();
+				}
+			}
 			
 			
 			//Schlafen

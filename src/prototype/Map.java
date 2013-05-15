@@ -3,7 +3,7 @@ package prototype;
 public class Map {
 	private boolean spielertot=false;
 	private float sekundenTakt=0;
-	private Tile[][] tiles;
+	private static Tile[][] tiles;
 	
 	//KONSTRUKTOR
 	public Map(){
@@ -16,9 +16,7 @@ public class Map {
 	public Tile getTile(int x,int y){
 		return tiles[x][y];
 	}
-	
-	
-	
+		
 	public void  erstelleTestMap(){
 		for(int a = 1; a<31; a++){
 			for(int b = 1; b<17; b++){
@@ -70,6 +68,16 @@ public class Map {
 				}
 			}
 		}
-		
 	}
+	
+	public void errMap(){
+		for(int x = 0; x<32;x++){
+			for(int y = 0;y<18;y++){
+				tiles[x][y].setErr();
+			}
+		}
+	}
+	
+	 
+
 }      
