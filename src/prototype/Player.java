@@ -76,8 +76,8 @@ public class Player {
 		
 		kartenPositionX=(short)(f_playposx/Tile.getFeldGröße());
 		kartenPositionY=(short)(f_playposy/Tile.getFeldGröße());
-		bounding.x = ((int) f_playposx)-10;	//Aufgrund der Natur des Bilds machen diese einrückungen Sinn
-		bounding.y = ((int) f_playposy)-10;
+		bounding.x = ((int) f_playposx)+10;	//Aufgrund der Natur des Bilds machen diese einrückungen Sinn
+		bounding.y = ((int) f_playposy)+10;
 		
 		
 		//Schalter Kollision
@@ -122,12 +122,9 @@ public class Player {
 				if(ty<0)ty=0;
 				if(ty>17)break;
 				if(map.getTile(tx, ty).getKillYou()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
-					
-					//ggf. Ersetzen
-					
 					isAlive = false;					
 					map.setSpielerTod(true);
-					speedX=0;//Geschwindigkeiten werden auf 0 getzt sonst rutscht der SPieler nach dem Respawn weiter
+					speedX=0;
 					speedY=0;
 				}
 			}
@@ -166,5 +163,13 @@ public class Player {
 	
 	public void bCheckOff(){
 		bCheck = false;
+	}
+	
+	public int getX(){
+		return (int)f_playposx;
+	}
+	
+	public int getY(){
+		return (int)f_playposy;
 	}
 }
