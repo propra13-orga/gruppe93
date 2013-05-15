@@ -103,17 +103,18 @@ public class Player {
 				if(map.getTile(tx, ty).getBlockiert()&&!richtungWurdeGeändert&&bounding.intersects(map.getTile(tx, ty).getBounding())){//wenn hier abprallen gebrüft werden muss und die richtung nicht schon geändert wurde
 					Rectangle inter =  bounding.intersection(map.getTile(tx, ty).getBounding());
 					System.out.println(inter.getWidth()+"   "+inter.getHeight());
-					richtungWurdeGeändert=true;
+					richtungWurdeGeändert=true; //wichtig, damit pro vorgang nicht doppelt die richtung umgedreht wird
 					if(inter.getWidth()>inter.getHeight()){
 						speedY=-speedY;
-						if(inter.y<map.getTile(tx, ty).getBounding().y){
+						if(inter.y>map.getTile(tx, ty).getBounding().y){
 							f_playposy+=inter.getHeight();
 						}else if(inter.y==map.getTile(tx, ty).getBounding().y){
 							f_playposy-=inter.getHeight();
 						}
 					}else if(inter.getWidth()<inter.getHeight()){
 						speedX=-speedX;
-						if(inter.x<map.getTile(tx, ty).getBounding().x){
+						System.out.println(inter.x+"   "+map.getTile(tx, ty).getBounding().x);
+						if(inter.x>map.getTile(tx, ty).getBounding().x){
 							f_playposx+=inter.getWidth();
 						}else if(inter.x==map.getTile(tx, ty).getBounding().x){
 							f_playposx-=inter.getWidth();
