@@ -16,11 +16,13 @@ public class Player {
 	private float f_playposy;
 	private short kartenPositionX;	//enstpricht dem Feld auf der Map. Zur überprüfung welche Felder auf Kollision geprüft werden
 	private short kartenPositionY;
+	
 	private float speedX;
 	private float speedY;
 	private float speedGainRate=2000;
 	private float speedReductionRate=1000;
 	private float maximumSpeed=300;
+	
 	private int worldsize_x;
 	private int worldsize_y;
 	private Map map;
@@ -43,7 +45,7 @@ public class Player {
 	
 	public void update(float frametime){
 		
-		if(!isAlive)return;
+		if(!isAlive)return;	//wenn der spieler tot ist wird das update Übersprungen
 		
 		if(Keyboard.isKeyDown(KeyEvent.VK_W))speedY -= speedGainRate*frametime;
 		if(Keyboard.isKeyDown(KeyEvent.VK_S))speedY += speedGainRate*frametime;
@@ -85,15 +87,21 @@ public class Player {
 		
 	
 		if(bCheck){
-		
-		//WAndprüfung
-		for(int tx = kartenPositionX - 1; tx < kartenPositionX + 1; tx++){
-			if(tx<0)tx=0;
+			wandKollision();
+			fallenPrüfung();
+		}
+	}//update Ende
+	
+	
+	
+	private void wandKollision(){
+		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprüft werden, damit an kartenposition+1 auch eine überprüfung stattfindet. an kartenpos -1 muss dafür nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
+			if(tx<0)tx=0;	//sorgt dafür, daß beim überschreiten der levelgrenzen kein absturz auftritt
 			if(tx>31)break;
-			for(int ty = kartenPositionY - 1; ty< kartenPositionY + 1; ty++){
+			for(int ty = kartenPositionY; ty<= kartenPositionY + 1; ty++){
 				if(ty<0)ty=0;
 				if(ty>17)break;
-				if(map.getTile(tx, ty).getWalkOver()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
+				if(map.getTile(tx, ty).getBlockiert()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
 					
 					// TODO Durch bessere Methode ersetzen.
 					
@@ -104,11 +112,15 @@ public class Player {
 			}
 		}
 		
-		// Fallen überprüfung
-		for(int tx = kartenPositionX - 1; tx < kartenPositionX + 1; tx++){
-			if(tx<0)tx=0;
+	}
+	
+	
+	
+	private void fallenPrüfung(){
+		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprüft werden, damit an kartenposition+1 auch eine überprüfung stattfindet. an kartenpos -1 muss dafür nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
+			if(tx<0)tx=0;	//sorgt dafür, daß beim überschreiten der levelgrenzen kein absturz auftritt
 			if(tx>31)break;
-			for(int ty = kartenPositionY - 1; ty< kartenPositionY + 1; ty++){
+			for(int ty = kartenPositionY; ty <= kartenPositionY + 1; ty++){
 				if(ty<0)ty=0;
 				if(ty>17)break;
 				if(map.getTile(tx, ty).getKillYou()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
@@ -120,16 +132,21 @@ public class Player {
 				}
 			}
 		}
-		}
 	}
+	
+	
 	
 	public Rectangle getBounding(){
 		return bounding;
 	}
 	
+	
+	
 	public BufferedImage getBimg(){
 		return bimg;
 	}
+	
+	
 	
 	public void respawn(){
 		f_playposx = 500;
@@ -138,13 +155,15 @@ public class Player {
 		map.erstelleTestMap();
 	}
 	
+	
+	//DEBUG Methoden bzgl der Kollisions und Sterbeprüfung
 	public void bCheckOn(){
 		bCheck = true;
 	}
 	
+	
+	
 	public void bCheckOff(){
 		bCheck = false;
 	}
-	
-
 }

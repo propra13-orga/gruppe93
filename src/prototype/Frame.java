@@ -38,7 +38,7 @@ public class Frame extends JFrame{
 		buff= getBufferStrategy();
 	}
 	
-	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen falscher Insets
+	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen zunächst falscher Insets
 		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Größe + Randeinrückungen, damit der Sichtbare bereich genau die eingegebene Größe hat
 	}
 	
