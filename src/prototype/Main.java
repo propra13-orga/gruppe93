@@ -48,6 +48,7 @@ public class Main {
 			
 			player.update(timeSinceLastFrame);
 			spielFenster.nextFrame();			//nächster frame
+			map.update(timeSinceLastFrame);
 			
 			
 			

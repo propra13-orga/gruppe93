@@ -24,6 +24,7 @@ public class Tile {
 	private static BufferedImage trap;
 	private static BufferedImage exit;
 	private static BufferedImage tot;
+	private static BufferedImage tot2;
 	
 	
 	// Texturen laden
@@ -35,12 +36,15 @@ public class Tile {
 			trap = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglytrap.png"));
 			exit = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyexit.png"));
 			tot = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot.png"));
+			tot2 = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot2.png"));
 			
 			
 			}catch (IOException e) {e.printStackTrace();}
 		
 	}
 	
+	
+	//KONSTRUKTOR
 	public Tile(int x,int y, boolean blockiert, int textur){
 		this.posx=x;
 		this.posy=y;
@@ -49,8 +53,10 @@ public class Tile {
 			
 		bounding = new Rectangle(posx, posy, feldGröße, feldGröße);
 		
-		}
+	}
 	
+	
+	//Getter und Setter
 	public static BufferedImage getLook(int tex){
 		switch(tex){
 		case 1:
@@ -63,11 +69,10 @@ public class Tile {
 			return exit;
 		case 5:
 			return tot;
+		case 6:
+			return tot2;
 		default:
-			return err;
-		
-		
-				
+			return err;			
 		}
 	}
 	

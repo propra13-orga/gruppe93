@@ -1,7 +1,8 @@
 package prototype;
 
 public class Map {
-	
+	private boolean spielertot=false;
+	private float sekundenTakt=0;
 	private Tile[][] tiles;
 	
 	//KONSTRUKTOR
@@ -48,12 +49,27 @@ public class Map {
 		tiles[5][5].setTrap();
 	}
 	
-	public void setTot(){
-		for(int x = 0; x <32; x++){
-			for(int y = 0; y < 18; y++){
-				tiles[x][y].setTex(5);
+	public void setSpielerTod(boolean tot){
+		spielertot=tot;
+		sekundenTakt=0;//damit das Blinken immer auf schwarz beginnt und gleichmäßig startet
+	}
+	
+	public void update(float frametime){//damit kann man alles mögliche auf der map ändern
+		sekundenTakt+=frametime;
+		if(sekundenTakt>=2)sekundenTakt=0;
+		if(spielertot&&sekundenTakt<1){
+			for(int x = 0; x <32; x++){
+				for(int y = 0; y < 18; y++){
+					tiles[x][y].setTex(5);
+				}
+			}
+		}else if(spielertot){//sekundentakt zwischen 1und 2 ist hier klar und muss nicht nochmal geprüft werden
+			for(int x = 0; x <32; x++){
+				for(int y = 0; y < 18; y++){
+					tiles[x][y].setTex(6);
+				}
 			}
 		}
+		
 	}
-
 }      

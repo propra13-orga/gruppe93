@@ -128,7 +128,9 @@ public class Player {
 					//ggf. Ersetzen
 					
 					isAlive = false;					
-					map.setTot();
+					map.setSpielerTod(true);
+					speedX=0;//Geschwindigkeiten werden auf 0 getzt sonst rutscht der SPieler nach dem Respawn weiter
+					speedY=0;
 				}
 			}
 		}
@@ -152,6 +154,7 @@ public class Player {
 		f_playposx = 500;
 		f_playposy = 500;	
 		isAlive = true;
+		map.setSpielerTod(false);
 		map.erstelleTestMap();
 	}
 	
