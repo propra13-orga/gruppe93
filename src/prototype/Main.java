@@ -52,8 +52,10 @@ public class Main {
 			
 			
 			
-			//sollten wir vllt einfach mit in den player auslagern
+			//Spiel beenden
 			if(Keyboard.isKeyDown(KeyEvent.VK_ESCAPE))System.exit(0);
+			
+			// Debuging hilfen später entfernen
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();

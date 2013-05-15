@@ -79,8 +79,6 @@ public class Player {
 		bounding.x = ((int) f_playposx)-10;	//Aufgrund der Natur des Bilds machen diese einrückungen Sinn
 		bounding.y = ((int) f_playposy)-10;
 		
-		System.out.println(kartenPositionX);
-		System.out.println(kartenPositionY);
 		
 		//Schalter Kollision
 		
