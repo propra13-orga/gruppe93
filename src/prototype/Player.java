@@ -20,8 +20,9 @@ public class Player {
 	private float speedX;
 	private float speedY;
 	private float speedGainRate=2000;
-	private float speedReductionRate=1000;
+	private float speedReductionRate=100;
 	private float maximumSpeed=300;
+	private boolean richtungWurdeGeändert=false;
 	
 	private int worldsize_x;
 	private int worldsize_y;
@@ -93,24 +94,36 @@ public class Player {
 	
 	
 	private void wandKollision(){
-		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprüft werden, damit an kartenposition+1 auch eine überprüfung stattfindet. an kartenpos -1 muss dafür nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
+		for(int tx = kartenPositionX; tx <= kartenPositionX + 2; tx++){//hier muss <= geprüft werden, damit an kartenposition+2 auch eine überprüfung stattfindet. an kartenpos -1 muss dafür nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
 			if(tx<0)tx=0;	//sorgt dafür, daß beim überschreiten der levelgrenzen kein absturz auftritt
 			if(tx>31)break;
-			for(int ty = kartenPositionY; ty<= kartenPositionY + 1; ty++){
+			for(int ty = kartenPositionY; ty<= kartenPositionY + 2; ty++){
 				if(ty<0)ty=0;
 				if(ty>17)break;
-				if(map.getTile(tx, ty).getBlockiert()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
-					
-					// TODO Durch bessere Methode ersetzen.
-					
-					f_playposx = 500;
-					f_playposy = 500;					
-					
+				if(map.getTile(tx, ty).getBlockiert()&&!richtungWurdeGeändert&&bounding.intersects(map.getTile(tx, ty).getBounding())){//wenn hier abprallen gebrüft werden muss und die richtung nicht schon geändert wurde
+					Rectangle inter =  bounding.intersection(map.getTile(tx, ty).getBounding());
+					System.out.println(inter.getWidth()+"   "+inter.getHeight());
+					richtungWurdeGeändert=true;
+					if(inter.getWidth()>inter.getHeight()){
+						speedY=-speedY;
+						if(inter.y<map.getTile(tx, ty).getBounding().y){
+							f_playposy+=inter.getHeight();
+						}else if(inter.y==map.getTile(tx, ty).getBounding().y){
+							f_playposy-=inter.getHeight();
+						}
+					}else if(inter.getWidth()<inter.getHeight()){
+						speedX=-speedX;
+						if(inter.x<map.getTile(tx, ty).getBounding().x){
+							f_playposx+=inter.getWidth();
+						}else if(inter.x==map.getTile(tx, ty).getBounding().x){
+							f_playposx-=inter.getWidth();
+						}
+					}
 				}
 			}
 		}
-		
-	}
+		richtungWurdeGeändert=false;
+	}//Ende wandKollision
 	
 	
 	
