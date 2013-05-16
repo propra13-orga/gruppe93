@@ -22,7 +22,7 @@ public class Player {
 	private float speedGainRate=2000;
 	private float speedReductionRate=100;
 	private float maximumSpeed=300;
-	private boolean richtungWurdeGeändert=false;
+	private boolean richtungWurdeGeaendert=false;
 	
 	private int worldsize_x;
 	private int worldsize_y;
@@ -100,10 +100,10 @@ public class Player {
 			for(int ty = kartenPositionY; ty<= kartenPositionY + 2; ty++){
 				if(ty<0)ty=0;
 				if(ty>17)break;
-				if(map.getTile(tx, ty).getBlockiert()&&!richtungWurdeGeändert&&bounding.intersects(map.getTile(tx, ty).getBounding())){//wenn hier abprallen gebrüft werden muss und die richtung nicht schon geändert wurde
+				if(map.getTile(tx, ty).getBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tx, ty).getBounding())){//wenn hier abprallen gebrüft werden muss und die richtung nicht schon geändert wurde
 					Rectangle inter =  bounding.intersection(map.getTile(tx, ty).getBounding());
 					System.out.println(inter.getWidth()+"   "+inter.getHeight());
-					richtungWurdeGeändert=true; //wichtig, damit pro vorgang nicht doppelt die richtung umgedreht wird
+					richtungWurdeGeaendert=true; //wichtig, damit pro vorgang nicht doppelt die richtung umgedreht wird
 					if(inter.getWidth()>inter.getHeight()){
 						speedY=-speedY;
 						if(inter.y>map.getTile(tx, ty).getBounding().y){
@@ -123,7 +123,7 @@ public class Player {
 				}
 			}
 		}
-		richtungWurdeGeändert=false;
+		richtungWurdeGeaendert=false;
 	}//Ende wandKollision
 	
 	

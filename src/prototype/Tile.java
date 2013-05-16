@@ -10,7 +10,7 @@ public class Tile {
 	
 	private int posx;
 	private int posy;
-	private static short feldGröße=40;
+	private static short feldGroeße=40;
 	private int textur;
 	private Rectangle bounding;
 	private boolean blockiert;	//in blockiert umbenannt zur besseren verständlichkeit. vorher war walkover= true wenn man nicht drüber walken konnte
@@ -54,7 +54,7 @@ public class Tile {
 		this.blockiert=blockiert;
 		this.textur=textur;
 			
-		bounding = new Rectangle(posx, posy, feldGröße, feldGröße);
+		bounding = new Rectangle(posx, posy, feldGroeße, feldGroeße);
 		
 	}
 	
@@ -154,7 +154,7 @@ public class Tile {
 	}
 	
 	public static int getFeldGröße(){
-		return feldGröße;
+		return feldGroeße;
 	}
 	
 
