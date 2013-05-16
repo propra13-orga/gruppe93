@@ -7,20 +7,28 @@ public class Keyboard implements KeyListener {
 	private static boolean[] keys = new boolean[512];
 	
 	
-//	Übergabe der Tastenstatus 
+/*
+ * Tastatureingabe Ueberwachung:
+ * 
+ * Bei Tastendruck wird dies registriert und im Keys Array eingetragen.
+ * So das in andern Klassen nur noch die Taste im Array abgefragt werden muss.
+ */
+	
+	
+//	Rückgabe des Tastenstatus
 	
 	public static boolean isKeyDown(int keyCode){
 		if (keyCode>=0&&keyCode<keys.length) return keys[keyCode];
 		else return false;
 		
 	}
-	/*
-	 *   Gedrueckte Tasten werden in static Array registriert. 
-	 */
+
+	
+//	Registrierung der Tastendrücke.
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		int keyCode = e.getKeyCode(); //Maybe switch to extended
+		int keyCode = e.getKeyCode(); 
 		if(keyCode>=0&&keyCode<keys.length) keys[keyCode]= true;
 		
 	}
@@ -40,9 +48,6 @@ public class Keyboard implements KeyListener {
 	
 	// Ohne Funktion
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 
 }

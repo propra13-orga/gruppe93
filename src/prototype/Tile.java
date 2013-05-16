@@ -18,7 +18,7 @@ public class Tile {
 	private boolean isTeleporter = false;
 	
 	
-	
+//	Texturen
 	private static BufferedImage err;
 	private static BufferedImage floor;
 	private static BufferedImage wall;

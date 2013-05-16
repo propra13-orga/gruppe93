@@ -11,29 +11,35 @@ public class Main {
 		int worldsizey = 720;
 		int startx = 500;
 		int starty = 500;
-		Map map=new Map();
-
 		
-		//Framerater
-		float timeSinceLastFrame =0;
-		long lastFrame=0;
-		long currentFrame = 0;
-		long nachBerechnungsZeit=0;
-		long berechnungsZeit=0;
-
 		
+		
+		
+//		Initialisierung
+		Map map=new Map();		
 		map.erstelleTestMap();
 		Player player = new Player(startx,starty,worldsizex,worldsizey,map);
+		
+		
 		
 		//Spielfenster
 		Frame spielFenster = new Frame("Gruppe93",player, map);
 		spielFenster.makeBuff();		//ist für die BufferStrategy zwingend erforderlich
 		spielFenster.setSizeRight(worldsizex,worldsizey);	//Größe kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
 		spielFenster.setLocationRelativeTo(null);
-
 		
 		
+		
+		//Frameratelimiter Variabeln
+		float timeSinceLastFrame =0;
+		long lastFrame=0;
+		long currentFrame = 0;
+		long nachBerechnungsZeit=0;
+		long berechnungsZeit=0;
 		lastFrame=System.currentTimeMillis();
+		
+		
+		
 		// Haupschleife mit FPS Limiter (ca 60 FPS
 		while(true){
 			currentFrame = System.currentTimeMillis();
@@ -60,18 +66,22 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
-			//Nur zu Besuch
-			if(Keyboard.isKeyDown(KeyEvent.VK_M)){
-				try{
-					File f = new File("Maps/test.map");
-					MapLoader ml = new MapLoader(f, map);
-					ml.lesen();
-					ml.schliesen();
-				}catch(Exception e){
-					map.errMap();
-				}
-			}
+
 			
+		
+		//MAploader Basisfunktion Wartet auf das Menu
+
+		//if(Keyboard.isKeyDown(KeyEvent.VK_M)){
+		//	try{
+		//		File f = new File("Maps/test.map");
+		//		MapLoader ml = new MapLoader(f, map);
+		//		ml.lesen();
+		//		ml.schliesen();
+		//	}catch(Exception e){
+		//		map.errMap();
+		//	}
+
+
 			
 			//Schlafen
 			nachBerechnungsZeit=System.currentTimeMillis();

@@ -14,7 +14,7 @@ public class Player {
 	private Rectangle bounding;
 	private float f_playposx;
 	private float f_playposy;
-	private short kartenPositionX;	//enstpricht dem Feld auf der Map. Zur überprüfung welche Felder auf Kollision geprüft werden
+	private short kartenPositionX;	//enstpricht dem Feld auf der Map. Zur ueberpruefung welche Felder auf Kollision geprueft werden
 	private short kartenPositionY;
 	
 	private float speedX;
@@ -46,7 +46,7 @@ public class Player {
 	
 	public void update(float frametime){
 		
-		if(!isAlive)return;	//wenn der spieler tot ist wird das update Übersprungen
+		if(!isAlive)return;	//wenn der spieler tot ist wird das update Uebersprungen
 		
 		if(Keyboard.isKeyDown(KeyEvent.VK_W))speedY -= speedGainRate*frametime;
 		if(Keyboard.isKeyDown(KeyEvent.VK_S))speedY += speedGainRate*frametime;
@@ -77,7 +77,7 @@ public class Player {
 		
 		kartenPositionX=(short)(f_playposx/Tile.getFeldGroesse());
 		kartenPositionY=(short)(f_playposy/Tile.getFeldGroesse());
-		bounding.x = ((int) f_playposx)+10;	//Aufgrund der Natur des Bilds machen diese einrückungen Sinn
+		bounding.x = ((int) f_playposx)+10;	//Aufgrund der Natur des Bilds machen diese einrueckungen Sinn
 		bounding.y = ((int) f_playposy)+10;
 		
 		
@@ -94,13 +94,13 @@ public class Player {
 	
 	
 	private void wandKollision(){
-		for(int tx = kartenPositionX; tx <= kartenPositionX + 2; tx++){//hier muss <= geprüft werden, damit an kartenposition+2 auch eine überprüfung stattfindet. an kartenpos -1 muss dafür nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
-			if(tx<0)tx=0;	//sorgt dafür, daß beim überschreiten der levelgrenzen kein absturz auftritt
+		for(int tx = kartenPositionX; tx <= kartenPositionX + 2; tx++){//hier muss <= geprueft werden, damit an kartenposition+2 auch eine ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
+			if(tx<0)tx=0;	//sorgt dafuer, daß beim ueberschreiten der levelgrenzen kein absturz auftritt
 			if(tx>31)break;
 			for(int ty = kartenPositionY; ty<= kartenPositionY + 2; ty++){
 				if(ty<0)ty=0;
 				if(ty>17)break;
-				if(map.getTile(tx, ty).getBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tx, ty).getBounding())){//wenn hier abprallen gebrüft werden muss und die richtung nicht schon geändert wurde
+				if(map.getTile(tx, ty).getBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tx, ty).getBounding())){//wenn hier abprallen gebrueft werden muss und die richtung nicht schon geaendert wurde
 					Rectangle inter =  bounding.intersection(map.getTile(tx, ty).getBounding());
 					richtungWurdeGeaendert=true; //wichtig, damit pro vorgang nicht doppelt die richtung umgedreht wird
 					if(inter.getWidth()>inter.getHeight()){
@@ -112,7 +112,6 @@ public class Player {
 						}
 					}else if(inter.getWidth()<inter.getHeight()){
 						speedX=-speedX;
-						System.out.println(inter.x+"   "+map.getTile(tx, ty).getBounding().x);
 						if(inter.x>map.getTile(tx, ty).getBounding().x){
 							f_playposx+=inter.getWidth();
 						}else if(inter.x==map.getTile(tx, ty).getBounding().x){
@@ -128,8 +127,8 @@ public class Player {
 	
 	
 	private void fallenPruefung(){
-		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprüft werden, damit an kartenposition+1 auch eine überprüfung stattfindet. an kartenpos -1 muss dafür nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
-			if(tx<0)tx=0;	//sorgt dafür, daß beim überschreiten der levelgrenzen kein absturz auftritt
+		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprueft werden, damit an kartenposition+1 auch eine Ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
+			if(tx<0)tx=0;	//sorgt dafuer, daß beim ueberschreiten der levelgrenzen kein absturz auftritt
 			if(tx>31)break;
 			for(int ty = kartenPositionY; ty <= kartenPositionY + 1; ty++){
 				if(ty<0)ty=0;
@@ -167,17 +166,16 @@ public class Player {
 	}
 	
 	
-	//DEBUG Methoden bzgl der Kollisions und Sterbeprüfung
+	//DEBUG Methoden bzgl der Kollisions und Sterbepruefung
 	public void bCheckOn(){
 		bCheck = true;
 	}
-	
-	
 	
 	public void bCheckOff(){
 		bCheck = false;
 	}
 	
+//	Rueckgabe Spielerposition and Frame
 	public int getX(){
 		return (int)f_playposx;
 	}
