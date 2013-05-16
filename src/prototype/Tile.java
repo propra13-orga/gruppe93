@@ -16,7 +16,7 @@ public class Tile {
 	private boolean blockiert;	//in blockiert umbenannt zur besseren verständlichkeit. vorher war walkover= true wenn man nicht drüber walken konnte
 	private boolean killYou = false;
 	private boolean isTeleporter = false;
-	//test
+	
 	
 	
 	private static BufferedImage err;
@@ -153,7 +153,7 @@ public class Tile {
 		return bounding;
 	}
 	
-	public static int getFeldGröße(){
+	public static int getFeldGroeße(){
 		return feldGroesse;
 	}
 	

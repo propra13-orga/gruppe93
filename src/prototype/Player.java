@@ -75,8 +75,8 @@ public class Player {
 		
 		
 		
-		kartenPositionX=(short)(f_playposx/Tile.getFeldGröße());
-		kartenPositionY=(short)(f_playposy/Tile.getFeldGröße());
+		kartenPositionX=(short)(f_playposx/Tile.getFeldGroeße());
+		kartenPositionY=(short)(f_playposy/Tile.getFeldGroeße());
 		bounding.x = ((int) f_playposx)+10;	//Aufgrund der Natur des Bilds machen diese einrückungen Sinn
 		bounding.y = ((int) f_playposy)+10;
 		
@@ -87,7 +87,7 @@ public class Player {
 	
 		if(bCheck){
 			wandKollision();
-			fallenPrüfung();
+			fallenPruefung();
 		}
 	}//update Ende
 	
@@ -102,7 +102,6 @@ public class Player {
 				if(ty>17)break;
 				if(map.getTile(tx, ty).getBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tx, ty).getBounding())){//wenn hier abprallen gebrüft werden muss und die richtung nicht schon geändert wurde
 					Rectangle inter =  bounding.intersection(map.getTile(tx, ty).getBounding());
-					System.out.println(inter.getWidth()+"   "+inter.getHeight());
 					richtungWurdeGeaendert=true; //wichtig, damit pro vorgang nicht doppelt die richtung umgedreht wird
 					if(inter.getWidth()>inter.getHeight()){
 						speedY=-speedY;
@@ -128,7 +127,7 @@ public class Player {
 	
 	
 	
-	private void fallenPrüfung(){
+	private void fallenPruefung(){
 		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprüft werden, damit an kartenposition+1 auch eine überprüfung stattfindet. an kartenpos -1 muss dafür nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
 			if(tx<0)tx=0;	//sorgt dafür, daß beim überschreiten der levelgrenzen kein absturz auftritt
 			if(tx>31)break;
