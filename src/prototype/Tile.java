@@ -153,12 +153,7 @@ public class Tile {
 		return bounding;
 	}
 	
-	public static int getFeldGroeﬂe(){
+	public static int getFeldGroesse(){
 		return feldGroesse;
 	}
-	
-
-	
-
-	
 }
