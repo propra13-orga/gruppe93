@@ -15,8 +15,7 @@ public class Keyboard implements KeyListener {
 		
 	}
 	/*
-	 *   Gedrückte Tasten werden in static Array registriert.
-	 *   
+	 *   Gedrueckte Tasten werden in static Array registriert. 
 	 */
 
 	@Override
