@@ -10,13 +10,13 @@ public class Tile {
 	
 	private int posx;
 	private int posy;
-	private static short feldGroeﬂe=40;
+	private static short feldGroesse=40;
 	private int textur;
 	private Rectangle bounding;
 	private boolean blockiert;	//in blockiert umbenannt zur besseren verst‰ndlichkeit. vorher war walkover= true wenn man nicht dr¸ber walken konnte
 	private boolean killYou = false;
 	private boolean isTeleporter = false;
-	
+	//test
 	
 	
 	private static BufferedImage err;
@@ -54,7 +54,7 @@ public class Tile {
 		this.blockiert=blockiert;
 		this.textur=textur;
 			
-		bounding = new Rectangle(posx, posy, feldGroeﬂe, feldGroeﬂe);
+		bounding = new Rectangle(posx, posy, feldGroesse, feldGroesse);
 		
 	}
 	
@@ -154,7 +154,7 @@ public class Tile {
 	}
 	
 	public static int getFeldGrˆﬂe(){
-		return feldGroeﬂe;
+		return feldGroesse;
 	}
 	
 
