@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -29,10 +30,18 @@ public class Player {
 	private Map map;
 	private BufferedImage bimg;
 	private boolean isAlive = true;
-	private boolean bCheck = true;  // Aktiviert Kollisionsabfrage
+	private boolean bCheck = true; // Aktiviert Kollisionsabfrage
+	private List<Zauber>Zaubern;
+	private final float schussfrequenz = 0.1f;
+	private float ZeitSeitLetztemSchuss = 0;
+	private int Zauberrichtung_x=1000;
+	private int Zauberrichtung_y;
 	
 	
-	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map){
+	
+	
+	
+	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map, List<Zauber>Zaubern){
 		try {
 			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/Rossi.png"));
 		} catch (IOException e) {e.printStackTrace();}
@@ -42,17 +51,23 @@ public class Player {
 		this.worldsize_x=worldsize_x;
 		this.worldsize_y=worldsize_y;
 		this.map=map;
+		this.Zaubern=Zaubern;
+		
 	}
 	
 	public void update(float frametime){
 		
 		if(!isAlive)return;	//wenn der spieler tot ist wird das update Uebersprungen
+		ZeitSeitLetztemSchuss+=frametime;
 		
-		if(Keyboard.isKeyDown(KeyEvent.VK_W))speedY -= speedGainRate*frametime;
-		if(Keyboard.isKeyDown(KeyEvent.VK_S))speedY += speedGainRate*frametime;
-		if(Keyboard.isKeyDown(KeyEvent.VK_A))speedX -= speedGainRate*frametime;
-		if(Keyboard.isKeyDown(KeyEvent.VK_D))speedX += speedGainRate*frametime;
-		
+		if(Keyboard.isKeyDown(KeyEvent.VK_W)){speedY -= speedGainRate*frametime;Zauberrichtung_y=-1000;Zauberrichtung_x=0;}
+		if(Keyboard.isKeyDown(KeyEvent.VK_S)){speedY += speedGainRate*frametime;Zauberrichtung_y=1000;Zauberrichtung_x=0;}
+		if(Keyboard.isKeyDown(KeyEvent.VK_A)){speedX -= speedGainRate*frametime;Zauberrichtung_x=-1000;Zauberrichtung_y=0;}
+		if(Keyboard.isKeyDown(KeyEvent.VK_D)){speedX += speedGainRate*frametime;Zauberrichtung_x=1000;Zauberrichtung_y=0;}
+		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_SPACE)){
+			ZeitSeitLetztemSchuss = 0;
+			Zaubern.add(new Zauber(f_playposx+10, f_playposy+20, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
+		}
 		f_playposy+=speedY*frametime;
 		f_playposx+=speedX*frametime;
 		

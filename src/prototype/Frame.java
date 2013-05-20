@@ -2,6 +2,7 @@ package prototype;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.List;
 
 import javax.swing.JFrame;
 //import javax.swing.JLabel;
@@ -12,13 +13,15 @@ public class Frame extends JFrame{
 	private BufferStrategy buff;
 	final Player player;
 	private Map map;
+	private List<Zauber>Zaubern;
 	
 	
-	public Frame(String name,Player player, Map map){
+	public Frame(String name,Player player, Map map, List<Zauber>Zaubern){
 		super(name);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		setResizable(false);
+		this.Zaubern=Zaubern;
 //		screen = new Screen();
 //		screen.setBounds(0, 0, worldsizex, worldsizey);
 //		add(screen);
@@ -55,6 +58,10 @@ public class Frame extends JFrame{
 		}
 		
 		g.drawImage(player.getBimg(), player.getX()+getInsets().left, player.getY()+getInsets().top, null);
+		for(int i = 0; i<Zaubern.size(); i++){
+			Zauber b = Zaubern.get(i);
+			g.drawImage(Zauber.getLook(), b.getBounding().x, b.getBounding().y, null);
+		}
 		
 		g.dispose();	//gibt den zeichner wieder frei
 		buff.show();	//zeigt dann den aktuellen buffer

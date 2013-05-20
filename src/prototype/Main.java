@@ -2,6 +2,8 @@ package prototype;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
 	
@@ -11,6 +13,7 @@ public class Main {
 		int worldsizey = 720;
 		int startx = 500;
 		int starty = 500;
+		List<Zauber> Zaubern= new LinkedList<Zauber>();
 		
 		
 		
@@ -18,12 +21,12 @@ public class Main {
 //		Initialisierung
 		Map map=new Map();		
 		map.erstelleTestMap();
-		Player player = new Player(startx,starty,worldsizex,worldsizey,map);
+		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern);
 		
 		
 		
 		//Spielfenster
-		Frame spielFenster = new Frame("Gruppe93",player, map);
+		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern);
 		spielFenster.makeBuff();		//ist für die BufferStrategy zwingend erforderlich
 		spielFenster.setSizeRight(worldsizex,worldsizey);	//Größe kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
 		spielFenster.setLocationRelativeTo(null);
@@ -66,6 +69,9 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
+			for(int i = 0; i<Zaubern.size(); i++){
+				Zaubern.get(i).update(timeSinceLastFrame);}
+			
 
 			
 		
