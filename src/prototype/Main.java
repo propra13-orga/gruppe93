@@ -59,7 +59,8 @@ public class Main {
 			player.update(timeSinceLastFrame);
 			spielFenster.nextFrame();			//nächster frame
 			map.update(timeSinceLastFrame);
-			
+			for(int i = 0; i<Zaubern.size(); i++){
+				Zaubern.get(i).update(timeSinceLastFrame);}
 			
 			
 			//Spiel beenden
@@ -69,10 +70,9 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
-			for(int i = 0; i<Zaubern.size(); i++){
-				Zaubern.get(i).update(timeSinceLastFrame);}
-			
 
+
+			
 			
 		
 		//MAploader Basisfunktion Wartet auf das Menu
