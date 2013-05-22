@@ -2,10 +2,13 @@ package prototype;
 
 
 
+import java.awt.Desktop;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -37,6 +40,9 @@ public class Player {
 	private int Zauberrichtung_x=1000;
 	private int Zauberrichtung_y;
 	
+	private int mapCounter = 1;
+	private long timeOfDeath;
+	private long now;
 	
 	
 	
@@ -56,7 +62,9 @@ public class Player {
 	}
 	
 	public void update(float frametime){
-		
+		now = System.currentTimeMillis();
+		now -= timeOfDeath;
+		if(!isAlive&&now>3000)respawn();
 		if(!isAlive)return;	//wenn der spieler tot ist wird das update Uebersprungen
 		ZeitSeitLetztemSchuss+=frametime;
 		
@@ -103,6 +111,8 @@ public class Player {
 		if(bCheck){
 			wandKollision();
 			fallenPruefung();
+			teleport();
+			exit();
 		}
 	}//update Ende
 	
@@ -153,11 +163,55 @@ public class Player {
 					map.setSpielerTod(true);
 					speedX=0;
 					speedY=0;
+					timeOfDeath = System.currentTimeMillis();
 				}
 			}
 		}
 	}
 	
+	private void teleport(){
+		for(int tilex = kartenPositionX; tilex <= kartenPositionX +1; tilex++){
+			if(tilex<0)continue;
+			if(tilex>31)break;
+			for(int tiley = kartenPositionY; tiley <= kartenPositionY +1; tiley++){
+				if(tiley<0)continue;
+				if(tiley>17)break;
+				if(map.getTile(tilex, tiley).getIsTeleporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+					mapCounter++;
+					switch(mapCounter){
+						case 1:
+							map.errMap();
+							break;
+						case 2:
+							map.raumZwei();
+							f_playposx = 140;
+							f_playposy = 320;
+							break;
+						case 3:
+							map.raumDrei();
+							f_playposx = 120;
+							f_playposy = 120;
+							break;
+						
+					}
+				}
+			}
+		}
+	}
+	
+	private void exit(){
+		for(int tilex = kartenPositionX; tilex <= kartenPositionX +1; tilex++){
+			for( int tiley = kartenPositionY; tiley <= kartenPositionY+1; tiley++){
+				if(mapCounter == 3){
+				if(map.getTile(tilex, tiley).getIsExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+					map.setWin();
+				}
+
+				}
+			}
+		}
+
+	}
 	
 	
 	public Rectangle getBounding(){
@@ -173,11 +227,14 @@ public class Player {
 	
 	
 	public void respawn(){
-		f_playposx = 500;
-		f_playposy = 500;	
+		f_playposx = 120;
+		f_playposy = 550;
+		speedX = 0;
+		speedY = 0;
 		isAlive = true;
 		map.setSpielerTod(false);
-		map.erstelleTestMap();
+		map.raumEins();
+		mapCounter = 1;
 	}
 	
 	

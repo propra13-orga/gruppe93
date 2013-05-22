@@ -1,7 +1,10 @@
 package prototype;
 
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
-import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,8 +14,8 @@ public class Main {
 		//Start Einstellungen 
 		int worldsizex = 1280;
 		int worldsizey = 720;
-		int startx = 500;
-		int starty = 500;
+		int startx = 120;
+		int starty = 550;
 		List<Zauber> Zaubern= new LinkedList<Zauber>();
 		
 		
@@ -21,6 +24,7 @@ public class Main {
 //		Initialisierung
 		Map map=new Map();		
 		map.erstelleTestMap();
+		map.raumEins();
 		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern);
 		
 		
@@ -70,8 +74,25 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
+			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap();
 
 
+			if(map.getTile(1, 1).getTex()==8){
+				try {
+					Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE"));
+				} catch (IOException | URISyntaxException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					Thread.sleep(8000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.exit(0);
+				
+			}
 			
 			
 		
@@ -98,4 +119,6 @@ public class Main {
 			}	
 		}
 	}//main Ende
+	
+
 }

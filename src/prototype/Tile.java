@@ -16,6 +16,7 @@ public class Tile {
 	private boolean blockiert;	//in blockiert umbenannt zur besseren verständlichkeit. vorher war walkover= true wenn man nicht drüber walken konnte
 	private boolean killYou = false;
 	private boolean isTeleporter = false;
+	private boolean isExit = false;
 	
 	
 //	Texturen
@@ -27,6 +28,7 @@ public class Tile {
 	private static BufferedImage tot;
 	private static BufferedImage tot2;
 	private static BufferedImage teleporter;
+	private static BufferedImage pokal;
 	
 	
 	// Texturen laden
@@ -40,7 +42,7 @@ public class Tile {
 			tot = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot.png"));
 			tot2 = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot2.png"));
 			teleporter = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyteleporter.png"));
-			
+			pokal = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/pokal.png"));			
 			
 			}catch (IOException e) {e.printStackTrace();}
 		
@@ -53,6 +55,7 @@ public class Tile {
 		this.posy=y;
 		this.blockiert=blockiert;
 		this.textur=textur;
+		
 			
 		bounding = new Rectangle(posx, posy, feldGroesse, feldGroesse);
 		
@@ -65,6 +68,7 @@ public class Tile {
 		killYou = false;
 		isTeleporter = false;
 		textur = 1;
+		isExit = false;
 	}
 	
 	public void setTrap(){
@@ -72,13 +76,15 @@ public class Tile {
 		blockiert = false;
 		isTeleporter = false;
 		textur = 3;		
+		isExit = false;
 	}
 	
 	public void setTeleporter(){
 		isTeleporter = true;
 		killYou = false;
 		blockiert = false;
-		textur = 7; 
+		textur = 7;
+		isExit = false;
 	}
 	
 	public void setWall(){
@@ -86,6 +92,15 @@ public class Tile {
 		killYou = false;
 		blockiert = true;
 		textur = 2;
+		isExit = false;
+	}
+	
+	public void setExit(){
+		textur = 4;
+		killYou = false;
+		blockiert = false;
+		isTeleporter = false;
+		isExit = true;
 	}
 	
 	public void setErr(){
@@ -93,6 +108,15 @@ public class Tile {
 		killYou = false;
 		blockiert = false;
 		textur = 0;
+		isExit = false;
+	}
+	
+	public void setWintile(){
+		textur = 8;
+		killYou = false;
+		blockiert = false;
+		isExit = false;
+		isTeleporter = false;
 	}
 	
 	//Getter und Setter
@@ -112,6 +136,8 @@ public class Tile {
 			return tot2;
 		case 7:
 			return teleporter;
+		case 8:
+			return pokal;
 		default:
 			return err;			
 		}
@@ -147,6 +173,10 @@ public class Tile {
 	
 	public boolean getIsTeleporter(){
 		return isTeleporter;
+	}
+	
+	public boolean getIsExit(){
+		return isExit;
 	}
 		
 	public Rectangle getBounding(){
