@@ -1,7 +1,11 @@
 package prototype;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -49,12 +53,37 @@ public class Frame extends JFrame{
 	
 	public void nextFrame(){
 		Graphics g=buff.getDrawGraphics();//übergibt ein malobjekt aus der bufferstrat
+        Graphics2D g2d = (Graphics2D) g;
 			
 		for(int x = 0; x < 32 ; x++){
 			for(int y = 0 ; y< 18 ; y++){
 				g.drawImage(Tile.getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+getInsets().left, map.getTile(x, y).getBounding().y+getInsets().top, null);	//man sollte nicht an denboundings malen. habs beim player gefixt. das kann zu bugs führen falls die boundins mal kleiner sind als das eigentliche bild
 			}
 		}
+		 g2d.setColor(new Color(70, 67, 123));
+			g.fillRect(0, 740, 1480, 200);
+	
+		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.8f);
+
+        BufferedImage buffImg = new BufferedImage(200, 200,
+                                    BufferedImage.TYPE_INT_ARGB);
+        Graphics2D gbi = buffImg.createGraphics();
+
+        gbi.setPaint(Color.gray);
+        gbi.fillOval(0, 0, 160,160);
+        gbi.setComposite(ac);
+
+        gbi.setPaint(Color.blue);
+        gbi.fillRect(0, 160-(int)player.getmana(), 160, 160); 
+        
+        
+     
+        g2d.drawImage(buffImg, 100, 680, null);  
+        
+
+
+		
+		
 		
 		g.drawImage(player.getBimg(), player.getX()+getInsets().left, player.getY()+getInsets().top, null);
 		for(int i = 0; i<Zaubern.size(); i++){
