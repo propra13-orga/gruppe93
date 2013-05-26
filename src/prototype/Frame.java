@@ -69,16 +69,25 @@ public class Frame extends JFrame{
                                     BufferedImage.TYPE_INT_ARGB);
         Graphics2D gbi = buffImg.createGraphics();
 
-        gbi.setPaint(Color.gray);
+        gbi.setPaint(Color.gray);         //Manakugel
         gbi.fillOval(0, 0, 160,160);
         gbi.setComposite(ac);
 
         gbi.setPaint(Color.blue);
         gbi.fillRect(0, 160-(int)player.getmana(), 160, 160); 
+    
+        g2d.drawImage(buffImg, 1000, 680, null);  
         
         
-     
-        g2d.drawImage(buffImg, 100, 680, null);  
+        gbi.setPaint(Color.gray);         //Lebenskugel
+        gbi.fillOval(0, 0, 160,160);
+        gbi.setComposite(ac);
+
+        gbi.setPaint(Color.red);
+        gbi.fillRect(0, 160-(int)player.getleben(), 160, 160); 
+    
+        g2d.drawImage(buffImg, 120, 680, null);  
+        
         
 
 
