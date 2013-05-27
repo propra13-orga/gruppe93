@@ -239,7 +239,8 @@ public class Player {
 		speedY = 0;
 		isAlive = true;
 		map.setSpielerTod(false);
-		map.raumEins();
+		//map.raumEins();
+		map.erstelleTestMap();
 		mapCounter = 1;
 	}
 	
