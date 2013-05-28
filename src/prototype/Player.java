@@ -2,13 +2,11 @@ package prototype;
 
 
 
-import java.awt.Desktop;
+
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -35,10 +33,14 @@ public class Player {
 	private boolean isAlive = true;
 	private boolean bCheck = true; // Aktiviert Kollisionsabfrage
 	private List<Zauber>Zaubern;
-	private final float schussfrequenz = 0.1f;
+	private final float schussfrequenz = 0.5f ;
 	private float ZeitSeitLetztemSchuss = 0;
 	private int Zauberrichtung_x=1000;
 	private int Zauberrichtung_y;
+	private float mana=160;
+	private float manaregeneration=5;
+	private float leben=160;
+
 	
 	private int mapCounter = 1;
 	private long timeOfDeath;
@@ -67,15 +69,19 @@ public class Player {
 		if(!isAlive&&now>3000)respawn();
 		if(!isAlive)return;	//wenn der spieler tot ist wird das update Uebersprungen
 		ZeitSeitLetztemSchuss+=frametime;
+		if (mana<160) mana=mana+frametime*manaregeneration; //manaregeneration
+		
 		
 		if(Keyboard.isKeyDown(KeyEvent.VK_W)){speedY -= speedGainRate*frametime;Zauberrichtung_y=-1000;Zauberrichtung_x=0;}
 		if(Keyboard.isKeyDown(KeyEvent.VK_S)){speedY += speedGainRate*frametime;Zauberrichtung_y=1000;Zauberrichtung_x=0;}
 		if(Keyboard.isKeyDown(KeyEvent.VK_A)){speedX -= speedGainRate*frametime;Zauberrichtung_x=-1000;Zauberrichtung_y=0;}
 		if(Keyboard.isKeyDown(KeyEvent.VK_D)){speedX += speedGainRate*frametime;Zauberrichtung_x=1000;Zauberrichtung_y=0;}
-		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_SPACE)){
+		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_SPACE)&&mana>30){
 			ZeitSeitLetztemSchuss = 0;
 			Zaubern.add(new Zauber(f_playposx+10, f_playposy+20, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
+			if (mana>30)mana-=30; //manakosten
 		}
+	
 		f_playposy+=speedY*frametime;
 		f_playposx+=speedX*frametime;
 		
@@ -233,7 +239,8 @@ public class Player {
 		speedY = 0;
 		isAlive = true;
 		map.setSpielerTod(false);
-		map.raumEins();
+		//map.raumEins();
+		map.erstelleTestMap();
 		mapCounter = 1;
 	}
 	
@@ -255,4 +262,11 @@ public class Player {
 	public int getY(){
 		return (int)f_playposy;
 	}
+	
+	public float getmana(){
+		return (float)mana;
+}
+	public float getleben(){
+		return (float)leben;
+}
 }

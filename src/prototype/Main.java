@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {	
 		//Start Einstellungen 
 		int worldsizex = 1280;
-		int worldsizey = 720;
+		int worldsizey = 820;
 		int startx = 120;
 		int starty = 550;
 		List<Zauber> Zaubern= new LinkedList<Zauber>();
@@ -24,7 +24,7 @@ public class Main {
 //		Initialisierung
 		Map map=new Map();		
 		map.erstelleTestMap();
-		map.raumEins();
+		//map.raumEins();
 		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern);
 		
 		
