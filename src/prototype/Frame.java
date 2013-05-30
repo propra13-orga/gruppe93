@@ -56,7 +56,6 @@ public class Frame extends JFrame{
 	
 	public void nextFrame(){
 		Graphics g=buff.getDrawGraphics();//übergibt ein malobjekt aus der bufferstrat
-        Graphics2D g2d = (Graphics2D) g;
 			
 		for(int x = 0; x < 32 ; x++){
 			for(int y = 0 ; y< 18 ; y++){
@@ -79,7 +78,7 @@ public class Frame extends JFrame{
         gbi.setPaint(Color.blue);
         gbi.fillRect(0, kugelgroesse-((int)player.getmana()*kugelgroesse/1000), kugelgroesse, kugelgroesse); 
     
-        g2d.drawImage(buffImg, 1000, 840-kugelgroesse, null);  
+        g.drawImage(buffImg, 1000, 840-kugelgroesse, null);  
 			
         
         
@@ -96,7 +95,7 @@ public class Frame extends JFrame{
         gbi2.setPaint(Color.red);
         gbi2.fillRect(0, kugelgroesse-((int)player.getleben()*kugelgroesse/1000), kugelgroesse, kugelgroesse); 
     
-        g2d.drawImage(buffImg2, 120, 840-kugelgroesse, null);  
+        g.drawImage(buffImg2, 120, 840-kugelgroesse, null);  
         
         
 

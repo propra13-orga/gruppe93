@@ -33,7 +33,7 @@ public class Player {
 	private boolean isAlive = true;
 	private boolean bCheck = true; // Aktiviert Kollisionsabfrage
 	private List<Zauber>Zaubern;
-	private List<Gegner>Enemys;
+	private static List<Gegner>Enemys;
 	private final float schussfrequenz = 0.5f ;
 	private float ZeitSeitLetztemSchuss = 0;
 	private int Zauberrichtung_x=1000;
@@ -41,6 +41,7 @@ public class Player {
 	private float mana=1000;
 	private float manaregeneration=40;
 	private float leben=1000;
+	private int gegneranzahl;
 
 	
 	private int mapCounter = 1;
@@ -62,12 +63,17 @@ public class Player {
 		this.map=map;
 		this.Zaubern=Zaubern;
 		this.Enemys=Enemys;
+		Player.Spawngegner(); //Testgegnererzeugung
+	}
+	
+	public static void Spawngegner(){  //Testgegnererzeugung
 		Enemys.add(new Gegner( 600, 600, Enemys)); //Gegner zum testen spawnen
 		Enemys.add(new Gegner( 900, 600, Enemys));
 	    Enemys.add(new Gegner( 800, 200, Enemys));
 	    Enemys.add(new Gegner( 1000, 500, Enemys));
+		
+		
 	}
-	
 	public void update(float frametime){
 		now = System.currentTimeMillis();
 		now -= timeOfDeath;
@@ -145,25 +151,19 @@ public class Player {
 				Enemys.remove(i);}
 			}
 		}
-		
-		//Wenn leben<0
+		gegneranzahl=Enemys.size();
 		if (leben<0){
-			int gegneranzahl;
 			isAlive = false;					
 			map.setSpielerTod(true);
 			speedX=0;
 			speedY=0;
 			timeOfDeath = System.currentTimeMillis();
-			gegneranzahl=Enemys.size();
 			for(int i = 0; i<gegneranzahl; i++){
 				Enemys.remove(0);}
 			
+
 			
-			
-			
-		
-			
-		}
+        }
 		//Schalter Kollision
 	
 		if(bCheck){
@@ -218,6 +218,10 @@ public class Player {
 				if(ty<0)ty=0;
 				if(ty>17)break;
 				if(map.getTile(tx, ty).getKillYou()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
+				
+					for(int i = 0; i<gegneranzahl; i++){
+						Enemys.remove(0);}
+					leben=0;
 					isAlive = false;					
 					map.setSpielerTod(true);
 					speedX=0;
@@ -297,6 +301,7 @@ public class Player {
 		mapCounter = 1;
 		leben=1000;
 		mana=1000;
+		Player.Spawngegner(); //testgegnererzeugung
 	    }
 	
 	
