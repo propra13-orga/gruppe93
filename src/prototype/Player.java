@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 
 public class Player {
 	
-	private Rectangle bounding;
+	private static Rectangle bounding;
 	private float f_playposx;
 	private float f_playposy;
 	private short kartenPositionX;	//enstpricht dem Feld auf der Map. Zur ueberpruefung welche Felder auf Kollision geprueft werden
@@ -33,13 +33,14 @@ public class Player {
 	private boolean isAlive = true;
 	private boolean bCheck = true; // Aktiviert Kollisionsabfrage
 	private List<Zauber>Zaubern;
+	private List<Gegner>Enemys;
 	private final float schussfrequenz = 0.5f ;
 	private float ZeitSeitLetztemSchuss = 0;
 	private int Zauberrichtung_x=1000;
 	private int Zauberrichtung_y;
-	private float mana=160;
-	private float manaregeneration=5;
-	private float leben=160;
+	private float mana=1000;
+	private float manaregeneration=40;
+	private float leben=1000;
 
 	
 	private int mapCounter = 1;
@@ -49,7 +50,7 @@ public class Player {
 	
 	
 	
-	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map, List<Zauber>Zaubern){
+	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map, List<Zauber>Zaubern, List<Gegner>Enemys){
 		try {
 			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/Rossi.png"));
 		} catch (IOException e) {e.printStackTrace();}
@@ -60,7 +61,11 @@ public class Player {
 		this.worldsize_y=worldsize_y;
 		this.map=map;
 		this.Zaubern=Zaubern;
-		
+		this.Enemys=Enemys;
+		Enemys.add(new Gegner( 600, 600, Enemys)); //Gegner zum testen spawnen
+		Enemys.add(new Gegner( 900, 600, Enemys));
+	    Enemys.add(new Gegner( 800, 200, Enemys));
+	    Enemys.add(new Gegner( 1000, 500, Enemys));
 	}
 	
 	public void update(float frametime){
@@ -69,17 +74,25 @@ public class Player {
 		if(!isAlive&&now>3000)respawn();
 		if(!isAlive)return;	//wenn der spieler tot ist wird das update Uebersprungen
 		ZeitSeitLetztemSchuss+=frametime;
-		if (mana<160) mana=mana+frametime*manaregeneration; //manaregeneration
+		if (mana<1000) mana=mana+frametime*manaregeneration; //manaregeneration
 		
 		
 		if(Keyboard.isKeyDown(KeyEvent.VK_W)){speedY -= speedGainRate*frametime;Zauberrichtung_y=-1000;Zauberrichtung_x=0;}
 		if(Keyboard.isKeyDown(KeyEvent.VK_S)){speedY += speedGainRate*frametime;Zauberrichtung_y=1000;Zauberrichtung_x=0;}
 		if(Keyboard.isKeyDown(KeyEvent.VK_A)){speedX -= speedGainRate*frametime;Zauberrichtung_x=-1000;Zauberrichtung_y=0;}
 		if(Keyboard.isKeyDown(KeyEvent.VK_D)){speedX += speedGainRate*frametime;Zauberrichtung_x=1000;Zauberrichtung_y=0;}
-		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_SPACE)&&mana>30){
+		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_SPACE)&&mana>130){
 			ZeitSeitLetztemSchuss = 0;
 			Zaubern.add(new Zauber(f_playposx+10, f_playposy+20, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
-			if (mana>30)mana-=30; //manakosten
+			mana=mana-130; //manakosten 
+		}
+		
+		//Taste erzeugt Gegner zum testen
+		
+		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_1)){
+			ZeitSeitLetztemSchuss = 0;
+			Enemys.add(new Gegner( 600, 600, Enemys));
+		
 		}
 	
 		f_playposy+=speedY*frametime;
@@ -110,15 +123,55 @@ public class Player {
 		bounding.y = ((int) f_playposy)+10;
 		
 		
+		//Kollision für Spieler-Gegner und Zauber-Gegner
+		
+		for(int i = 0; i<Enemys.size(); i++){
+			Gegner e = Enemys.get(i);
+			
+			if(bounding.intersects(e.getBounding())){
+				leben=leben-(float)10;
+			}
+		}
+		
+		
+		
+			for(int a=0; a<Zaubern.size(); a++){
+				Zauber f = Zaubern.get(a);
+				for(int i = 0; i<Enemys.size(); i++){
+					Gegner e = Enemys.get(i);
+				
+			
+			if(e.getBounding().intersects(f.getBounding())){
+				Enemys.remove(i);}
+			}
+		}
+		
+		//Wenn leben<0
+		if (leben<0){
+			int gegneranzahl;
+			isAlive = false;					
+			map.setSpielerTod(true);
+			speedX=0;
+			speedY=0;
+			timeOfDeath = System.currentTimeMillis();
+			gegneranzahl=Enemys.size();
+			for(int i = 0; i<gegneranzahl; i++){
+				Enemys.remove(0);}
+			
+			
+			
+			
+		
+			
+		}
 		//Schalter Kollision
-		
-		
 	
 		if(bCheck){
 			wandKollision();
 			fallenPruefung();
 			teleport();
 			exit();
+			
 		}
 	}//update Ende
 	
@@ -220,7 +273,7 @@ public class Player {
 	}
 	
 	
-	public Rectangle getBounding(){
+	public static Rectangle getBounding(){
 		return bounding;
 	}
 	
@@ -242,7 +295,10 @@ public class Player {
 		//map.raumEins();
 		map.erstelleTestMap();
 		mapCounter = 1;
-	}
+		leben=1000;
+		mana=1000;
+	    }
+	
 	
 	
 	//DEBUG Methoden bzgl der Kollisions und Sterbepruefung
@@ -264,9 +320,10 @@ public class Player {
 	}
 	
 	public float getmana(){
-		return (float)mana;
+		return mana;
 }
 	public float getleben(){
-		return (float)leben;
+		return leben;
 }
+
 }

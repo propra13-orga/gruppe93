@@ -17,6 +17,7 @@ public class Main {
 		int startx = 120;
 		int starty = 550;
 		List<Zauber> Zaubern= new LinkedList<Zauber>();
+		List<Gegner> Enemys= new LinkedList<Gegner>();
 		
 		
 		
@@ -25,12 +26,12 @@ public class Main {
 		Map map=new Map();		
 		map.erstelleTestMap();
 		//map.raumEins();
-		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern);
+		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern, Enemys);
 		
 		
 		
 		//Spielfenster
-		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern);
+		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern,Enemys);
 		spielFenster.makeBuff();		//ist für die BufferStrategy zwingend erforderlich
 		spielFenster.setSizeRight(worldsizex,worldsizey);	//Größe kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
 		spielFenster.setLocationRelativeTo(null);
@@ -65,6 +66,8 @@ public class Main {
 			map.update(timeSinceLastFrame);
 			for(int i = 0; i<Zaubern.size(); i++){
 				Zaubern.get(i).update(timeSinceLastFrame);}
+			for(int i = 0; i<Enemys.size(); i++){
+				Enemys.get(i).update(timeSinceLastFrame);}
 			
 			
 			//Spiel beenden

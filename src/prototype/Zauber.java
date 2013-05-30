@@ -11,7 +11,7 @@ public class Zauber {
 	private static BufferedImage bimg;
 	private float f_Zaubergeschwindigkeitx;
 	private float f_Zaubergeschwindigkeity;
-	private Rectangle bounding;
+	private static Rectangle bounding;
 	private List<Zauber> Zaubern;
 	private float f_playposx;
 	private float f_playposy;
