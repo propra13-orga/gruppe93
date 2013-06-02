@@ -89,7 +89,7 @@ public class Player {
 		if(Keyboard.isKeyDown(KeyEvent.VK_D)){speedX += speedGainRate*frametime;Zauberrichtung_x=1000;Zauberrichtung_y=0;}
 		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_SPACE)&&mana>130){
 			ZeitSeitLetztemSchuss = 0;
-			Zaubern.add(new Zauber(f_playposx+10, f_playposy+20, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
 			mana=mana-130; //manakosten 
 		}
 		
