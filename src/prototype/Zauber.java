@@ -16,7 +16,7 @@ public class Zauber {
 	private float f_playposx;
 	private float f_playposy;
 	private float existiertseit;
-	private final float darfexistieren = 10;
+	private final float darfexistieren = (float) 0.5;
 	
 	public Zauber(float x, float y, float speedx, float speedy, List<Zauber> Zaubern){
 		try {

@@ -67,10 +67,10 @@ public class Player {
 	}
 	
 	public void Spawngegner(){  //Testgegnererzeugung
-		Enemys.add(new Gegner( 600, 600, Enemys)); //Gegner zum testen spawnen
-		Enemys.add(new Gegner( 900, 600, Enemys));
-	    Enemys.add(new Gegner( 800, 200, Enemys));
-	    Enemys.add(new Gegner( 1000, 500, Enemys));
+		Enemys.add(new Gegner( 1200, 600, Enemys)); //Gegner zum testen spawnen
+		Enemys.add(new Gegner( 1200, 400, Enemys));
+	    Enemys.add(new Gegner( 1200, 200, Enemys));
+	    Enemys.add(new Gegner( 1200, 500, Enemys));
 		
 		
 	}
@@ -140,15 +140,15 @@ public class Player {
 		}
 		
 		
-		
+		for(int i = 0; i<Enemys.size(); i++){
+			Gegner e = Enemys.get(i);
 			for(int a=0; a<Zaubern.size(); a++){
 				Zauber f = Zaubern.get(a);
-				for(int i = 0; i<Enemys.size(); i++){
-					Gegner e = Enemys.get(i);
+			
 				
 			
 			if(e.getBounding().intersects(f.getBounding())){
-				Enemys.remove(i);}
+				Enemys.remove(i);Zaubern.remove(a);}
 			}
 		}
 		gegneranzahl=Enemys.size();

@@ -11,11 +11,11 @@ public class Gegner {
 	private float f_Gegnerposy_x;
 	private float f_Gegnerposy_y;
 	private Rectangle bounding;
-	private List<Gegner> Enemys;
 	private float existiertseit;
-	private final float darfexistieren = 60;;
 	private float entfernung; //entfernung zwischen Gegner und Spieler
 	private int gegnergeschwindigkeit=300;
+	private float zufallszahl; //für zufallsbasierte Bewegung 
+	private float reichweite=700; //legt fast ab welcher Entfernung zum Spieler die Gegner angreifen
 	
 	
 	public Gegner( float Gegnerx, float Gegnery, List<Gegner> Enemys){
@@ -26,21 +26,26 @@ public class Gegner {
 		this.f_Gegnerposy_x = Gegnerx;
 		this.f_Gegnerposy_y = Gegnery;
 		bounding = new Rectangle((int)Gegnerx, (int)Gegnery, bimg.getWidth(), bimg.getHeight());
-		this.Enemys = Enemys;
 	}
 	
 	public void update(float timeSinceLastFrame){
 		existiertseit+=timeSinceLastFrame;
-		if(existiertseit>darfexistieren){
-			Enemys.remove(0);
+		if(existiertseit>=4){
+			zufallszahl=(float)(Math.random()/2-0.25);
+			existiertseit=0;
+			System.out.println(zufallszahl);
 		}
+		
+		
+		
+		
 		entfernung=(float) Math.sqrt((Player.getBounding().x-f_Gegnerposy_x)*(Player.getBounding().x-f_Gegnerposy_x)+(Player.getBounding().y-f_Gegnerposy_y)*(Player.getBounding().y-f_Gegnerposy_y));
 	   
-	    
-		f_Gegnerposy_x=f_Gegnerposy_x+(Player.getBounding().x-f_Gegnerposy_x)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit;
-		f_Gegnerposy_y=f_Gegnerposy_y+(Player.getBounding().y-f_Gegnerposy_y)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit;
+	    if(Math.sqrt((Player.getBounding().x-f_Gegnerposy_x)*(Player.getBounding().x-f_Gegnerposy_x)+(Player.getBounding().y-f_Gegnerposy_y)*(Player.getBounding().y-f_Gegnerposy_y))<reichweite){
+		f_Gegnerposy_x=f_Gegnerposy_x+(Player.getBounding().x-f_Gegnerposy_x)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4); //-(x-2)^2+4
+		f_Gegnerposy_y=f_Gegnerposy_y+(Player.getBounding().y-f_Gegnerposy_y)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
 		bounding.x = (int)f_Gegnerposy_x;
-		bounding.y = (int)f_Gegnerposy_y;
+		bounding.y = (int)f_Gegnerposy_y;}
 		
 		
 	}
