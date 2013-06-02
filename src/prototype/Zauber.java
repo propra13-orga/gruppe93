@@ -49,4 +49,11 @@ public class Zauber {
 	public static BufferedImage getLook(){
 		return bimg;
 	}
+	public int getX(){
+		return (int)f_playposx;
+	}
+	
+	public int getY(){
+		return (int)f_playposy;
+	}
 }

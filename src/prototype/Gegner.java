@@ -52,4 +52,11 @@ public class Gegner {
 	public static BufferedImage getLook(){
 		return bimg;
 	}
+	public int getX(){
+		return (int)f_Gegnerposy_x;
+	}
+	
+	public int getY(){
+		return (int)f_Gegnerposy_y;
+	}
 }

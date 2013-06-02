@@ -72,11 +72,11 @@ public class Frame extends JFrame{
 		
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner c = Enemys.get(i);
-			g.drawImage(Gegner.getLook(), c.getBounding().x, c.getBounding().y, null);
+			g.drawImage(Gegner.getLook(), c.getX(), c.getY(), null);
 	    }
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
-			g.drawImage(Zauber.getLook(), b.getBounding().x, b.getBounding().y, null);
+			g.drawImage(Zauber.getLook(), b.getX(), b.getY(), null);
 		}	
 	
 		
