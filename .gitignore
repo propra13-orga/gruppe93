@@ -7,3 +7,4 @@ tmp/**/*
 .settings/
 .loadpath
 *.launch
+src/gfx/Thumbs.db

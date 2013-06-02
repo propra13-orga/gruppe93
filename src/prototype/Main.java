@@ -25,7 +25,7 @@ public class Main {
 //		Initialisierung
 		Map map=new Map();		
 		map.erstelleTestMap();
-		map.raumEins();
+		//map.raumEins();
 		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern, Enemys);
 		
 		
@@ -33,7 +33,7 @@ public class Main {
 		//Spielfenster
 		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern,Enemys);
 		spielFenster.makeBuff();		//ist für die BufferStrategy zwingend erforderlich
-		spielFenster.setSizeRight(worldsizex,worldsizey);	//Größe kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
+		spielFenster.setSizeRight(worldsizex,worldsizey);	//Groeße kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
 //		spielFenster.setLocationRelativeTo(null);
 		
 		
@@ -81,20 +81,14 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
 			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap();
 
-			//Aufruf bei SIeg (leider ohne jegliche Erklärungen)
+			//Aufruf bei Sieg 
 			if(map.getTile(1, 1).getTex()==8){
 				try {
-					Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE"));
-				} catch (IOException | URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE")); //Ruft Youtube auf siehe Java API
+				} catch (IOException | URISyntaxException e) {}
 				try {
 					Thread.sleep(8000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				} catch (InterruptedException e) {}
 				System.exit(0);
 				
 			}
