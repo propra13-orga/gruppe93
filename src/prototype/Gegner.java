@@ -31,7 +31,7 @@ public class Gegner {
 	public void update(float timeSinceLastFrame){
 		existiertseit+=timeSinceLastFrame;
 		if(existiertseit>=4){
-			zufallszahl=(float)(Math.random()/2-0.25);
+			zufallszahl=(float)(Math.random()-0.5);
 			existiertseit=0;
 			System.out.println(zufallszahl);
 		}
