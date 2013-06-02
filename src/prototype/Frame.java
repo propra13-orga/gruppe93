@@ -19,14 +19,13 @@ public class Frame extends JFrame{
 	private Map map;
 	private List<Zauber>Zaubern;
 	private List<Gegner>Enemys;
-	private int kugelgroesse=120;
+	private int kugelgroesse=100;
 	
 	
 	public Frame(String name,Player player, Map map, List<Zauber>Zaubern,List<Gegner>Enemys){
 		super(name);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
-		setResizable(false);
 		this.Zaubern=Zaubern;
 		this.Enemys=Enemys;
 //		screen = new Screen();
@@ -53,6 +52,8 @@ public class Frame extends JFrame{
 	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen zunächst falscher Insets
 //		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Größe + Randeinrückungen, damit der Sichtbare bereich genau die eingegebene Größe hat
 		setExtendedState(MAXIMIZED_BOTH);
+		//resizable, weil es nach dem einführen der Kamera keinen Unterschied mehr macht
+//		setResizable(false);	//kann erst hier hin, weil sonst beim Maximieren die Windows Taskleiste unsichtbar wird
 	}
 	
 	
@@ -88,7 +89,7 @@ public class Frame extends JFrame{
 	
 	private void dieKugelnUndLeiste(Graphics g){
 		g.setColor(new Color(70, 67, 123));
-		g.fillRect(0, 740, 1480, 200);
+		g.fillRect(0, getHeight()-100-getInsets().bottom, getWidth(), 100);	//ist jetzt an der unteren Bildschirmkante fixiert und so bei jeder Auflösung an der richtigen Stelle
 		
 		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.8f);
 
@@ -103,7 +104,7 @@ public class Frame extends JFrame{
         gbi.setPaint(Color.blue);
         gbi.fillRect(0, kugelgroesse-((int)player.getmana()*kugelgroesse/1000), kugelgroesse, kugelgroesse); 
     
-        g.drawImage(buffImg, 1000, 840-kugelgroesse, null);  
+        g.drawImage(buffImg, getWidth()-120-kugelgroesse, getHeight()-kugelgroesse-getInsets().bottom, null);  
 			
         
         
@@ -120,7 +121,7 @@ public class Frame extends JFrame{
         gbi2.setPaint(Color.red);
         gbi2.fillRect(0, kugelgroesse-((int)player.getleben()*kugelgroesse/1000), kugelgroesse, kugelgroesse); 
     
-        g.drawImage(buffImg2, 120, 840-kugelgroesse, null);
+        g.drawImage(buffImg2, 120, getHeight()-kugelgroesse-getInsets().bottom, null);
 	}
 	
 }
