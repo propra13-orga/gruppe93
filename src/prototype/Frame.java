@@ -51,8 +51,8 @@ public class Frame extends JFrame{
 	
 	
 	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen zunächst falscher Insets
-		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Größe + Randeinrückungen, damit der Sichtbare bereich genau die eingegebene Größe hat
-//		setExtendedState(MAXIMIZED_BOTH);
+//		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Größe + Randeinrückungen, damit der Sichtbare bereich genau die eingegebene Größe hat
+		setExtendedState(MAXIMIZED_BOTH);
 	}
 	
 	
