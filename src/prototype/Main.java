@@ -28,7 +28,8 @@ public class Main {
 		//map.raumEins();
 		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern, Enemys);
 		
-		
+		//Sound
+		boolean playMusic = false;
 		
 		//Spielfenster
 		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern,Enemys);
@@ -80,7 +81,17 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
 			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap();
-
+			
+			
+			// Musik 1 loop
+			if(playMusic==false){
+				Sound so = new Sound();
+				Thread x = new Thread(so);
+				x.start();
+				playMusic = true;
+			}
+			
+			
 			//Aufruf bei Sieg 
 			if(map.getTile(1, 1).getTex()==8){
 				try {
