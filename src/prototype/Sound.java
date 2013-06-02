@@ -1,3 +1,12 @@
+/*
+ * 
+ * Based on Javazoom.net Sample Code
+ * 
+ * http://www.javazoom.net/mp3spi/documents.html
+ * 
+ */
+
+
 package prototype;
 
 import java.io.IOException;
@@ -15,8 +24,10 @@ public class Sound implements Runnable {
 	public void testPlay()
 	{
 	  try {
-	   file = Sound.class.getClassLoader().getResourceAsStream("sound/Monaco.mp3");
+	   file = Sound.class.getClassLoader().getResourceAsStream("sound/Monaco.mp3"); // File öffnen
 	    
+	   //MP3 anpassungen 
+	   
 	    AudioInputStream in= AudioSystem.getAudioInputStream(file);
 	    AudioInputStream din = null;
 	    AudioFormat baseFormat = in.getFormat();
@@ -34,6 +45,8 @@ public class Sound implements Runnable {
 	        //Handle exception.
 	    }
 	} 
+	
+	// Player
 	
 	private void rawplay(AudioFormat targetFormat, AudioInputStream din) throws IOException, LineUnavailableException
 	{
