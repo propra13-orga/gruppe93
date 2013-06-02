@@ -19,7 +19,12 @@ public class Frame extends JFrame{
 	private Map map;
 	private List<Zauber>Zaubern;
 	private List<Gegner>Enemys;
-	private int kugelgroesse=120;
+	private int kugelgroesse=100;
+	private int fensterbreite=0;
+	private int fensterhoehe=0;
+	private int xVerschiebung=0;	//für die Verschiebungen, der alle Objekte ausser dem Spieler unterworfen sind
+	private int yVerschiebung=0;
+
 	
 	
 	public Frame(String name,Player player, Map map, List<Zauber>Zaubern,List<Gegner>Enemys){
@@ -58,25 +63,32 @@ public class Frame extends JFrame{
 	
 	
 	public void nextFrame(){
+		fensterbreite=getWidth();
+		fensterhoehe=getHeight();
+		xVerschiebung=(-player.getX()+fensterbreite/2-player.getBimg().getWidth()/2);	//diese Werte liefern unter Berücksichtigung der Faktoren wie Spielerposition, Insets, Fenstergröße, Spielergröße und Statusleistendicke die nötigen Verschiebungen aller Objekte
+		yVerschiebung=(-player.getY()+(fensterhoehe-kugelgroesse)/2-player.getBimg().getHeight()/2+getInsets().top-getInsets().bottom);
 		Graphics g=buff.getDrawGraphics();//übergibt ein malobjekt aus der bufferstrat
+		
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0 , getWidth(), getHeight());
 		
 		for(int x = 0; x < 32 ; x++){
 			for(int y = 0 ; y< 18 ; y++){
-				g.drawImage(Tile.getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+getInsets().left, map.getTile(x, y).getBounding().y+getInsets().top, null);	//man sollte nicht an denboundings malen. habs beim player gefixt. das kann zu bugs führen falls die boundins mal kleiner sind als das eigentliche bild
+				g.drawImage(Tile.getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+xVerschiebung, map.getTile(x, y).getBounding().y+yVerschiebung, null);
 			}
 		}
 		
 		dieKugelnUndLeiste(g);//wegen der Komplexität ist die Statusleiste in ihrer eigenen Funktion
 		
-		g.drawImage(player.getBimg(), player.getX()+getInsets().left, player.getY()+getInsets().top, null);
+		g.drawImage(player.getBimg(), (fensterbreite-player.getBimg().getWidth())/2, (fensterhoehe-kugelgroesse-player.getBimg().getHeight())/2+getInsets().top-getInsets().bottom, null);	//Player in der Mitte des Bildes
 		
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner c = Enemys.get(i);
-			g.drawImage(Gegner.getLook(), c.getX(), c.getY(), null);
+			g.drawImage(Gegner.getLook(), c.getBounding().x+xVerschiebung, c.getBounding().y+yVerschiebung, null);
 	    }
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
-			g.drawImage(Zauber.getLook(), b.getX(), b.getY(), null);
+			g.drawImage(Zauber.getLook(), b.getBounding().x+xVerschiebung, b.getBounding().y+yVerschiebung, null);
 		}	
 	
 		

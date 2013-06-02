@@ -22,7 +22,7 @@ public class Player {
 	private float speedX;
 	private float speedY;
 	private float speedGainRate=2000;
-	private float speedReductionRate=100;
+	private float speedReductionRate=1000;
 	private float maximumSpeed=300;
 	private boolean richtungWurdeGeaendert=false;
 	
