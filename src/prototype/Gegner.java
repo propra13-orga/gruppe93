@@ -33,7 +33,6 @@ public class Gegner {
 		if(existiertseit>=4){
 			zufallszahl=(float)(Math.random()-0.5);
 			existiertseit=0;
-			System.out.println(zufallszahl);
 		}
 		
 		
