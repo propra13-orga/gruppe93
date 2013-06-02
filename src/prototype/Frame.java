@@ -62,8 +62,30 @@ public class Frame extends JFrame{
 				g.drawImage(Tile.getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+getInsets().left, map.getTile(x, y).getBounding().y+getInsets().top, null);	//man sollte nicht an denboundings malen. habs beim player gefixt. das kann zu bugs führen falls die boundins mal kleiner sind als das eigentliche bild
 			}
 		}
-		 g.setColor(new Color(70, 67, 123));
-			g.fillRect(0, 740, 1480, 200);
+		
+		dieKugelnUndLeiste(g);//wegen der Komplexität ist die Statusleiste in ihrer eigenen Funktion
+		
+		g.drawImage(player.getBimg(), player.getX()+getInsets().left, player.getY()+getInsets().top, null);
+		
+		for(int i = 0; i<Enemys.size(); i++){
+			Gegner c = Enemys.get(i);
+			g.drawImage(Gegner.getLook(), c.getBounding().x, c.getBounding().y, null);
+	    }
+		for(int i = 0; i<Zaubern.size(); i++){
+			Zauber b = Zaubern.get(i);
+			g.drawImage(Zauber.getLook(), b.getBounding().x, b.getBounding().y, null);
+		}	
+	
+		
+		g.dispose();	//gibt den zeichner wieder frei
+		buff.show();	//zeigt dann den aktuellen buffer
+	}
+	
+	
+	
+	private void dieKugelnUndLeiste(Graphics g){
+		g.setColor(new Color(70, 67, 123));
+		g.fillRect(0, 740, 1480, 200);
 		
 		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.8f);
 
@@ -95,27 +117,7 @@ public class Frame extends JFrame{
         gbi2.setPaint(Color.red);
         gbi2.fillRect(0, kugelgroesse-((int)player.getleben()*kugelgroesse/1000), kugelgroesse, kugelgroesse); 
     
-        g.drawImage(buffImg2, 120, 840-kugelgroesse, null);  
-        
-        
-
-
-		
-		
-		
-		g.drawImage(player.getBimg(), player.getX()+getInsets().left, player.getY()+getInsets().top, null);
-		
-		for(int i = 0; i<Enemys.size(); i++){
-			Gegner c = Enemys.get(i);
-			g.drawImage(Gegner.getLook(), c.getBounding().x, c.getBounding().y, null);
-	    }
-		for(int i = 0; i<Zaubern.size(); i++){
-			Zauber b = Zaubern.get(i);
-			g.drawImage(Zauber.getLook(), b.getBounding().x, b.getBounding().y, null);
-		}	
-	
-		
-		g.dispose();	//gibt den zeichner wieder frei
-		buff.show();	//zeigt dann den aktuellen buffer
+        g.drawImage(buffImg2, 120, 840-kugelgroesse, null);
 	}
+	
 }

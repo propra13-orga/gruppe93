@@ -61,13 +61,15 @@ public class Main {
 			
 			
 			
+			//Updates der Objekte und Akteure
 			player.update(timeSinceLastFrame);
-			spielFenster.nextFrame();			//nächster frame
 			map.update(timeSinceLastFrame);
 			for(int i = 0; i<Zaubern.size(); i++){
 				Zaubern.get(i).update(timeSinceLastFrame);}
 			for(int i = 0; i<Enemys.size(); i++){
 				Enemys.get(i).update(timeSinceLastFrame);}
+			spielFenster.nextFrame();			//nächster frame
+			
 			
 			
 			//Spiel beenden
