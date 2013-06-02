@@ -48,15 +48,18 @@ public class Frame extends JFrame{
 		buff= getBufferStrategy();
 	}
 	
+	
+	
 	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen zunächst falscher Insets
 		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Größe + Randeinrückungen, damit der Sichtbare bereich genau die eingegebene Größe hat
+//		setExtendedState(MAXIMIZED_BOTH);
 	}
 	
 	
 	
 	public void nextFrame(){
 		Graphics g=buff.getDrawGraphics();//übergibt ein malobjekt aus der bufferstrat
-			
+		
 		for(int x = 0; x < 32 ; x++){
 			for(int y = 0 ; y< 18 ; y++){
 				g.drawImage(Tile.getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+getInsets().left, map.getTile(x, y).getBounding().y+getInsets().top, null);	//man sollte nicht an denboundings malen. habs beim player gefixt. das kann zu bugs führen falls die boundins mal kleiner sind als das eigentliche bild

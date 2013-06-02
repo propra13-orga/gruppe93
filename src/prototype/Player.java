@@ -33,7 +33,7 @@ public class Player {
 	private boolean isAlive = true;
 	private boolean bCheck = true; // Aktiviert Kollisionsabfrage
 	private List<Zauber>Zaubern;
-	private static List<Gegner>Enemys;
+	private List<Gegner>Enemys;		//hab das static rausgenommen um die Warnmeldung auszuschalten.
 	private final float schussfrequenz = 0.5f ;
 	private float ZeitSeitLetztemSchuss = 0;
 	private int Zauberrichtung_x=1000;
@@ -63,10 +63,10 @@ public class Player {
 		this.map=map;
 		this.Zaubern=Zaubern;
 		this.Enemys=Enemys;
-		Player.Spawngegner(); //Testgegnererzeugung
+		Spawngegner(); //Testgegnererzeugung	//Schön ohne static. und ohne Player. Ist ja eh alles in dieser Klasse. Aber das Gegnerspawnen muss später auf jeden fall komplett aus dem Player raus.
 	}
 	
-	public static void Spawngegner(){  //Testgegnererzeugung
+	public void Spawngegner(){  //Testgegnererzeugung
 		Enemys.add(new Gegner( 600, 600, Enemys)); //Gegner zum testen spawnen
 		Enemys.add(new Gegner( 900, 600, Enemys));
 	    Enemys.add(new Gegner( 800, 200, Enemys));
@@ -301,7 +301,7 @@ public class Player {
 		mapCounter = 1;
 		leben=1000;
 		mana=1000;
-		Player.Spawngegner(); //testgegnererzeugung
+		Spawngegner(); //testgegnererzeugung	//das PLayer davor braucht keine Sau. DIe MEthode ist ja eh schon hier drin ;)
 	    }
 	
 	

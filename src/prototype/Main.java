@@ -25,7 +25,7 @@ public class Main {
 //		Initialisierung
 		Map map=new Map();		
 		map.erstelleTestMap();
-		//map.raumEins();
+		map.raumEins();
 		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern, Enemys);
 		
 		
@@ -34,7 +34,7 @@ public class Main {
 		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern,Enemys);
 		spielFenster.makeBuff();		//ist für die BufferStrategy zwingend erforderlich
 		spielFenster.setSizeRight(worldsizex,worldsizey);	//Größe kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
-		spielFenster.setLocationRelativeTo(null);
+//		spielFenster.setLocationRelativeTo(null);
 		
 		
 		
@@ -75,13 +75,13 @@ public class Main {
 			//Spiel beenden
 			if(Keyboard.isKeyDown(KeyEvent.VK_ESCAPE))System.exit(0);
 			
-			// Debuging hilfen später entfernen
+			// Debugging-Hilfen später entfernen
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
 			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap();
 
-
+			//Aufruf bei SIeg (leider ohne jegliche Erklärungen)
 			if(map.getTile(1, 1).getTex()==8){
 				try {
 					Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE"));
