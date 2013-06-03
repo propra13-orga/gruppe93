@@ -3,7 +3,8 @@ package prototype;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Keyboard implements KeyListener {
+public class Keyboard implements KeyListener 
+{
 	private static boolean[] keys = new boolean[512];
 	
 	
@@ -15,26 +16,29 @@ public class Keyboard implements KeyListener {
  */
 	
 	
-//	Rückgabe des Tastenstatus
+//	Rueckgabe des Tastenstatus
 	
-	public static boolean isKeyDown(int keyCode){
+	public static boolean isKeyDown(int keyCode)
+	{
 		if (keyCode>=0&&keyCode<keys.length) return keys[keyCode];
 		else return false;
 		
 	}
 
 	
-//	Registrierung der Tastendrücke.
+//	Registrierung der Tastendruecke.
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) 
+	{
 		int keyCode = e.getKeyCode(); 
 		if(keyCode>=0&&keyCode<keys.length) keys[keyCode]= true;
 		
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e) 
+	{
 		int keyCode = e.getKeyCode(); 
 		if(keyCode>=0&&keyCode<keys.length) keys[keyCode]= false;
 		
