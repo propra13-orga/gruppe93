@@ -33,7 +33,7 @@ public class Main {
 		
 		//Spielfenster
 		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern,Enemys);
-		spielFenster.makeBuff();		//ist für die BufferStrategy zwingend erforderlich
+		spielFenster.makeBuff();		//ist fuer die BufferStrategy zwingend erforderlich
 		spielFenster.setSizeRight(worldsizex,worldsizey);	//Groeße kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
 //		spielFenster.setLocationRelativeTo(null);
 		
@@ -54,7 +54,7 @@ public class Main {
 			currentFrame = System.currentTimeMillis();
 			timeSinceLastFrame = ((float)(currentFrame - lastFrame)/1000f);
 			lastFrame = currentFrame;
-//			System.out.println(timeSinceLastFrame);		//evtl für debugging benötigt
+//			System.out.println(timeSinceLastFrame);		//evtl fuer debugging benoetigt
 //			System.out.println(berechnungsZeit);
 //			System.out.println(player.getBounding().x+"    "+player.getBounding().y);
 //			System.out.println(spielFenster.getInsets());
@@ -64,19 +64,19 @@ public class Main {
 			
 			//Updates der Objekte und Akteure
 			player.update(timeSinceLastFrame);
-			map.update(timeSinceLastFrame);
+			map.spielerTodAnimation(timeSinceLastFrame);
 			for(int i = 0; i<Zaubern.size(); i++){
 				Zaubern.get(i).update(timeSinceLastFrame);}
 			for(int i = 0; i<Enemys.size(); i++){
 				Enemys.get(i).update(timeSinceLastFrame);}
-			spielFenster.nextFrame();			//nächster frame
+			spielFenster.nextFrame();			//naechster frame
 			
 			
 			
 			//Spiel beenden
 			if(Keyboard.isKeyDown(KeyEvent.VK_ESCAPE))System.exit(0);
 			
-			// Debugging-Hilfen später entfernen
+			// Debugging-Hilfen spaeter entfernen
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();

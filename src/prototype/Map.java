@@ -2,7 +2,8 @@ package prototype;
 
 import java.util.List;
 
-public class Map {
+public class Map 
+{
 	private boolean spielertot=false;
 	private float sekundenTakt=0;
 	private static Tile[][] tiles;
@@ -16,44 +17,58 @@ public class Map {
 	
 
 	//METHODEN
-	public Tile getTile(int x,int y){
+	public Tile getTile(int x,int y)
+	{
 		return tiles[x][y];
 	}
 	
-	public void setSpielerTod(boolean tot){
+	public void setSpielerTod(boolean tot)
+	{
 		spielertot=tot;
-		sekundenTakt=0;//damit das Blinken immer auf schwarz beginnt und gleichmäßig startet
+		sekundenTakt=0;//damit das Blinken immer auf schwarz beginnt und gleichmaeßig startet
 	}
 	
-	public void update(float frametime){//damit kann man alles mögliche auf der map ändern
+	public void spielerTodAnimation(float frametime)//Blinken fuer Spielertod
+	{
 		sekundenTakt+=frametime;
 		if(sekundenTakt>=2)sekundenTakt=0;
-		if(spielertot&&sekundenTakt<1){
-			for(int x = 0; x <32; x++){
-				for(int y = 0; y < 18; y++){
+		if(spielertot&&sekundenTakt<1)
+		{
+			for(int x = 0; x <32; x++)
+			{
+				for(int y = 0; y < 18; y++)
+				{
 					tiles[x][y].setTex(5);
 				}
 			}
-		}else if(spielertot){//sekundentakt zwischen 1und 2 ist hier klar und muss nicht nochmal geprüft werden
-			for(int x = 0; x <32; x++){
-				for(int y = 0; y < 18; y++){
+		}else if(spielertot)//sekundentakt zwischen 1und 2 ist hier klar und muss nicht nochmal geprueft werden
+		{
+			for(int x = 0; x <32; x++)
+			{
+				for(int y = 0; y < 18; y++)
+				{
 					tiles[x][y].setTex(6);
 				}
 			}
 		}
 	}
 	
-	public void errMap(){
-		for(int x = 0; x<32;x++){
-			for(int y = 0;y<18;y++){
+	public void errMap()//Errstellt map die auf Fehler hinweisen soll 
+	{
+		for(int x = 0; x<32;x++)
+		{
+			for(int y = 0;y<18;y++)
+			{
 				tiles[x][y].setErr();
 			}
 		}
 	}
 	
-	public void setWin(){
-		for(int x = 0; x<32;x++){
-			for(int y = 0;y<18;y++){
+	public void setWin(){ 		//Pokale Pokale Pokale
+		for(int x = 0; x<32;x++)
+		{
+			for(int y = 0;y<18;y++)
+			{
 				tiles[x][y].setWintile();
 			}
 		}

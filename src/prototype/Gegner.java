@@ -14,7 +14,7 @@ public class Gegner {
 	private float existiertseit;
 	private float entfernung; //entfernung zwischen Gegner und Spieler
 	private int gegnergeschwindigkeit=300;
-	private float zufallszahl; //für zufallsbasierte Bewegung 
+	private float zufallszahl; //fuer zufallsbasierte Bewegung 
 	private float reichweite=700; //legt fast ab welcher Entfernung zum Spieler die Gegner angreifen
 	float leben=100; 
 	private List<Gegner> Enemys;

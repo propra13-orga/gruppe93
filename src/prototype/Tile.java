@@ -13,7 +13,7 @@ public class Tile {
 	private static short feldGroesse=40;
 	private int textur;
 	private Rectangle bounding;
-	private boolean blockiert;	//in blockiert umbenannt zur besseren verständlichkeit. vorher war walkover= true wenn man nicht drüber walken konnte
+	private boolean blockiert;	//in blockiert umbenannt zur besseren verstaendlichkeit. vorher war walkover= true wenn man nicht drueber walken konnte
 	private boolean killYou = false;
 	private boolean isTeleporter = false;
 	private boolean isExit = false;
