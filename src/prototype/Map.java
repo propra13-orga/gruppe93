@@ -1,9 +1,13 @@
 package prototype;
 
-public class Map {
+import java.util.List;
+
+public class Map 
+{
 	private boolean spielertot=false;
 	private float sekundenTakt=0;
 	private static Tile[][] tiles;
+	private List<Gegner> Enemys;
 	
 	//KONSTRUKTOR
 	public Map(){
@@ -13,11 +17,66 @@ public class Map {
 	
 
 	//METHODEN
-	public Tile getTile(int x,int y){
+	public Tile getTile(int x,int y)
+	{
 		return tiles[x][y];
 	}
-		
-	public void  erstelleTestMap(){
+	
+	public void setSpielerTod(boolean tot)
+	{
+		spielertot=tot;
+		sekundenTakt=0;//damit das Blinken immer auf schwarz beginnt und gleichmaeßig startet
+	}
+	
+	public void spielerTodAnimation(float frametime)//Blinken fuer Spielertod
+	{
+		sekundenTakt+=frametime;
+		if(sekundenTakt>=2)sekundenTakt=0;
+		if(spielertot&&sekundenTakt<1)
+		{
+			for(int x = 0; x <32; x++)
+			{
+				for(int y = 0; y < 18; y++)
+				{
+					tiles[x][y].setTex(5);
+				}
+			}
+		}else if(spielertot)//sekundentakt zwischen 1und 2 ist hier klar und muss nicht nochmal geprueft werden
+		{
+			for(int x = 0; x <32; x++)
+			{
+				for(int y = 0; y < 18; y++)
+				{
+					tiles[x][y].setTex(6);
+				}
+			}
+		}
+	}
+	
+	public void errMap()//Errstellt map die auf Fehler hinweisen soll 
+	{
+		for(int x = 0; x<32;x++)
+		{
+			for(int y = 0;y<18;y++)
+			{
+				tiles[x][y].setErr();
+			}
+		}
+	}
+	
+	public void setWin(){ 		//Pokale Pokale Pokale
+		for(int x = 0; x<32;x++)
+		{
+			for(int y = 0;y<18;y++)
+			{
+				tiles[x][y].setWintile();
+			}
+		}
+	}
+	
+	//Maps
+	public void  erstelleTestMap(List<Gegner> Enemys){
+		this.Enemys=Enemys;
 		for(int a = 1; a<31; a++){
 			for(int b = 1; b<17; b++){
 				tiles[a][b] = new Tile(a*40,b*40,false,1);
@@ -45,45 +104,11 @@ public class Map {
 			}
 		}
 		tiles[5][5].setTrap();
-	}
-	
-	public void setSpielerTod(boolean tot){
-		spielertot=tot;
-		sekundenTakt=0;//damit das Blinken immer auf schwarz beginnt und gleichmäßig startet
-	}
-	
-	public void update(float frametime){//damit kann man alles mögliche auf der map ändern
-		sekundenTakt+=frametime;
-		if(sekundenTakt>=2)sekundenTakt=0;
-		if(spielertot&&sekundenTakt<1){
-			for(int x = 0; x <32; x++){
-				for(int y = 0; y < 18; y++){
-					tiles[x][y].setTex(5);
-				}
-			}
-		}else if(spielertot){//sekundentakt zwischen 1und 2 ist hier klar und muss nicht nochmal geprüft werden
-			for(int x = 0; x <32; x++){
-				for(int y = 0; y < 18; y++){
-					tiles[x][y].setTex(6);
-				}
-			}
-		}
-	}
-	
-	public void errMap(){
-		for(int x = 0; x<32;x++){
-			for(int y = 0;y<18;y++){
-				tiles[x][y].setErr();
-			}
-		}
-	}
-	
-	public void setWin(){
-		for(int x = 0; x<32;x++){
-			for(int y = 0;y<18;y++){
-				tiles[x][y].setWintile();
-			}
-		}
+		Enemys.add(new Gegner( 500, 400, Enemys)); //spawnen in Raum 1 und Testmap
+		Enemys.add(new Gegner(1000, 500, Enemys));
+		Enemys.add(new Gegner( 1000, 600, Enemys));
+		Enemys.add(new Gegner(1000, 400, Enemys));
+		Enemys.add(new Gegner(1000, 200, Enemys));
 	}
 	
 	public void raumEins(){
@@ -170,7 +195,6 @@ public class Map {
 			}
 		}
 		tiles[21][8].setTeleporter();
-
 		
 	}
 	
@@ -228,6 +252,11 @@ public class Map {
 		tiles[15][7].setTrap();
 		tiles[15][8].setTrap();
 		tiles[29][7].setTeleporter();
+		Enemys.add(new Gegner( 500, 400, Enemys));
+		Enemys.add(new Gegner(7000, 500, Enemys));
+		Enemys.add(new Gegner( 700, 600, Enemys));
+		Enemys.add(new Gegner(700, 400, Enemys));
+		Enemys.add(new Gegner(700, 200, Enemys));
 		
 	}
 	

@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 
 public class Zauber {
-	private static BufferedImage bimg;
+	private BufferedImage bimg;
 	private float f_Zaubergeschwindigkeitx;
 	private float f_Zaubergeschwindigkeity;
 	private Rectangle bounding;
@@ -16,13 +16,23 @@ public class Zauber {
 	private float f_playposx;
 	private float f_playposy;
 	private float existiertseit;
-	private final float darfexistieren = 10;
+	private float darfexistieren;
+	private int zauberid;
 	
-	public Zauber(float x, float y, float speedx, float speedy, List<Zauber> Zaubern){
+	public Zauber(float x, float y, float speedx, float speedy,int Zauberid, List<Zauber> Zaubern){
+		this.zauberid=Zauberid;
+		if (zauberid==1){
 		try {
 			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/Zauber.png"));
 		} catch (IOException e) {e.printStackTrace();}
-		
+		darfexistieren=(float)0.5;
+		}
+		if (zauberid==2){
+		try {
+			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/circle.png"));
+		} catch (IOException e) {e.printStackTrace();}
+		darfexistieren=(float)8;
+		}
 		this.f_playposx = x;
 		this.f_playposy = y;
 		this.f_Zaubergeschwindigkeitx = speedx;
@@ -46,7 +56,17 @@ public class Zauber {
 		return bounding;
 	}
 	
-	public static BufferedImage getLook(){
+	public BufferedImage getLook(){
 		return bimg;
+	}
+	public int getX(){
+		return (int)f_playposx;
+	}
+	
+	public int getY(){
+		return (int)f_playposy;
+	}
+	public int getid(){
+		return (int)zauberid;
 	}
 }

@@ -13,27 +13,29 @@ public class Main {
 	public static void main(String[] args) {	
 		//Start Einstellungen 
 		int worldsizex = 1280;
-		int worldsizey = 820;
+		int worldsizey = 720;
 		int startx = 120;
 		int starty = 550;
 		List<Zauber> Zaubern= new LinkedList<Zauber>();
+		List<Gegner> Enemys= new LinkedList<Gegner>();
 		
 		
 		
 		
 //		Initialisierung
 		Map map=new Map();		
-		map.erstelleTestMap();
+		map.erstelleTestMap(Enemys);
 		//map.raumEins();
-		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern);
+		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern, Enemys);
 		
-		
+		//Sound
+		boolean playMusic = false;
 		
 		//Spielfenster
-		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern);
-		spielFenster.makeBuff();		//ist für die BufferStrategy zwingend erforderlich
-		spielFenster.setSizeRight(worldsizex,worldsizey);	//Größe kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
-		spielFenster.setLocationRelativeTo(null);
+		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern,Enemys);
+		spielFenster.makeBuff();		//ist fuer die BufferStrategy zwingend erforderlich
+		spielFenster.setSizeRight(worldsizex,worldsizey);	//Groeße kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
+//		spielFenster.setLocationRelativeTo(null);
 		
 		
 		
@@ -52,7 +54,7 @@ public class Main {
 			currentFrame = System.currentTimeMillis();
 			timeSinceLastFrame = ((float)(currentFrame - lastFrame)/1000f);
 			lastFrame = currentFrame;
-//			System.out.println(timeSinceLastFrame);		//evtl für debugging benötigt
+//			System.out.println(timeSinceLastFrame);		//evtl fuer debugging benoetigt
 //			System.out.println(berechnungsZeit);
 //			System.out.println(player.getBounding().x+"    "+player.getBounding().y);
 //			System.out.println(spielFenster.getInsets());
@@ -60,36 +62,54 @@ public class Main {
 			
 			
 			
+			//Updates der Objekte und Akteure
 			player.update(timeSinceLastFrame);
-			spielFenster.nextFrame();			//nächster frame
-			map.update(timeSinceLastFrame);
+			map.spielerTodAnimation(timeSinceLastFrame);
 			for(int i = 0; i<Zaubern.size(); i++){
 				Zaubern.get(i).update(timeSinceLastFrame);}
+			for(int i = 0; i<Enemys.size(); i++){
+				Enemys.get(i).update(timeSinceLastFrame);}
+			spielFenster.nextFrame();			//naechster frame
+			
 			
 			
 			//Spiel beenden
 			if(Keyboard.isKeyDown(KeyEvent.VK_ESCAPE))System.exit(0);
 			
-			// Debuging hilfen später entfernen
+			// Debugging-Hilfen spaeter entfernen
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
-			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap();
-
-
+			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap(Enemys);
+			
+			
+			// Hintergrund Musik wird abgespielt
+			if(playMusic==false){
+				HintergrundMusik so = new HintergrundMusik();
+				Thread x = new Thread(so);
+				x.start();
+				playMusic = true;
+			}
+			
+			// Beispiel für das Abspielen von Soundeffekten
+			// Im Anwendungsfall Verzögerung einbauen
+			
+			if(Keyboard.isKeyDown(KeyEvent.VK_B))
+			{
+				SoundFX eins = new SoundFX("sound/boing.mp3");
+				Thread y = new Thread(eins);
+				y.start();
+				
+			}
+			
+			//Aufruf bei Sieg 
 			if(map.getTile(1, 1).getTex()==8){
 				try {
-					Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE"));
-				} catch (IOException | URISyntaxException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+					Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE")); //Ruft Youtube auf siehe Java API
+				} catch (IOException | URISyntaxException e) {}
 				try {
 					Thread.sleep(8000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				} catch (InterruptedException e) {}
 				System.exit(0);
 				
 			}

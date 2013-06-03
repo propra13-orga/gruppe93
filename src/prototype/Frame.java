@@ -18,14 +18,20 @@ public class Frame extends JFrame{
 	final Player player;
 	private Map map;
 	private List<Zauber>Zaubern;
+	private List<Gegner>Enemys;
+	private int kugelgroesse=100;
+	private int fensterbreite=0;
+	private int fensterhoehe=0;
+	private int xVerschiebung=0;	//für die Verschiebungen, der alle Objekte ausser dem Spieler unterworfen sind
+	private int yVerschiebung=0;
 	
 	
-	public Frame(String name,Player player, Map map, List<Zauber>Zaubern){
+	public Frame(String name,Player player, Map map, List<Zauber>Zaubern,List<Gegner>Enemys){
 		super(name);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
-		setResizable(false);
 		this.Zaubern=Zaubern;
+		this.Enemys=Enemys;
 //		screen = new Screen();
 //		screen.setBounds(0, 0, worldsizex, worldsizey);
 //		add(screen);
@@ -45,62 +51,95 @@ public class Frame extends JFrame{
 		buff= getBufferStrategy();
 	}
 	
+	
+	
 	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen zunächst falscher Insets
-		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Größe + Randeinrückungen, damit der Sichtbare bereich genau die eingegebene Größe hat
+//		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Größe + Randeinrückungen, damit der Sichtbare bereich genau die eingegebene Größe hat
+		setExtendedState(MAXIMIZED_BOTH);
+		//resizable, weil es nach dem einführen der Kamera keinen Unterschied mehr macht
+//		setResizable(false);	//kann erst hier hin, weil sonst beim Maximieren die Windows Taskleiste unsichtbar wird
 	}
 	
 	
 	
 	public void nextFrame(){
+		fensterbreite=getWidth();
+		fensterhoehe=getHeight();
+		xVerschiebung=(-player.getX()+fensterbreite/2-player.getBimg().getWidth()/2);	//diese Werte liefern unter Berücksichtigung der Faktoren wie Spielerposition, Insets, Fenstergröße, Spielergröße und Statusleistendicke die nötigen Verschiebungen aller Objekte
+		yVerschiebung=(-player.getY()+(fensterhoehe-kugelgroesse)/2-player.getBimg().getHeight()/2+getInsets().top-getInsets().bottom);
 		Graphics g=buff.getDrawGraphics();//übergibt ein malobjekt aus der bufferstrat
-        Graphics2D g2d = (Graphics2D) g;
-			
+		
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0 , getWidth(), getHeight());
+		
 		for(int x = 0; x < 32 ; x++){
 			for(int y = 0 ; y< 18 ; y++){
-				g.drawImage(Tile.getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+getInsets().left, map.getTile(x, y).getBounding().y+getInsets().top, null);	//man sollte nicht an denboundings malen. habs beim player gefixt. das kann zu bugs führen falls die boundins mal kleiner sind als das eigentliche bild
+				g.drawImage(Tile.getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+xVerschiebung, map.getTile(x, y).getBounding().y+yVerschiebung, null);
 			}
 		}
-		 g2d.setColor(new Color(70, 67, 123));
-			g.fillRect(0, 740, 1480, 200);
+		
+		dieKugelnUndLeiste(g);//wegen der Komplexität ist die Statusleiste in ihrer eigenen Funktion
+		for(int i = 0; i<Zaubern.size(); i++){
+			Zauber b = Zaubern.get(i);
+			if (b.getid()==2){
+			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			
+			}
+		}
+		g.drawImage(player.getBimg(), (fensterbreite-player.getBimg().getWidth())/2, (fensterhoehe-kugelgroesse-player.getBimg().getHeight())/2+getInsets().top-getInsets().bottom, null);	//Player in der Mitte des Bildes
+		
+		for(int i = 0; i<Enemys.size(); i++){
+			Gegner c = Enemys.get(i);
+			g.drawImage(Gegner.getLook(), c.getX()+xVerschiebung, c.getY()+yVerschiebung, null);
+	    }
+		for(int i = 0; i<Zaubern.size(); i++){
+			Zauber b = Zaubern.get(i);
+			if (b.getid()==1){
+			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+		}	}
 	
+		
+		g.dispose();	//gibt den zeichner wieder frei
+		buff.show();	//zeigt dann den aktuellen buffer
+	}
+	
+	
+	
+	private void dieKugelnUndLeiste(Graphics g){
+		g.setColor(new Color(70, 67, 123));
+		g.fillRect(0, getHeight()-100-getInsets().bottom, getWidth(), 100);	//ist jetzt an der unteren Bildschirmkante fixiert und so bei jeder Auflösung an der richtigen Stelle
+		
 		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.8f);
 
         BufferedImage buffImg = new BufferedImage(200, 200,
                                     BufferedImage.TYPE_INT_ARGB);
         Graphics2D gbi = buffImg.createGraphics();
-
+        
         gbi.setPaint(Color.gray);         //Manakugel
-        gbi.fillOval(0, 0, 160,160);
+        gbi.fillOval(0, 0, kugelgroesse,kugelgroesse);
         gbi.setComposite(ac);
 
         gbi.setPaint(Color.blue);
-        gbi.fillRect(0, 160-(int)player.getmana(), 160, 160); 
+        gbi.fillRect(0, kugelgroesse-((int)player.getmana()*kugelgroesse/1000), kugelgroesse, kugelgroesse); 
     
-        g2d.drawImage(buffImg, 1000, 680, null);  
+        g.drawImage(buffImg, getWidth()-120-kugelgroesse, getHeight()-kugelgroesse-getInsets().bottom, null);  
+			
         
         
-        gbi.setPaint(Color.gray);         //Lebenskugel
-        gbi.fillOval(0, 0, 160,160);
-        gbi.setComposite(ac);
+       
 
-        gbi.setPaint(Color.red);
-        gbi.fillRect(0, 160-(int)player.getleben(), 160, 160); 
+        BufferedImage buffImg2 = new BufferedImage(200, 200,
+                                    BufferedImage.TYPE_INT_ARGB);
+        Graphics2D gbi2 = buffImg2.createGraphics();
+        
+        gbi2.setPaint(Color.gray);         //Lebenskugel
+        gbi2.fillOval(0, 0, kugelgroesse,kugelgroesse);
+        gbi2.setComposite(ac);
+
+        gbi2.setPaint(Color.red);
+        gbi2.fillRect(0, kugelgroesse-((int)player.getleben()*kugelgroesse/1000), kugelgroesse, kugelgroesse); 
     
-        g2d.drawImage(buffImg, 120, 680, null);  
-        
-        
-
-
-		
-		
-		
-		g.drawImage(player.getBimg(), player.getX()+getInsets().left, player.getY()+getInsets().top, null);
-		for(int i = 0; i<Zaubern.size(); i++){
-			Zauber b = Zaubern.get(i);
-			g.drawImage(Zauber.getLook(), b.getBounding().x, b.getBounding().y, null);
-		}
-		
-		g.dispose();	//gibt den zeichner wieder frei
-		buff.show();	//zeigt dann den aktuellen buffer
+        g.drawImage(buffImg2, 120, getHeight()-kugelgroesse-getInsets().bottom, null);
 	}
+	
 }
