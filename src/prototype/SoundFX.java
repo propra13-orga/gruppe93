@@ -12,19 +12,39 @@ package prototype;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 
-public class HintergrundMusik implements Runnable
-{
+public class SoundFX implements Runnable
+{	
+	
+	String filename;
+	
+	SoundFX(String filename)
+	{
+		this.filename = filename;
+	}
 
-	private static InputStream file;
+
+
+	@Override
+	public void run() {
+		play(filename);
 		
-	public void play()
+	}
+	
+	private static InputStream file;
+	
+	public void play(String filename)
 	{
 		
 		try 
 		{
-			file = HintergrundMusik.class.getClassLoader().getResourceAsStream("sound/Monaco.mp3"); // File öffnen
+			file = HintergrundMusik.class.getClassLoader().getResourceAsStream(filename); // File öffnen
 	    
 			//MP3 anpassungen 
 	   
@@ -75,10 +95,4 @@ public class HintergrundMusik implements Runnable
 		return res;
 	}
 
-	@Override
-	public void run() {
-		while(true){
-		play();
-		}
-	} 
 }

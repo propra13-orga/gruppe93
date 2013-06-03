@@ -83,14 +83,24 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap(Enemys);
 			
 			
-			// Musik 1 loop
+			// Hintergrund Musik wird abgespielt
 			if(playMusic==false){
-				Sound so = new Sound();
+				HintergrundMusik so = new HintergrundMusik();
 				Thread x = new Thread(so);
 				x.start();
 				playMusic = true;
 			}
 			
+			// Beispiel für das Abspielen von Soundeffekten
+			// Im Anwendungsfall Verzögerung einbauen
+			
+			if(Keyboard.isKeyDown(KeyEvent.VK_B))
+			{
+				SoundFX eins = new SoundFX("sound/boing.mp3");
+				Thread y = new Thread(eins);
+				y.start();
+				
+			}
 			
 			//Aufruf bei Sieg 
 			if(map.getTile(1, 1).getTex()==8){

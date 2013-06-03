@@ -80,7 +80,7 @@ public class Player {
 		if(Keyboard.isKeyDown(KeyEvent.VK_A)){speedX -= speedGainRate*frametime;}
 		if(Keyboard.isKeyDown(KeyEvent.VK_D)){speedX += speedGainRate*frametime;}
 		
-		//Zauber generierung jetzt über Pfeiltasten
+		//Zauber generierung jetzt ueber Pfeiltasten
 		
 		if(Keyboard.isKeyDown(KeyEvent.VK_UP)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
 		{
