@@ -63,17 +63,9 @@ public class Player {
 		this.map=map;
 		this.Zaubern=Zaubern;
 		this.Enemys=Enemys;
-		Spawngegner(); //Testgegnererzeugung	//Schön ohne static. und ohne Player. Ist ja eh alles in dieser Klasse. Aber das Gegnerspawnen muss später auf jeden fall komplett aus dem Player raus.
+	
 	}
 	
-	public void Spawngegner(){  //Testgegnererzeugung
-		Enemys.add(new Gegner( 1200, 600, Enemys)); //Gegner zum testen spawnen
-		Enemys.add(new Gegner( 1200, 400, Enemys));
-	    Enemys.add(new Gegner( 1200, 200, Enemys));
-	    Enemys.add(new Gegner( 1200, 500, Enemys));
-		
-		
-	}
 	public void update(float frametime){
 		now = System.currentTimeMillis();
 		now -= timeOfDeath;
@@ -297,11 +289,10 @@ public class Player {
 		isAlive = true;
 		map.setSpielerTod(false);
 		//map.raumEins();
-		map.erstelleTestMap();
+		map.erstelleTestMap(Enemys);
 		mapCounter = 1;
 		leben=1000;
 		mana=1000;
-		Spawngegner(); //testgegnererzeugung	//das PLayer davor braucht keine Sau. DIe MEthode ist ja eh schon hier drin ;)
 	    }
 	
 	

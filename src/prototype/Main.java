@@ -24,8 +24,8 @@ public class Main {
 		
 //		Initialisierung
 		Map map=new Map();		
-		map.erstelleTestMap();
-		//map.raumEins();
+		map.erstelleTestMap(Enemys);
+		map.raumEins();
 		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern, Enemys);
 		
 		//Sound
@@ -80,7 +80,7 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
-			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap();
+			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap(Enemys);
 			
 			
 			// Musik 1 loop

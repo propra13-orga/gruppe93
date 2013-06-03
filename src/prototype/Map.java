@@ -1,9 +1,12 @@
 package prototype;
 
+import java.util.List;
+
 public class Map {
 	private boolean spielertot=false;
 	private float sekundenTakt=0;
 	private static Tile[][] tiles;
+	private List<Gegner> Enemys;
 	
 	//KONSTRUKTOR
 	public Map(){
@@ -57,7 +60,8 @@ public class Map {
 	}
 	
 	//Maps
-	public void  erstelleTestMap(){
+	public void  erstelleTestMap(List<Gegner> Enemys){
+		this.Enemys=Enemys;
 		for(int a = 1; a<31; a++){
 			for(int b = 1; b<17; b++){
 				tiles[a][b] = new Tile(a*40,b*40,false,1);
@@ -85,6 +89,11 @@ public class Map {
 			}
 		}
 		tiles[5][5].setTrap();
+		Enemys.add(new Gegner( 500, 400, Enemys)); //spawnen in Raum 1 und Testmap
+		Enemys.add(new Gegner(1000, 500, Enemys));
+		Enemys.add(new Gegner( 1000, 600, Enemys));
+		Enemys.add(new Gegner(1000, 400, Enemys));
+		Enemys.add(new Gegner(1000, 200, Enemys));
 	}
 	
 	public void raumEins(){
@@ -171,7 +180,6 @@ public class Map {
 			}
 		}
 		tiles[21][8].setTeleporter();
-
 		
 	}
 	
@@ -229,6 +237,11 @@ public class Map {
 		tiles[15][7].setTrap();
 		tiles[15][8].setTrap();
 		tiles[29][7].setTeleporter();
+		Enemys.add(new Gegner( 500, 400, Enemys));
+		Enemys.add(new Gegner(7000, 500, Enemys));
+		Enemys.add(new Gegner( 700, 600, Enemys));
+		Enemys.add(new Gegner(700, 400, Enemys));
+		Enemys.add(new Gegner(700, 200, Enemys));
 		
 	}
 	
