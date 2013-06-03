@@ -137,10 +137,15 @@ public class Player {
 			for(int a=0; a<Zaubern.size(); a++){
 				Zauber f = Zaubern.get(a);
 			
+			
 				
 			
-			if(e.getBounding().intersects(f.getBounding())){
-				Enemys.remove(i);Zaubern.remove(a);}
+		    if(e.getBounding().intersects(f.getBounding())){
+				Zaubern.remove(a);
+				e.setLeben(); //Schussschaden an Gegner
+				
+				
+				}
 			}
 		}
 		gegneranzahl=Enemys.size();

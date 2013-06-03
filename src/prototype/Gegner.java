@@ -16,6 +16,8 @@ public class Gegner {
 	private int gegnergeschwindigkeit=300;
 	private float zufallszahl; //für zufallsbasierte Bewegung 
 	private float reichweite=700; //legt fast ab welcher Entfernung zum Spieler die Gegner angreifen
+	float leben=100; 
+	private List<Gegner> Enemys;
 	
 	
 	public Gegner( float Gegnerx, float Gegnery, List<Gegner> Enemys){
@@ -26,6 +28,7 @@ public class Gegner {
 		this.f_Gegnerposy_x = Gegnerx;
 		this.f_Gegnerposy_y = Gegnery;
 		bounding = new Rectangle((int)Gegnerx, (int)Gegnery, bimg.getWidth(), bimg.getHeight());
+		this.Enemys=Enemys;
 	}
 	
 	public void update(float timeSinceLastFrame){
@@ -45,6 +48,10 @@ public class Gegner {
 		f_Gegnerposy_y=f_Gegnerposy_y+(Player.getBounding().y-f_Gegnerposy_y)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
 		bounding.x = (int)f_Gegnerposy_x;
 		bounding.y = (int)f_Gegnerposy_y;}
+	    
+	    if(leben<0){
+			Enemys.remove(this);}
+	   
 		
 		
 	}
@@ -62,5 +69,10 @@ public class Gegner {
 	
 	public int getY(){
 		return (int)f_Gegnerposy_y;
+	}
+	public void setLeben(){
+		leben=leben-60; //Schussschaden
+		
+		
 	}
 }

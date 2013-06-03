@@ -25,7 +25,7 @@ public class Main {
 //		Initialisierung
 		Map map=new Map();		
 		map.erstelleTestMap(Enemys);
-		map.raumEins();
+		//map.raumEins();
 		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern, Enemys);
 		
 		//Sound
