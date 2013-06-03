@@ -87,7 +87,7 @@ public class Player {
 			ZeitSeitLetztemSchuss = 0;
 			Zauberrichtung_x=0;
 			Zauberrichtung_y=-1000;
-			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1,  Zaubern));
 			mana -= 30;
 		}
 		
@@ -96,7 +96,7 @@ public class Player {
 			ZeitSeitLetztemSchuss = 0;
 			Zauberrichtung_x=0;
 			Zauberrichtung_y=1000;
-			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1,  Zaubern));
 			mana -= 30;
 		}
 		
@@ -105,7 +105,7 @@ public class Player {
 			ZeitSeitLetztemSchuss = 0;
 			Zauberrichtung_x=-1000;
 			Zauberrichtung_y=0;
-			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1,  Zaubern));
 			mana -= 30;
 		}
 		
@@ -114,8 +114,16 @@ public class Player {
 			ZeitSeitLetztemSchuss = 0;
 			Zauberrichtung_x=1000;
 			Zauberrichtung_y=0;
-			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1, Zaubern));
 			mana -= 30;
+		}
+		if(Keyboard.isKeyDown(KeyEvent.VK_SPACE)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>800)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			Zauberrichtung_x=0;
+			Zauberrichtung_y=0;
+			Zaubern.add(new Zauber(f_playposx-100, f_playposy-100, Zauberrichtung_x, Zauberrichtung_y,2, Zaubern));
+			mana -= 800;
 		}
 
 		
@@ -175,8 +183,15 @@ public class Player {
 				
 			
 		    if(e.getBounding().intersects(f.getBounding())){
+		    	if (f.getid()==1){
 				Zaubern.remove(a);
-				e.setLeben(); //Schussschaden an Gegner
+				e.setLeben(60);
+		    	}
+		    	else
+		    	if (f.getid()==2){
+					e.setLeben(2);
+			    	}
+				//Schussschaden an Gegner
 				
 				
 				}

@@ -70,8 +70,8 @@ public class Gegner {
 	public int getY(){
 		return (int)f_Gegnerposy_y;
 	}
-	public void setLeben(){
-		leben=leben-60; //Schussschaden
+	public void setLeben(int x){
+		leben=leben-x; //Schussschaden
 		
 		
 	}

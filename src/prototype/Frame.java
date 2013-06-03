@@ -79,7 +79,13 @@ public class Frame extends JFrame{
 		}
 		
 		dieKugelnUndLeiste(g);//wegen der Komplexität ist die Statusleiste in ihrer eigenen Funktion
-		
+		for(int i = 0; i<Zaubern.size(); i++){
+			Zauber b = Zaubern.get(i);
+			if (b.getid()==2){
+			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			
+			}
+		}
 		g.drawImage(player.getBimg(), (fensterbreite-player.getBimg().getWidth())/2, (fensterhoehe-kugelgroesse-player.getBimg().getHeight())/2+getInsets().top-getInsets().bottom, null);	//Player in der Mitte des Bildes
 		
 		for(int i = 0; i<Enemys.size(); i++){
@@ -88,8 +94,9 @@ public class Frame extends JFrame{
 	    }
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
-			g.drawImage(Zauber.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
-		}	
+			if (b.getid()==1){
+			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+		}	}
 	
 		
 		g.dispose();	//gibt den zeichner wieder frei
