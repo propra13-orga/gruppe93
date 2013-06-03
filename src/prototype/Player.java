@@ -75,15 +75,49 @@ public class Player {
 		if (mana<1000) mana=mana+frametime*manaregeneration; //manaregeneration
 		
 		
-		if(Keyboard.isKeyDown(KeyEvent.VK_W)){speedY -= speedGainRate*frametime;Zauberrichtung_y=-1000;Zauberrichtung_x=0;}
-		if(Keyboard.isKeyDown(KeyEvent.VK_S)){speedY += speedGainRate*frametime;Zauberrichtung_y=1000;Zauberrichtung_x=0;}
-		if(Keyboard.isKeyDown(KeyEvent.VK_A)){speedX -= speedGainRate*frametime;Zauberrichtung_x=-1000;Zauberrichtung_y=0;}
-		if(Keyboard.isKeyDown(KeyEvent.VK_D)){speedX += speedGainRate*frametime;Zauberrichtung_x=1000;Zauberrichtung_y=0;}
-		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_SPACE)&&mana>130){
+		if(Keyboard.isKeyDown(KeyEvent.VK_W)){speedY -= speedGainRate*frametime;}
+		if(Keyboard.isKeyDown(KeyEvent.VK_S)){speedY += speedGainRate*frametime;}
+		if(Keyboard.isKeyDown(KeyEvent.VK_A)){speedX -= speedGainRate*frametime;}
+		if(Keyboard.isKeyDown(KeyEvent.VK_D)){speedX += speedGainRate*frametime;}
+		
+		//Zauber generierung jetzt über Pfeiltasten
+		
+		if(Keyboard.isKeyDown(KeyEvent.VK_UP)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		{
 			ZeitSeitLetztemSchuss = 0;
+			Zauberrichtung_x=0;
+			Zauberrichtung_y=-1000;
 			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
-			mana=mana-130; //manakosten 
+			mana -= 30;
 		}
+		
+		if(Keyboard.isKeyDown(KeyEvent.VK_DOWN)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			Zauberrichtung_x=0;
+			Zauberrichtung_y=1000;
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
+			mana -= 30;
+		}
+		
+		if(Keyboard.isKeyDown(KeyEvent.VK_LEFT)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			Zauberrichtung_x=-1000;
+			Zauberrichtung_y=0;
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
+			mana -= 30;
+		}
+		
+		if(Keyboard.isKeyDown(KeyEvent.VK_RIGHT)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			Zauberrichtung_x=1000;
+			Zauberrichtung_y=0;
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y, Zaubern));
+			mana -= 30;
+		}
+
 		
 		//Taste erzeugt Gegner zum testen
 		
