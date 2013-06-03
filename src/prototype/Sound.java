@@ -28,17 +28,15 @@ public class Sound implements Runnable {
 	    
 	   //MP3 anpassungen 
 	   
-	    AudioInputStream in= AudioSystem.getAudioInputStream(file);
-	    AudioInputStream din = null;
-	    AudioFormat baseFormat = in.getFormat();
-	    AudioFormat decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,baseFormat.getSampleRate(),16,baseFormat.getChannels(),baseFormat.getChannels() * 2,baseFormat.getSampleRate(),false);
-	    din = AudioSystem.getAudioInputStream(decodedFormat, in);
-	    // Play now.
-	    
-	   while(true){
-	    rawplay(decodedFormat, din);
-	   }
-	   // in.close();
+	   AudioInputStream in= AudioSystem.getAudioInputStream(file);
+	   AudioInputStream din = null;
+	   AudioFormat baseFormat = in.getFormat();
+	   AudioFormat decodedFormat = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,baseFormat.getSampleRate(),16,baseFormat.getChannels(),baseFormat.getChannels() * 2,baseFormat.getSampleRate(),false);
+	   din = AudioSystem.getAudioInputStream(decodedFormat, in);
+	   // Play now.
+	   
+	   rawplay(decodedFormat, din);
+	   in.close();
 	   
 	  } catch (Exception e)
 	    {
@@ -81,7 +79,8 @@ public class Sound implements Runnable {
 
 	@Override
 	public void run() {
+		while(true){
 		testPlay();
-		
+		}
 	} 
 }
