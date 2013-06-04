@@ -116,17 +116,21 @@ public class Main {
 			
 			
 		
-		//MAploader Basisfunktion Wartet auf das Menu
+		//Maploader Testfunktion experimental Implementierung
 
-		//if(Keyboard.isKeyDown(KeyEvent.VK_M)){
-		//	try{
-		//		File f = new File("Maps/test.map");
-		//		MapLoader ml = new MapLoader(f, map);
-		//		ml.lesen();
-		//		ml.schliesen();
-		//	}catch(Exception e){
-		//		map.errMap();
-		//	}
+		if(Keyboard.isKeyDown(KeyEvent.VK_M))
+		{
+			try
+			{
+				String mapname = "maps/test.txt";
+				MapLoader ml = new MapLoader(mapname, map);
+				ml.lesen();
+
+			}catch(Exception e)
+			{
+				map.errMap();
+			}
+		}
 
 
 			
