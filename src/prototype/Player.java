@@ -50,7 +50,7 @@ public class Player {
 	
 	
 	
-	
+//	Konstruktor
 	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map, List<Zauber>Zaubern, List<Gegner>Enemys){
 		try {
 			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/Rossi.png"));
@@ -69,64 +69,15 @@ public class Player {
 	public void update(float frametime){
 		now = System.currentTimeMillis();
 		now -= timeOfDeath;
-		if(!isAlive&&now>3000)respawn();
+		if(!isAlive&&now>3000)respawn(); // Automatischer Respawn 
 		if(!isAlive)return;	//wenn der spieler tot ist wird das update Uebersprungen
 		ZeitSeitLetztemSchuss+=frametime;
 		if (mana<1000) mana=mana+frametime*manaregeneration; //manaregeneration
 		
+		bewegen(frametime); //Komplettes Movement ausgelagert
 		
-		if(Keyboard.isKeyDown(KeyEvent.VK_W)){speedY -= speedGainRate*frametime;}
-		if(Keyboard.isKeyDown(KeyEvent.VK_S)){speedY += speedGainRate*frametime;}
-		if(Keyboard.isKeyDown(KeyEvent.VK_A)){speedX -= speedGainRate*frametime;}
-		if(Keyboard.isKeyDown(KeyEvent.VK_D)){speedX += speedGainRate*frametime;}
-		
-		//Zauber generierung jetzt ueber Pfeiltasten
-		
-		if(Keyboard.isKeyDown(KeyEvent.VK_UP)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
-		{
-			ZeitSeitLetztemSchuss = 0;
-			Zauberrichtung_x=0;
-			Zauberrichtung_y=-1000;
-			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1,  Zaubern));
-			mana -= 30;
-		}
-		
-		if(Keyboard.isKeyDown(KeyEvent.VK_DOWN)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
-		{
-			ZeitSeitLetztemSchuss = 0;
-			Zauberrichtung_x=0;
-			Zauberrichtung_y=1000;
-			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1,  Zaubern));
-			mana -= 30;
-		}
-		
-		if(Keyboard.isKeyDown(KeyEvent.VK_LEFT)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
-		{
-			ZeitSeitLetztemSchuss = 0;
-			Zauberrichtung_x=-1000;
-			Zauberrichtung_y=0;
-			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1,  Zaubern));
-			mana -= 30;
-		}
-		
-		if(Keyboard.isKeyDown(KeyEvent.VK_RIGHT)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
-		{
-			ZeitSeitLetztemSchuss = 0;
-			Zauberrichtung_x=1000;
-			Zauberrichtung_y=0;
-			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1, Zaubern));
-			mana -= 30;
-		}
-		if(Keyboard.isKeyDown(KeyEvent.VK_SPACE)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>800)
-		{
-			ZeitSeitLetztemSchuss = 0;
-			Zauberrichtung_x=0;
-			Zauberrichtung_y=0;
-			Zaubern.add(new Zauber(f_playposx-100, f_playposy-100, Zauberrichtung_x, Zauberrichtung_y,2, Zaubern));
-			mana -= 800;
-		}
+		schussGen();// Schuesse werden hier generiert
 
-		
 		//Taste erzeugt Gegner zum testen
 		
 		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_1)){
@@ -135,6 +86,36 @@ public class Player {
 		
 		}
 	
+		gegneranzahl=Enemys.size();
+		if (leben<0){
+			isAlive = false;					
+			map.setSpielerTod(true);
+			speedX=0;
+			speedY=0;
+			timeOfDeath = System.currentTimeMillis();
+			for(int i = 0; i<gegneranzahl; i++){
+				Enemys.remove(0);}
+						
+        }
+		//Schalter Kollision
+	
+		if(bCheck){
+			wandKollision();
+			fallenPruefung();
+			teleport();
+			exit();
+			gegnerKolision();
+			
+		}
+	}//update Ende
+		
+	private void bewegen(float frametime)
+	{
+		if(Keyboard.isKeyDown(KeyEvent.VK_W)){speedY -= speedGainRate*frametime;}
+		if(Keyboard.isKeyDown(KeyEvent.VK_S)){speedY += speedGainRate*frametime;}
+		if(Keyboard.isKeyDown(KeyEvent.VK_A)){speedX -= speedGainRate*frametime;}
+		if(Keyboard.isKeyDown(KeyEvent.VK_D)){speedX += speedGainRate*frametime;}
+		
 		f_playposy+=speedY*frametime;
 		f_playposx+=speedX*frametime;
 		
@@ -161,67 +142,7 @@ public class Player {
 		kartenPositionY=(short)(f_playposy/Tile.getFeldGroesse());
 		bounding.x = ((int) f_playposx)+10;	//Aufgrund der Natur des Bilds machen diese einrueckungen Sinn
 		bounding.y = ((int) f_playposy)+10;
-		
-		
-		//Kollision für Spieler-Gegner und Zauber-Gegner
-		
-		for(int i = 0; i<Enemys.size(); i++){
-			Gegner e = Enemys.get(i);
-			
-			if(bounding.intersects(e.getBounding())){
-				leben=leben-(float)10;
-			}
-		}
-		
-		
-		for(int i = 0; i<Enemys.size(); i++){
-			Gegner e = Enemys.get(i);
-			for(int a=0; a<Zaubern.size(); a++){
-				Zauber f = Zaubern.get(a);
-			
-			
-				
-			
-		    if(e.getBounding().intersects(f.getBounding())){
-		    	if (f.getid()==1){
-				Zaubern.remove(a);
-				e.setLeben(60);
-		    	}
-		    	else
-		    	if (f.getid()==2){
-					e.setLeben(2);
-			    	}
-				//Schussschaden an Gegner
-				
-				
-				}
-			}
-		}
-		gegneranzahl=Enemys.size();
-		if (leben<0){
-			isAlive = false;					
-			map.setSpielerTod(true);
-			speedX=0;
-			speedY=0;
-			timeOfDeath = System.currentTimeMillis();
-			for(int i = 0; i<gegneranzahl; i++){
-				Enemys.remove(0);}
-			
-
-			
-        }
-		//Schalter Kollision
-	
-		if(bCheck){
-			wandKollision();
-			fallenPruefung();
-			teleport();
-			exit();
-			
-		}
-	}//update Ende
-	
-	
+	}
 	
 	private void wandKollision(){
 		for(int tx = kartenPositionX; tx <= kartenPositionX + 2; tx++){//hier muss <= geprueft werden, damit an kartenposition+2 auch eine ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
@@ -253,9 +174,7 @@ public class Player {
 		}
 		richtungWurdeGeaendert=false;
 	}//Ende wandKollision
-	
-	
-	
+		
 	private void fallenPruefung(){
 		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprueft werden, damit an kartenposition+1 auch eine Ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
 			if(tx<0)tx=0;	//sorgt dafuer, daß beim ueberschreiten der levelgrenzen kein absturz auftritt
@@ -319,21 +238,102 @@ public class Player {
 				}
 			}
 		}
-
 	}
 	
+	private void gegnerKolision()
+	{
+		//Kollision fuer Spieler-Gegner und Zauber-Gegner
+		
+		for(int i = 0; i<Enemys.size(); i++){
+			Gegner e = Enemys.get(i);
+			
+			if(bounding.intersects(e.getBounding())){
+				leben=leben-(float)10;
+			}
+		}
+		
+		
+		for(int i = 0; i<Enemys.size(); i++){
+			Gegner e = Enemys.get(i);
+			for(int a=0; a<Zaubern.size(); a++){
+				Zauber f = Zaubern.get(a);
+			
+			
+				
+			
+		    if(e.getBounding().intersects(f.getBounding())){
+		    	if (f.getid()==1){
+				Zaubern.remove(a);
+				e.setLeben(60);
+		    	}
+		    	else
+		    	if (f.getid()==2){
+					e.setLeben(2);
+			    	}
+				//Schussschaden an Gegner
+				
+				
+				}
+			}
+		}
+	}
+	
+	private void schussGen()
+	{
+		//Zauber generierung jetzt ueber Pfeiltasten und in eigener Methode
+		
+		if(Keyboard.isKeyDown(KeyEvent.VK_UP)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			Zauberrichtung_x=0;
+			Zauberrichtung_y=-1000;
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1,  Zaubern));
+			mana -= 30;
+		}
+		
+		if(Keyboard.isKeyDown(KeyEvent.VK_DOWN)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			Zauberrichtung_x=0;
+			Zauberrichtung_y=1000;
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1,  Zaubern));
+			mana -= 30;
+		}
+		
+		if(Keyboard.isKeyDown(KeyEvent.VK_LEFT)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			Zauberrichtung_x=-1000;
+			Zauberrichtung_y=0;
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1,  Zaubern));
+			mana -= 30;
+		}
+		
+		if(Keyboard.isKeyDown(KeyEvent.VK_RIGHT)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			Zauberrichtung_x=1000;
+			Zauberrichtung_y=0;
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1, Zaubern));
+			mana -= 30;
+		}
+		if(Keyboard.isKeyDown(KeyEvent.VK_SPACE)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>800)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			Zauberrichtung_x=0;
+			Zauberrichtung_y=0;
+			Zaubern.add(new Zauber(f_playposx-100, f_playposy-100, Zauberrichtung_x, Zauberrichtung_y,2, Zaubern));
+			mana -= 800;
+		}	
+	}
 	
 	public static Rectangle getBounding(){
 		return bounding;
 	}
 	
-	
-	
 	public BufferedImage getBimg(){
 		return bimg;
 	}
-	
-	
 	
 	public void respawn(){
 		f_playposx = 120;
@@ -348,8 +348,6 @@ public class Player {
 		leben=1000;
 		mana=1000;
 	    }
-	
-	
 	
 	//DEBUG Methoden bzgl der Kollisions und Sterbepruefung
 	public void bCheckOn(){
@@ -369,11 +367,14 @@ public class Player {
 		return (int)f_playposy;
 	}
 	
-	public float getmana(){
+	public float getmana()
+	{
 		return mana;
-}
-	public float getleben(){
+	}
+	
+	public float getleben()
+	{
 		return leben;
-}
+	}
 
 }

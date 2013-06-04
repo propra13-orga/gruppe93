@@ -5,4 +5,4 @@
 ###Steuerung:
 
 Laufen: WASD
-Schiesen: Pfeiltasten
+Schießen: Pfeiltasten
