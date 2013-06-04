@@ -1,40 +1,43 @@
 package prototype;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-	/*
-	 * 
-	 * DERZEIT OHNE FUNKTION
-	 * 
-	 */
-	
-	
-	Map map;	
-	Scanner s;
-	
-	MapLoader(File f,Map map){
-		this.map = map;
-		try {
-			s = new Scanner(f);
-		} catch (FileNotFoundException e) {
-			map.errMap();
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public void lesen(){
 
-		if(s.hasNext()){
+	
+	private Map map;
+	private String filename;
+	private InputStream files;
+	
+	
+	
+	MapLoader(String filename, Map map)
+	{
+		this.map = map;
+		this.filename = filename;
+	}
+
+
+	
+	public void lesen()
+	{
+		
+		files = MapLoader.class.getClassLoader().getResourceAsStream(filename);
+		Scanner s = new Scanner(files);
+
+		if(s.hasNext())
+		{
 			
-			for(int x= 0; x<32;x++ ){
-				for(int y = 0; y<18;y++){
+			for(int y= 0; y<18;y++)
+			{
+				for(int x = 0; x<32;x++)
+				{
 					int tt;
 					tt = s.nextInt();
-					switch(tt){
+					System.out.print(tt);
+					switch(tt)
+					{
 					case 1:
 						map.getTile(x, y).setFloor();
 						break;
@@ -47,6 +50,12 @@ public class MapLoader {
 					case 4:
 						map.getTile(x, y).setTeleporter();
 						break;
+					case 5:
+						map.getTile(x, y).setExit();
+						break;
+					case 6:
+						map.getTile(x, y).setWintile();
+						break;
 					default:
 						map.getTile(x, y).setErr();
 						break;
@@ -54,10 +63,6 @@ public class MapLoader {
 				}
 			}
 		}
-	}
-	
-	public void schliesen(){
 		s.close();
 	}
-
 }
