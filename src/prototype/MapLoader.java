@@ -29,16 +29,19 @@ public class MapLoader {
 
 		if(s.hasNext())
 		{
-			int sizeX = s.nextInt();
-			int sizeY = s.nextInt();
-			int startX = s.nextInt();
-			int startY = s.nextInt();
+			
+			//Header Lesen und verarbeiten 
+			int sizeX = s.nextInt();   	//Hoehe in Tiles
+			int sizeY = s.nextInt();	//Breite in Tiles
+			int startX = s.nextInt();	//Spawnposition 
+			int startY = s.nextInt();	// s.o.
 			String nextMap = s.next();
-			map.setNextMap(nextMap);
-			player.setPosition((float)startX ,(float)startY);
+			map.setNextMap(nextMap);	//  Ort der nächsten Karte
+			if(nextMap.equals(null))map.setWin();
+			player.setPosition((float)startX ,(float)startY);	//Spieler Spawnen lassen
 			
 			
-			map = new Map(sizeX,sizeY,nextMap);
+			map = new Map(sizeX,sizeY,nextMap);		//Map Laden
 			
 			
 			for(int y= 1; y<=sizeY;y++)

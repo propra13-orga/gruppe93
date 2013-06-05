@@ -145,6 +145,8 @@ public class Map
 		//Enemys.add(new Gegner(1000, 200, Enemys));
 	}
 	
+	//TODO Sichern oder Löschen
+	
 	public void raumEins(){
 		for(int x = 0; x<32;x++){
 			for(int y = 0;y<18;y++){
