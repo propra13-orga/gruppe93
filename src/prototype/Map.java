@@ -49,18 +49,18 @@ public class Map
 		if(sekundenTakt>=2)sekundenTakt=0;
 		if(spielertot&&sekundenTakt<1)
 		{
-			for(int x = 0; x <32; x++)
+			for(int x = 0; x <=x_Tiles; x++)
 			{
-				for(int y = 0; y < 18; y++)
+				for(int y = 0; y <= y_Tiles; y++)
 				{
 					tiles[x][y].setTex(5);
 				}
 			}
 		}else if(spielertot)//sekundentakt zwischen 1und 2 ist hier klar und muss nicht nochmal geprueft werden
 		{
-			for(int x = 0; x <32; x++)
+			for(int x = 0; x <=x_Tiles; x++)
 			{
-				for(int y = 0; y < 18; y++)
+				for(int y = 0; y <=y_Tiles; y++)
 				{
 					tiles[x][y].setTex(6);
 				}
@@ -80,9 +80,9 @@ public class Map
 	}
 	
 	public void setWin(){ 		//Pokale Pokale Pokale
-		for(int x = 0; x<32;x++)
+		for(int x = 0; x<=x_Tiles;x++)
 		{
-			for(int y = 0;y<18;y++)
+			for(int y = 0;y<y_Tiles;y++)
 			{
 				tiles[x][y].setWintile();
 			}

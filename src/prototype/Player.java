@@ -31,7 +31,7 @@ public class Player {
 	private Map map;
 	private BufferedImage bimg;
 	private boolean isAlive = true;
-	private boolean bCheck = false; // Aktiviert Kollisionsabfrage
+	private boolean bCheck = true; // Aktiviert Kollisionsabfrage
 	private List<Zauber>Zaubern;
 	private List<Gegner>Enemys;		//hab das static rausgenommen um die Warnmeldung auszuschalten.
 	private final float schussfrequenz = 0.5f ;
