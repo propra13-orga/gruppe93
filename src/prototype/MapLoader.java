@@ -9,13 +9,14 @@ public class MapLoader {
 	private Map map;
 	private String filename;
 	private InputStream files;
+	private Player player;
 	
 	
-	
-	MapLoader(String filename, Map map)
+	MapLoader(String filename, Map map, Player player)
 	{
 		this.map = map;
 		this.filename = filename;
+		this.player = player;
 	}
 
 
@@ -28,10 +29,20 @@ public class MapLoader {
 
 		if(s.hasNext())
 		{
+			int sizeX = s.nextInt();
+			int sizeY = s.nextInt();
+			int startX = s.nextInt();
+			int startY = s.nextInt();
 			
-			for(int y= 0; y<18;y++)
+			player.setPosition((float)startX ,(float)startY);
+			
+			
+			map = new Map(sizeX,sizeY);
+			
+			
+			for(int y= 1; y<=sizeY;y++)
 			{
-				for(int x = 0; x<32;x++)
+				for(int x = 1; x<=sizeX;x++)
 				{
 					int tt;
 					tt = s.nextInt();

@@ -125,7 +125,7 @@ public class Main {
 			try
 			{
 				String mapname = "maps/test.txt";
-				MapLoader ml = new MapLoader(mapname, map);
+				MapLoader ml = new MapLoader(mapname, map, player);
 				ml.lesen();
 
 			}catch(Exception e)

@@ -368,5 +368,12 @@ public class Player {
 	{
 		return leben;
 	}
+	
+	public void setPosition(float f_posx, float f_posy) {
+		f_playposx = f_posx;
+		f_playposy = f_posy;
+		return;
+		
+	}
 
 }
