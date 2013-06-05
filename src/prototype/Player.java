@@ -58,8 +58,7 @@ public class Player {
 		bounding = new Rectangle(x+10,y+10,bimg.getWidth()-20,bimg.getHeight()-20);
 		f_playposx = x;
 		f_playposy = y;
-		x_Tiles=map.getXTiles();
-		y_Tiles=map.getYTiles();
+
 		this.map=map;
 		this.Zaubern=Zaubern;
 		this.Enemys=Enemys;
@@ -75,9 +74,10 @@ public class Player {
 		if (mana<1000) mana=mana+frametime*manaregeneration; //manaregeneration
 		gegneranzahl=Enemys.size();// Festellung der Gegnerzahl
 		
-		
+		x_Tiles=map.getXTiles();
+		y_Tiles=map.getYTiles();
+				
 		bewegen(frametime); //Komplettes Movement ausgelagert
-		
 		schussGen();// Schuesse werden hier generiert
 		
 		// Kolisionen

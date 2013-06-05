@@ -8,13 +8,13 @@ public class Map
 	private float sekundenTakt=0;
 	private static Tile[][] tiles;
 	private List<Gegner> Enemys;
-	int x_Tiles;
-	int y_Tiles;
+	private static int x_Tiles;
+	private static int y_Tiles;
 	
 	//KONSTRUKTOR
 	public Map(int x_Tiles, int y_Tiles){
-		this.x_Tiles = x_Tiles-1;
-		this.y_Tiles = y_Tiles-1;
+		Map.x_Tiles = x_Tiles-1;
+		Map.y_Tiles = y_Tiles-1;
 		tiles = new Tile[x_Tiles][y_Tiles];
 		for(int x = 0; x < x_Tiles; x++){
 			for(int y = 0; y < y_Tiles; y++){
