@@ -13,14 +13,22 @@ public class Map
 	
 	//KONSTRUKTOR
 	public Map(int x_Tiles, int y_Tiles){
-		Map.x_Tiles = x_Tiles-1;
-		Map.y_Tiles = y_Tiles-1;
-		tiles = new Tile[x_Tiles][y_Tiles];
-		for(int x = 0; x < x_Tiles; x++){
-			for(int y = 0; y < y_Tiles; y++){
-				tiles[x][y] = new  Tile(x*40, y*40, false, 1);
+		Map.x_Tiles = x_Tiles+1;
+		Map.y_Tiles = y_Tiles+1;
+		tiles = new Tile[x_Tiles+2][y_Tiles+2];
+		for(int x = 1; x <= x_Tiles; x++)
+		{
+			for(int y = 0; y <= y_Tiles; y++){
+				tiles[x][y] = new  Tile(x*40, y*40, false, 1); //Initialisiert jedes Feld der nutzbaren Map
 			}
 		}
+		
+		// Zwangsramen
+		
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0]= new Tile(x*40, 0*40, true, 2);}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1]= new Tile(x*40, (y_Tiles+1)*40, true, 2);}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y]= new Tile(0*40, y*40, true, 2);}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y]= new Tile((x_Tiles+1)*40, y*40, true, 2);}
 	}
 
 	//METHODEN
