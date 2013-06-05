@@ -27,7 +27,7 @@ public class Main {
 		Map map=new Map(x_MapTiles,y_MapTiles);		
 		map.erstelleTestMap(Enemys);
 		//map.raumEins();
-		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern, Enemys);
+		Player player = new Player(startx,starty,map, Zaubern, Enemys);
 		
 		//Sound
 		boolean playMusic = false;

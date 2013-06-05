@@ -8,16 +8,16 @@ public class Map
 	private float sekundenTakt=0;
 	private static Tile[][] tiles;
 	private List<Gegner> Enemys;
+	int x_Tiles;
+	int y_Tiles;
 	
 	//KONSTRUKTOR
-	public Map(){
-		tiles = new Tile[32][18];
-	}
-	
-	public Map(int newx, int newy){
-		tiles = new Tile[newx][newy];
-		for(int x = 0; x < newx; x++){
-			for(int y = 0; y < newy; y++){
+	public Map(int x_Tiles, int y_Tiles){
+		this.x_Tiles = x_Tiles-1;
+		this.y_Tiles = y_Tiles-1;
+		tiles = new Tile[x_Tiles][y_Tiles];
+		for(int x = 0; x < x_Tiles; x++){
+			for(int y = 0; y < y_Tiles; y++){
 				tiles[x][y] = new  Tile(x*40, y*40, false, 1);
 			}
 		}
@@ -27,6 +27,14 @@ public class Map
 	public Tile getTile(int x,int y)
 	{
 		return tiles[x][y];
+	}
+	
+	public int getXTiles(){
+		return x_Tiles;
+	}
+	
+	public int getYTiles() {
+		return y_Tiles;
 	}
 	
 	public void setSpielerTod(boolean tot)

@@ -18,6 +18,8 @@ public class Player {
 	private float f_playposy;
 	private short kartenPositionX;	//enstpricht dem Feld auf der Map. Zur ueberpruefung welche Felder auf Kollision geprueft werden
 	private short kartenPositionY;
+	private int	x_Tiles;
+	private int	y_Tiles;
 	
 	private float speedX;
 	private float speedY;
@@ -26,8 +28,6 @@ public class Player {
 	private float maximumSpeed=300;
 	private boolean richtungWurdeGeaendert=false;
 	
-	private int worldsize_x;
-	private int worldsize_y;
 	private Map map;
 	private BufferedImage bimg;
 	private boolean isAlive = true;
@@ -51,15 +51,15 @@ public class Player {
 	
 	
 //	Konstruktor
-	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map, List<Zauber>Zaubern, List<Gegner>Enemys){
+	public Player(int x, int y,  Map map, List<Zauber>Zaubern, List<Gegner>Enemys){
 		try {
 			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/Rossi.png"));
 		} catch (IOException e) {e.printStackTrace();}
 		bounding = new Rectangle(x+10,y+10,bimg.getWidth()-20,bimg.getHeight()-20);
 		f_playposx = x;
 		f_playposy = y;
-		this.worldsize_x=worldsize_x;
-		this.worldsize_y=worldsize_y;
+		x_Tiles=map.getXTiles();
+		y_Tiles=map.getYTiles();
 		this.map=map;
 		this.Zaubern=Zaubern;
 		this.Enemys=Enemys;
@@ -122,12 +122,6 @@ public class Player {
 		if(speedX<speedReductionRate/1000){speedX+=speedReductionRate*frametime;}
 		
 		
-		if(f_playposx<0){f_playposx=0;speedX=-speedX;}else
-		if(f_playposy<0){f_playposy=0;speedY=-speedY;}else
-		if(f_playposx>worldsize_x - bounding.width){f_playposx=worldsize_x - bounding.width;speedX=-speedX;}else
-		if(f_playposy>worldsize_y - bounding.height){f_playposy=worldsize_y - bounding.height;speedY=-speedY;}
-		
-		
 		
 		kartenPositionX=(short)(f_playposx/Tile.getFeldGroesse());
 		kartenPositionY=(short)(f_playposy/Tile.getFeldGroesse());
@@ -136,12 +130,12 @@ public class Player {
 	}
 	
 	private void wandKollision(){
-		for(int tx = kartenPositionX; tx <= kartenPositionX + 2; tx++){//hier muss <= geprueft werden, damit an kartenposition+2 auch eine ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
+		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprueft werden, damit an kartenposition+1 auch eine ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
 			if(tx<0)tx=0;	//sorgt dafuer, daß beim ueberschreiten der levelgrenzen kein absturz auftritt
-			if(tx>31)break;
-			for(int ty = kartenPositionY; ty<= kartenPositionY + 2; ty++){
+			if(tx>x_Tiles)break;
+			for(int ty = kartenPositionY; ty<= kartenPositionY + 1; ty++){
 				if(ty<0)ty=0;
-				if(ty>17)break;
+				if(ty>y_Tiles)break;
 				if(map.getTile(tx, ty).getBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tx, ty).getBounding())){//wenn hier abprallen gebrueft werden muss und die richtung nicht schon geaendert wurde
 					Rectangle inter =  bounding.intersection(map.getTile(tx, ty).getBounding());
 					richtungWurdeGeaendert=true; //wichtig, damit pro vorgang nicht doppelt die richtung umgedreht wird
@@ -169,10 +163,10 @@ public class Player {
 	private void fallenPruefung(){
 		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprueft werden, damit an kartenposition+1 auch eine Ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
 			if(tx<0)tx=0;	//sorgt dafuer, daß beim ueberschreiten der levelgrenzen kein absturz auftritt
-			if(tx>31)break;
+			if(tx>x_Tiles)break;
 			for(int ty = kartenPositionY; ty <= kartenPositionY + 1; ty++){
 				if(ty<0)ty=0;
-				if(ty>17)break;
+				if(ty>y_Tiles)break;
 				if(map.getTile(tx, ty).getKillYou()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
 				
 					spielerTot();
@@ -181,13 +175,15 @@ public class Player {
 		}
 	}
 	
+	
+	//TODO Auf zukuenftigen Nutzen ueberpruefen
 	private void teleport(){
 		for(int tilex = kartenPositionX; tilex <= kartenPositionX +1; tilex++){
 			if(tilex<0)continue;
-			if(tilex>31)break;
+			if(tilex>x_Tiles)break;
 			for(int tiley = kartenPositionY; tiley <= kartenPositionY +1; tiley++){
 				if(tiley<0)continue;
-				if(tiley>17)break;
+				if(tiley>y_Tiles)break;
 				if(map.getTile(tilex, tiley).getIsTeleporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
 					mapCounter++;
 					switch(mapCounter){
