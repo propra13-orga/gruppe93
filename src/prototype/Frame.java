@@ -74,7 +74,9 @@ public class Frame extends JFrame{
 		
 		for(int x = 0; x < 32 ; x++){
 			for(int y = 0 ; y< 18 ; y++){
+				try{
 				g.drawImage(Tile.getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+xVerschiebung, map.getTile(x, y).getBounding().y+yVerschiebung, null);
+				}catch(Exception e){ continue;}
 			}
 		}
 		

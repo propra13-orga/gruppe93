@@ -14,7 +14,14 @@ public class Map
 		tiles = new Tile[32][18];
 	}
 	
-	
+	public Map(int newx, int newy){
+		tiles = new Tile[newx][newy];
+		for(int x = 0; x < newx; x++){
+			for(int y = 0; y < newy; y++){
+				tiles[x][y] = new  Tile(x*40, y*40, false, 1);
+			}
+		}
+	}
 
 	//METHODEN
 	public Tile getTile(int x,int y)
@@ -104,11 +111,11 @@ public class Map
 			}
 		}
 		tiles[5][5].setTrap();
-		Enemys.add(new Gegner( 500, 400, Enemys)); //spawnen in Raum 1 und Testmap
-		Enemys.add(new Gegner(1000, 500, Enemys));
-		Enemys.add(new Gegner( 1000, 600, Enemys));
-		Enemys.add(new Gegner(1000, 400, Enemys));
-		Enemys.add(new Gegner(1000, 200, Enemys));
+		//Enemys.add(new Gegner( 500, 400, Enemys)); //spawnen in Raum 1 und Testmap
+		//Enemys.add(new Gegner(1000, 500, Enemys));
+		//Enemys.add(new Gegner( 1000, 600, Enemys));
+		//Enemys.add(new Gegner(1000, 400, Enemys));
+		//Enemys.add(new Gegner(1000, 200, Enemys));
 	}
 	
 	public void raumEins(){

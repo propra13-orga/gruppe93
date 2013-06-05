@@ -19,11 +19,12 @@ public class Main {
 		List<Zauber> Zaubern= new LinkedList<Zauber>();
 		List<Gegner> Enemys= new LinkedList<Gegner>();
 		
-		
+		int x_MapTiles = 32;
+		int y_MapTiles = 18;
 		
 		
 //		Initialisierung
-		Map map=new Map();		
+		Map map=new Map(x_MapTiles,y_MapTiles);		
 		map.erstelleTestMap(Enemys);
 		//map.raumEins();
 		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern, Enemys);
@@ -81,7 +82,7 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
 			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap(Enemys);
-			
+			if(Keyboard.isKeyDown(KeyEvent.VK_0))map = new Map(15, 15);
 			
 			// Hintergrund Musik wird abgespielt
 			if(playMusic==false){
