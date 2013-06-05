@@ -44,7 +44,7 @@ public class SoundFX implements Runnable
 		
 		try 
 		{
-			file = HintergrundMusik.class.getClassLoader().getResourceAsStream(filename); // File öffnen
+			file = HintergrundMusik.class.getClassLoader().getResourceAsStream(filename); // File oeffnen
 	    
 			//MP3 anpassungen 
 	   

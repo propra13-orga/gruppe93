@@ -36,7 +36,7 @@ public class MapLoader {
 			int startX = s.nextInt();	//Spawnposition 
 			int startY = s.nextInt();	// s.o.
 			String nextMap = s.next();
-			map.setNextMap(nextMap);	//  Ort der nächsten Karte
+			map.setNextMap(nextMap);	//  Ort der naechsten Karte
 			if(nextMap.equals(null))map.setWin();
 			player.setPosition((float)startX ,(float)startY);	//Spieler Spawnen lassen
 			

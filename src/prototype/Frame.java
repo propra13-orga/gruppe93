@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 //import javax.swing.JLabel;
 
 public class Frame extends JFrame{
-	private static final long serialVersionUID = 1L;	//nötig, damit kein Warning angezeigt wird
+	private static final long serialVersionUID = 1L;	//noetig, damit kein Warning angezeigt wird
 	//DEKLARATION
 	private BufferStrategy buff;
 	final Player player;
@@ -22,7 +22,7 @@ public class Frame extends JFrame{
 	private int kugelgroesse=100;
 	private int fensterbreite=0;
 	private int fensterhoehe=0;
-	private int xVerschiebung=0;	//für die Verschiebungen, der alle Objekte ausser dem Spieler unterworfen sind
+	private int xVerschiebung=0;	//fuer die Verschiebungen, der alle Objekte ausser dem Spieler unterworfen sind
 	private int yVerschiebung=0;
 	
 
@@ -51,17 +51,17 @@ public class Frame extends JFrame{
 	
 	
 	//METHODEN
-	public void makeBuff(){		//kann das auch in den konstruktor...test später
+	public void makeBuff(){		//kann das auch in den konstruktor...test spaeter
 		createBufferStrategy(2);
 		buff= getBufferStrategy();
 	}
 	
 	
 	
-	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen zunächst falscher Insets
-//		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Größe + Randeinrückungen, damit der Sichtbare bereich genau die eingegebene Größe hat
+	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen zunaechst falscher Insets
+//		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Groeße + Randeinrueckungen, damit der Sichtbare bereich genau die eingegebene Groeße hat
 		setExtendedState(MAXIMIZED_BOTH);
-		//resizable, weil es nach dem einführen der Kamera keinen Unterschied mehr macht
+		//resizable, weil es nach dem einfuehren der Kamera keinen Unterschied mehr macht
 //		setResizable(false);	//kann erst hier hin, weil sonst beim Maximieren die Windows Taskleiste unsichtbar wird
 	}
 	
@@ -70,9 +70,9 @@ public class Frame extends JFrame{
 	public void nextFrame(){
 		fensterbreite=getWidth();
 		fensterhoehe=getHeight();
-		xVerschiebung=(-player.getX()+fensterbreite/2-player.getBimg().getWidth()/2);	//diese Werte liefern unter Berücksichtigung der Faktoren wie Spielerposition, Insets, Fenstergröße, Spielergröße und Statusleistendicke die nötigen Verschiebungen aller Objekte
+		xVerschiebung=(-player.getX()+fensterbreite/2-player.getBimg().getWidth()/2);	//diese Werte liefern unter Beruecksichtigung der Faktoren wie Spielerposition, Insets, Fenstergroeße, Spielergroeße und Statusleistendicke die noetigen Verschiebungen aller Objekte
 		yVerschiebung=(-player.getY()+(fensterhoehe-kugelgroesse)/2-player.getBimg().getHeight()/2+getInsets().top-getInsets().bottom);
-		Graphics g=buff.getDrawGraphics();//übergibt ein malobjekt aus der bufferstrat
+		Graphics g=buff.getDrawGraphics();//uebergibt ein malobjekt aus der bufferstrat
 		
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0 , getWidth(), getHeight());
@@ -86,7 +86,7 @@ public class Frame extends JFrame{
 			}
 		}
 		
-		dieKugelnUndLeiste(g);//wegen der Komplexität ist die Statusleiste in ihrer eigenen Funktion
+		dieKugelnUndLeiste(g);//wegen der Komplexitaet ist die Statusleiste in ihrer eigenen Funktion
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
 			if (b.getid()==2){
@@ -115,7 +115,7 @@ public class Frame extends JFrame{
 	
 	private void dieKugelnUndLeiste(Graphics g){
 		g.setColor(new Color(70, 67, 123));
-		g.fillRect(0, getHeight()-100-getInsets().bottom, getWidth(), 100);	//ist jetzt an der unteren Bildschirmkante fixiert und so bei jeder Auflösung an der richtigen Stelle
+		g.fillRect(0, getHeight()-100-getInsets().bottom, getWidth(), 100);	//ist jetzt an der unteren Bildschirmkante fixiert und so bei jeder Aufloesung an der richtigen Stelle
 		
 		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.8f);
 

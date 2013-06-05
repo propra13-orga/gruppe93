@@ -19,11 +19,14 @@ public class Gegner {
 	float leben=100; 
 	private List<Gegner> Enemys;
 	
+	static {
+		try {
+			bimg = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/gengar.png"));
+			} catch (IOException e) {e.printStackTrace();}
+}
 	
 	public Gegner( float Gegnerx, float Gegnery, List<Gegner> Enemys){
-		try {
-			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/gengar.png"));
-		} catch (IOException e) {e.printStackTrace();}
+
 		
 		this.f_Gegnerposy_x = Gegnerx;
 		this.f_Gegnerposy_y = Gegnery;

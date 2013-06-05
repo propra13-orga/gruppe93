@@ -92,8 +92,8 @@ public class Main {
 				playMusic = true;
 			}
 			
-			// Beispiel für das Abspielen von Soundeffekten
-			// Im Anwendungsfall Verzögerung einbauen
+			// Beispiel fuer das Abspielen von Soundeffekten
+			// Im Anwendungsfall Verzoegerung einbauen
 			
 			if(Keyboard.isKeyDown(KeyEvent.VK_B))
 			{

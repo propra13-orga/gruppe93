@@ -177,7 +177,7 @@ public class Player {
 	}
 	
 	
-	//TODO Auf zukuenftigen Nutzen ueberpruefen
+	
 	private void teleport(){
 		for(int tilex = kartenPositionX; tilex <= kartenPositionX +1; tilex++){
 			if(tilex<0)continue;
@@ -188,28 +188,11 @@ public class Player {
 				if(map.getTile(tilex, tiley).getIsTeleporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
 
 					needPort = true; //Maploader Workaround
-/*					mapCounter++;
-					switch(mapCounter){
-						case 1:
-							map.errMap();
-							break;
-						case 2:
-							map.raumZwei();
-							f_playposx = 140;
-							f_playposy = 320;
-							break;
-						case 3:
-							map.raumDrei();
-							f_playposx = 120;
-							f_playposy = 120;
-							break;
-						
-					}
-	*/			}
+				}
 			}
 		}
 	}
-	//Hilfe für den Workaround
+	//Hilfe fuer den Workaround
 	public boolean getNeedPort(){
 		return needPort;
 	}
@@ -262,7 +245,6 @@ public class Player {
 					e.setLeben(2);
 			    	}
 				//Schussschaden an Gegner
-				
 				
 				}
 			}
@@ -345,7 +327,6 @@ public class Player {
 		speedY = 0;
 		isAlive = true;
 		map.setSpielerTod(false);
-		//map.raumEins();
 		map.erstelleTestMap(Enemys);
 		mapCounter = 1;
 		leben=1000;
