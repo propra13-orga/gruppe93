@@ -103,6 +103,7 @@ public class Main {
 			}
 			
 			//Aufruf bei Sieg 
+			//TODO Verlagern
 			if(map.getTile(1, 1).getTex()==8){
 				try {
 					Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE")); //Ruft Youtube auf siehe Java API
@@ -117,7 +118,7 @@ public class Main {
 			
 		
 		//Maploader Testfunktion experimental Implementierung
-
+			//TODO Richtige Implementierung
 		if(Keyboard.isKeyDown(KeyEvent.VK_M))
 		{
 			try

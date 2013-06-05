@@ -73,40 +73,31 @@ public class Player {
 		if(!isAlive)return;	//wenn der spieler tot ist wird das update Uebersprungen
 		ZeitSeitLetztemSchuss+=frametime;
 		if (mana<1000) mana=mana+frametime*manaregeneration; //manaregeneration
+		gegneranzahl=Enemys.size();// Festellung der Gegnerzahl
+		
 		
 		bewegen(frametime); //Komplettes Movement ausgelagert
 		
 		schussGen();// Schuesse werden hier generiert
+		
+		// Kolisionen
+		if(bCheck){
+			wandKollision();
+			fallenPruefung();
+			teleport();
+			exit();
+			gegnerKolision();	
+		}
 
 		//Taste erzeugt Gegner zum testen
 		
 		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_1)){
 			ZeitSeitLetztemSchuss = 0;
 			Enemys.add(new Gegner( 600, 600, Enemys));
+		}
+	
+		if (leben<0) spielerTot();
 		
-		}
-	
-		gegneranzahl=Enemys.size();
-		if (leben<0){
-			isAlive = false;					
-			map.setSpielerTod(true);
-			speedX=0;
-			speedY=0;
-			timeOfDeath = System.currentTimeMillis();
-			for(int i = 0; i<gegneranzahl; i++){
-				Enemys.remove(0);}
-						
-        }
-		//Schalter Kollision
-	
-		if(bCheck){
-			wandKollision();
-			fallenPruefung();
-			teleport();
-			exit();
-			gegnerKolision();
-			
-		}
 	}//update Ende
 		
 	private void bewegen(float frametime)
@@ -184,14 +175,7 @@ public class Player {
 				if(ty>17)break;
 				if(map.getTile(tx, ty).getKillYou()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
 				
-					for(int i = 0; i<gegneranzahl; i++){
-						Enemys.remove(0);}
-					leben=0;
-					isAlive = false;					
-					map.setSpielerTod(true);
-					speedX=0;
-					speedY=0;
-					timeOfDeath = System.currentTimeMillis();
+					spielerTot();
 				}
 			}
 		}
@@ -325,6 +309,18 @@ public class Player {
 			Zaubern.add(new Zauber(f_playposx-100, f_playposy-100, Zauberrichtung_x, Zauberrichtung_y,2, Zaubern));
 			mana -= 800;
 		}	
+	}
+	
+	private void spielerTot()
+	{
+		isAlive = false;					
+		map.setSpielerTod(true);
+		speedX=0;
+		speedY=0;
+		timeOfDeath = System.currentTimeMillis();
+		for(int i = 0; i<gegneranzahl; i++){
+		Enemys.remove(0);}
+					
 	}
 	
 	public static Rectangle getBounding(){
