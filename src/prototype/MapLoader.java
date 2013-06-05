@@ -33,11 +33,12 @@ public class MapLoader {
 			int sizeY = s.nextInt();
 			int startX = s.nextInt();
 			int startY = s.nextInt();
-			
+			String nextMap = s.next();
+			map.setNextMap(nextMap);
 			player.setPosition((float)startX ,(float)startY);
 			
 			
-			map = new Map(sizeX,sizeY);
+			map = new Map(sizeX,sizeY,nextMap);
 			
 			
 			for(int y= 1; y<=sizeY;y++)
@@ -46,7 +47,6 @@ public class MapLoader {
 				{
 					int tt;
 					tt = s.nextInt();
-					System.out.print(tt);
 					switch(tt)
 					{
 					case 1:

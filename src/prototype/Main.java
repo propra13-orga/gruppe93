@@ -24,7 +24,7 @@ public class Main {
 		
 		
 //		Initialisierung
-		Map map=new Map(x_MapTiles,y_MapTiles);		
+		Map map=new Map(x_MapTiles,y_MapTiles,null);		
 		map.erstelleTestMap(Enemys);
 		//map.raumEins();
 		Player player = new Player(startx,starty,map, Zaubern, Enemys);
@@ -82,7 +82,7 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
 			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap(Enemys);
-			if(Keyboard.isKeyDown(KeyEvent.VK_0))map = new Map(15, 15);
+			if(Keyboard.isKeyDown(KeyEvent.VK_0))map = new Map(15, 15,null);
 			
 			// Hintergrund Musik wird abgespielt
 			if(playMusic==false){
@@ -133,6 +133,13 @@ public class Main {
 				map.errMap();
 			}
 		}
+		
+		if(player.getNeedPort())
+		{
+			MapLoader ml = new MapLoader(map.getNextMap(), map, player);
+			ml.lesen();
+			player.setNeedPort();
+		}
 
 
 			
@@ -146,5 +153,4 @@ public class Main {
 		}
 	}//main Ende
 	
-
 }

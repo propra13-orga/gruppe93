@@ -10,9 +10,11 @@ public class Map
 	private List<Gegner> Enemys;
 	private static int x_Tiles;
 	private static int y_Tiles;
+	private String nextmap;
 	
 	//KONSTRUKTOR
-	public Map(int x_Tiles, int y_Tiles){
+	public Map(int x_Tiles, int y_Tiles, String nextmap){
+		this.nextmap=nextmap;
 		Map.x_Tiles = x_Tiles+1;
 		Map.y_Tiles = y_Tiles+1;
 		tiles = new Tile[x_Tiles+2][y_Tiles+2];
@@ -43,6 +45,15 @@ public class Map
 	
 	public int getYTiles() {
 		return y_Tiles;
+	}
+	
+	public void setNextMap(String nextmap)
+	{
+		this.nextmap = nextmap;
+	}
+	
+	public String getNextMap(){
+		return nextmap;
 	}
 	
 	public void setSpielerTod(boolean tot)

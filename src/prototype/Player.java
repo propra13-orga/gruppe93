@@ -48,6 +48,7 @@ public class Player {
 	private long timeOfDeath;
 	private long now;
 	
+	private boolean needPort = false; //siehe Teleporter
 	
 	
 //	Konstruktor
@@ -185,7 +186,9 @@ public class Player {
 				if(tiley<0)continue;
 				if(tiley>y_Tiles)break;
 				if(map.getTile(tilex, tiley).getIsTeleporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
-					mapCounter++;
+
+					needPort = true; //Maploader Workaround
+/*					mapCounter++;
 					switch(mapCounter){
 						case 1:
 							map.errMap();
@@ -202,9 +205,17 @@ public class Player {
 							break;
 						
 					}
-				}
+	*/			}
 			}
 		}
+	}
+	//Hilfe für den Workaround
+	public boolean getNeedPort(){
+		return needPort;
+	}
+	
+	public void setNeedPort(){
+		needPort = false;
 	}
 	
 	private void exit(){
