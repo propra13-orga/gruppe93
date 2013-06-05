@@ -89,9 +89,9 @@ public class Map
 	
 	public void errMap()//Errstellt map die auf Fehler hinweisen soll 
 	{
-		for(int x = 0; x<32;x++)
+		for(int x = 0; x<=x_Tiles;x++)
 		{
-			for(int y = 0;y<18;y++)
+			for(int y = 0;y<=y_Tiles;y++)
 			{
 				tiles[x][y].setErr();
 			}
