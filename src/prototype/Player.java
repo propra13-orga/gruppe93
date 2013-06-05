@@ -18,6 +18,8 @@ public class Player {
 	private float f_playposy;
 	private short kartenPositionX;	//enstpricht dem Feld auf der Map. Zur ueberpruefung welche Felder auf Kollision geprueft werden
 	private short kartenPositionY;
+	private int	x_Tiles;
+	private int	y_Tiles;
 	
 	private float speedX;
 	private float speedY;
@@ -26,8 +28,6 @@ public class Player {
 	private float maximumSpeed=300;
 	private boolean richtungWurdeGeaendert=false;
 	
-	private int worldsize_x;
-	private int worldsize_y;
 	private Map map;
 	private BufferedImage bimg;
 	private boolean isAlive = true;
@@ -48,18 +48,18 @@ public class Player {
 	private long timeOfDeath;
 	private long now;
 	
+	private boolean needPort = false; //siehe Teleporter
 	
 	
 //	Konstruktor
-	public Player(int x, int y, int worldsize_x, int worldsize_y, Map map, List<Zauber>Zaubern, List<Gegner>Enemys){
+	public Player(int x, int y,  Map map, List<Zauber>Zaubern, List<Gegner>Enemys){
 		try {
 			bimg = ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/Rossi.png"));
 		} catch (IOException e) {e.printStackTrace();}
 		bounding = new Rectangle(x+10,y+10,bimg.getWidth()-20,bimg.getHeight()-20);
 		f_playposx = x;
 		f_playposy = y;
-		this.worldsize_x=worldsize_x;
-		this.worldsize_y=worldsize_y;
+
 		this.map=map;
 		this.Zaubern=Zaubern;
 		this.Enemys=Enemys;
@@ -73,40 +73,32 @@ public class Player {
 		if(!isAlive)return;	//wenn der spieler tot ist wird das update Uebersprungen
 		ZeitSeitLetztemSchuss+=frametime;
 		if (mana<1000) mana=mana+frametime*manaregeneration; //manaregeneration
+		gegneranzahl=Enemys.size();// Festellung der Gegnerzahl
 		
+		x_Tiles=map.getXTiles();
+		y_Tiles=map.getYTiles();
+				
 		bewegen(frametime); //Komplettes Movement ausgelagert
-		
 		schussGen();// Schuesse werden hier generiert
+		
+		// Kolisionen
+		if(bCheck){
+			wandKollision();
+			fallenPruefung();
+			teleport();
+			exit();
+			gegnerKolision();	
+		}
 
 		//Taste erzeugt Gegner zum testen
 		
 		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_1)){
 			ZeitSeitLetztemSchuss = 0;
 			Enemys.add(new Gegner( 600, 600, Enemys));
+		}
+	
+		if (leben<0) spielerTot();
 		
-		}
-	
-		gegneranzahl=Enemys.size();
-		if (leben<0){
-			isAlive = false;					
-			map.setSpielerTod(true);
-			speedX=0;
-			speedY=0;
-			timeOfDeath = System.currentTimeMillis();
-			for(int i = 0; i<gegneranzahl; i++){
-				Enemys.remove(0);}
-						
-        }
-		//Schalter Kollision
-	
-		if(bCheck){
-			wandKollision();
-			fallenPruefung();
-			teleport();
-			exit();
-			gegnerKolision();
-			
-		}
 	}//update Ende
 		
 	private void bewegen(float frametime)
@@ -131,12 +123,6 @@ public class Player {
 		if(speedX<speedReductionRate/1000){speedX+=speedReductionRate*frametime;}
 		
 		
-		if(f_playposx<0){f_playposx=0;speedX=-speedX;}else
-		if(f_playposy<0){f_playposy=0;speedY=-speedY;}else
-		if(f_playposx>worldsize_x - bounding.width){f_playposx=worldsize_x - bounding.width;speedX=-speedX;}else
-		if(f_playposy>worldsize_y - bounding.height){f_playposy=worldsize_y - bounding.height;speedY=-speedY;}
-		
-		
 		
 		kartenPositionX=(short)(f_playposx/Tile.getFeldGroesse());
 		kartenPositionY=(short)(f_playposy/Tile.getFeldGroesse());
@@ -145,12 +131,12 @@ public class Player {
 	}
 	
 	private void wandKollision(){
-		for(int tx = kartenPositionX; tx <= kartenPositionX + 2; tx++){//hier muss <= geprueft werden, damit an kartenposition+2 auch eine ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
+		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprueft werden, damit an kartenposition+1 auch eine ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
 			if(tx<0)tx=0;	//sorgt dafuer, daß beim ueberschreiten der levelgrenzen kein absturz auftritt
-			if(tx>31)break;
-			for(int ty = kartenPositionY; ty<= kartenPositionY + 2; ty++){
+			if(tx>x_Tiles)break;
+			for(int ty = kartenPositionY; ty<= kartenPositionY + 1; ty++){
 				if(ty<0)ty=0;
-				if(ty>17)break;
+				if(ty>y_Tiles)break;
 				if(map.getTile(tx, ty).getBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tx, ty).getBounding())){//wenn hier abprallen gebrueft werden muss und die richtung nicht schon geaendert wurde
 					Rectangle inter =  bounding.intersection(map.getTile(tx, ty).getBounding());
 					richtungWurdeGeaendert=true; //wichtig, damit pro vorgang nicht doppelt die richtung umgedreht wird
@@ -178,34 +164,31 @@ public class Player {
 	private void fallenPruefung(){
 		for(int tx = kartenPositionX; tx <= kartenPositionX + 1; tx++){//hier muss <= geprueft werden, damit an kartenposition+1 auch eine Ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als ausgangsbasis nehmen
 			if(tx<0)tx=0;	//sorgt dafuer, daß beim ueberschreiten der levelgrenzen kein absturz auftritt
-			if(tx>31)break;
+			if(tx>x_Tiles)break;
 			for(int ty = kartenPositionY; ty <= kartenPositionY + 1; ty++){
 				if(ty<0)ty=0;
-				if(ty>17)break;
+				if(ty>y_Tiles)break;
 				if(map.getTile(tx, ty).getKillYou()&&bounding.intersects(map.getTile(tx, ty).getBounding())){
 				
-					for(int i = 0; i<gegneranzahl; i++){
-						Enemys.remove(0);}
-					leben=0;
-					isAlive = false;					
-					map.setSpielerTod(true);
-					speedX=0;
-					speedY=0;
-					timeOfDeath = System.currentTimeMillis();
+					spielerTot();
 				}
 			}
 		}
 	}
 	
+	
+	//TODO Auf zukuenftigen Nutzen ueberpruefen
 	private void teleport(){
 		for(int tilex = kartenPositionX; tilex <= kartenPositionX +1; tilex++){
 			if(tilex<0)continue;
-			if(tilex>31)break;
+			if(tilex>x_Tiles)break;
 			for(int tiley = kartenPositionY; tiley <= kartenPositionY +1; tiley++){
 				if(tiley<0)continue;
-				if(tiley>17)break;
+				if(tiley>y_Tiles)break;
 				if(map.getTile(tilex, tiley).getIsTeleporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
-					mapCounter++;
+
+					needPort = true; //Maploader Workaround
+/*					mapCounter++;
 					switch(mapCounter){
 						case 1:
 							map.errMap();
@@ -222,9 +205,17 @@ public class Player {
 							break;
 						
 					}
-				}
+	*/			}
 			}
 		}
+	}
+	//Hilfe für den Workaround
+	public boolean getNeedPort(){
+		return needPort;
+	}
+	
+	public void setNeedPort(){
+		needPort = false;
 	}
 	
 	private void exit(){
@@ -327,6 +318,18 @@ public class Player {
 		}	
 	}
 	
+	private void spielerTot()
+	{
+		isAlive = false;					
+		map.setSpielerTod(true);
+		speedX=0;
+		speedY=0;
+		timeOfDeath = System.currentTimeMillis();
+		for(int i = 0; i<gegneranzahl; i++){
+		Enemys.remove(0);}
+					
+	}
+	
 	public static Rectangle getBounding(){
 		return bounding;
 	}
@@ -375,6 +378,13 @@ public class Player {
 	public float getleben()
 	{
 		return leben;
+	}
+	
+	public void setPosition(float f_posx, float f_posy) {
+		f_playposx = f_posx;
+		f_playposy = f_posy;
+		return;
+		
 	}
 
 }

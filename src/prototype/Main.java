@@ -19,14 +19,15 @@ public class Main {
 		List<Zauber> Zaubern= new LinkedList<Zauber>();
 		List<Gegner> Enemys= new LinkedList<Gegner>();
 		
-		
+		int x_MapTiles = 32;
+		int y_MapTiles = 18;
 		
 		
 //		Initialisierung
-		Map map=new Map();		
+		Map map=new Map(x_MapTiles,y_MapTiles,null);		
 		map.erstelleTestMap(Enemys);
 		//map.raumEins();
-		Player player = new Player(startx,starty,worldsizex,worldsizey,map, Zaubern, Enemys);
+		Player player = new Player(startx,starty,map, Zaubern, Enemys);
 		
 		//Sound
 		boolean playMusic = false;
@@ -81,7 +82,7 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
 			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap(Enemys);
-			
+			if(Keyboard.isKeyDown(KeyEvent.VK_0))map = new Map(15, 15,null);
 			
 			// Hintergrund Musik wird abgespielt
 			if(playMusic==false){
@@ -103,6 +104,7 @@ public class Main {
 			}
 			
 			//Aufruf bei Sieg 
+			//TODO Verlagern
 			if(map.getTile(1, 1).getTex()==8){
 				try {
 					Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE")); //Ruft Youtube auf siehe Java API
@@ -117,19 +119,26 @@ public class Main {
 			
 		
 		//Maploader Testfunktion experimental Implementierung
-
+			//TODO Richtige Implementierung
 		if(Keyboard.isKeyDown(KeyEvent.VK_M))
 		{
 			try
 			{
 				String mapname = "maps/test.txt";
-				MapLoader ml = new MapLoader(mapname, map);
+				MapLoader ml = new MapLoader(mapname, map, player);
 				ml.lesen();
 
 			}catch(Exception e)
 			{
 				map.errMap();
 			}
+		}
+		
+		if(player.getNeedPort())
+		{
+			MapLoader ml = new MapLoader(map.getNextMap(), map, player);
+			ml.lesen();
+			player.setNeedPort();
 		}
 
 
@@ -144,5 +153,4 @@ public class Main {
 		}
 	}//main Ende
 	
-
 }

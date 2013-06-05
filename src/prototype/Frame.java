@@ -25,6 +25,8 @@ public class Frame extends JFrame{
 	private int xVerschiebung=0;	//für die Verschiebungen, der alle Objekte ausser dem Spieler unterworfen sind
 	private int yVerschiebung=0;
 	
+
+	
 	
 	public Frame(String name,Player player, Map map, List<Zauber>Zaubern,List<Gegner>Enemys){
 		super(name);
@@ -32,6 +34,7 @@ public class Frame extends JFrame{
 		setVisible(true);
 		this.Zaubern=Zaubern;
 		this.Enemys=Enemys;
+		
 //		screen = new Screen();
 //		screen.setBounds(0, 0, worldsizex, worldsizey);
 //		add(screen);
@@ -42,6 +45,8 @@ public class Frame extends JFrame{
 		addKeyListener(new Keyboard());
 		this.player = player;
 		this.map=map;
+		
+
 	}
 	
 	
@@ -71,10 +76,13 @@ public class Frame extends JFrame{
 		
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0 , getWidth(), getHeight());
+
 		
-		for(int x = 0; x < 32 ; x++){
-			for(int y = 0 ; y< 18 ; y++){
+		for(int x = 0; x <= map.getXTiles() ; x++){
+			for(int y = 0 ; y<=map.getYTiles() ; y++){
+			
 				g.drawImage(Tile.getLook(map.getTile(x, y).getTex()), map.getTile(x, y).getBounding().x+xVerschiebung, map.getTile(x, y).getBounding().y+yVerschiebung, null);
+				
 			}
 		}
 		
