@@ -21,12 +21,12 @@ public class Zauber {
 	private int zauberid;
 	static {
 		try {
-			bimg = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Zauber.png"));
+			bimg = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Zauber.png"));
 			} catch (IOException e) {e.printStackTrace();}
 }
 	static {
 		try {
-			bimg2 = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/circle.png"));
+			bimg2 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/circle.png"));
 			} catch (IOException e) {e.printStackTrace();}
 }
 	
