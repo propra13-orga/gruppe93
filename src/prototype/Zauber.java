@@ -22,13 +22,11 @@ public class Zauber {
 	static {
 		try {
 			bimg = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Zauber.png"));
-			} catch (IOException e) {e.printStackTrace();}
-}
-	static {
-		try {
 			bimg2 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/circle.png"));
 			} catch (IOException e) {e.printStackTrace();}
-}
+        }
+	
+
 	
 	public Zauber(float x, float y, float speedx, float speedy,int Zauberid, List<Zauber> Zaubern){
 		this.zauberid=Zauberid;
