@@ -90,7 +90,7 @@ public class Frame extends JFrame{
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
 			if (b.getid()==2){
-			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			g.drawImage(b.getLook2(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 			
 			}
 		}
