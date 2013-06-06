@@ -43,8 +43,6 @@ public class Player {
 	private float leben=1000;
 	private int gegneranzahl;
 
-	
-	private int mapCounter = 1;
 	private long timeOfDeath;
 	private long now;
 	
@@ -204,10 +202,9 @@ public class Player {
 	private void exit(){
 		for(int tilex = kartenPositionX; tilex <= kartenPositionX +1; tilex++){
 			for( int tiley = kartenPositionY; tiley <= kartenPositionY+1; tiley++){
-				if(mapCounter == 3){
-				if(map.getTile(tilex, tiley).getIsExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+					if(map.getTile(tilex, tiley).getIsExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
 					map.setWin();
-				}
+				
 
 				}
 			}
@@ -328,7 +325,6 @@ public class Player {
 		isAlive = true;
 		map.setSpielerTod(false);
 		map.erstelleTestMap(Enemys);
-		mapCounter = 1;
 		leben=1000;
 		mana=1000;
 	    }

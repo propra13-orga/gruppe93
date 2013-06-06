@@ -125,7 +125,7 @@ public class Main {
 			try
 			{
 				String mapname = "maps/test.txt";
-				MapLoader ml = new MapLoader(mapname, map, player);
+				MapLoader ml = new MapLoader(mapname, map, player,Enemys);
 				ml.lesen();
 
 			}catch(Exception e)
@@ -136,7 +136,7 @@ public class Main {
 		
 		if(player.getNeedPort())
 		{
-			MapLoader ml = new MapLoader(map.getNextMap(), map, player);
+			MapLoader ml = new MapLoader(map.getNextMap(), map, player,Enemys);
 			ml.lesen();
 			player.setNeedPort();
 		}

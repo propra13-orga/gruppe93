@@ -1,6 +1,7 @@
 package prototype;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.Scanner;
 
 public class MapLoader {
@@ -10,17 +11,18 @@ public class MapLoader {
 	private String filename;
 	private InputStream files;
 	private Player player;
+	private List<Gegner> Enemys;
 	
 	
-	MapLoader(String filename, Map map, Player player)
+	MapLoader(String filename, Map map, Player player,List<Gegner> Enemys)
 	{
 		this.map = map;
 		this.filename = filename;
 		this.player = player;
+		this.Enemys = Enemys;
 	}
 
 
-	
 	public void lesen()
 	{
 		
@@ -35,6 +37,8 @@ public class MapLoader {
 			int sizeY = s.nextInt();	//Breite in Tiles
 			int startX = s.nextInt();	//Spawnposition 
 			int startY = s.nextInt();	// s.o.
+			//int sizeCheck = sizeX*sizeY;
+			int tileType;
 			String nextMap = s.next();
 			map.setNextMap(nextMap);	//  Ort der naechsten Karte
 			if(nextMap.equals(null))map.setWin();
@@ -48,9 +52,9 @@ public class MapLoader {
 			{
 				for(int x = 1; x<=sizeX;x++)
 				{
-					int tt;
-					tt = s.nextInt();
-					switch(tt)
+					if(s.hasNextInt()){tileType = s.nextInt();}else{tileType = 0;}
+					
+					switch(tileType)
 					{
 					case 1:
 						map.getTile(x, y).setFloor();
@@ -70,9 +74,17 @@ public class MapLoader {
 					case 6:
 						map.getTile(x, y).setWintile();
 						break;
+					
+					case 51:
+						map.getTile(x, y).setFloor();
+						Enemys.add(new Gegner(x*40, y*40, Enemys));
+						break;
+					
 					default:
 						map.getTile(x, y).setErr();
 						break;
+						
+					
 					}
 				}
 			}

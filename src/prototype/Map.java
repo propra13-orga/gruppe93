@@ -138,11 +138,11 @@ public class Map
 			}
 		}
 		tiles[6][6].setTrap();
-		Enemys.add(new Gegner( 500, 400, Enemys)); //spawnen in Testmap
-		Enemys.add(new Gegner(1000, 500, Enemys));
-		Enemys.add(new Gegner( 1000, 600, Enemys));
-		Enemys.add(new Gegner(1000, 400, Enemys));
-		Enemys.add(new Gegner(1000, 200, Enemys));
+		//Enemys.add(new Gegner( 500, 400, Enemys)); //spawnen in Testmap
+		//Enemys.add(new Gegner(1000, 500, Enemys));
+		//Enemys.add(new Gegner( 1000, 600, Enemys));
+		//Enemys.add(new Gegner(1000, 400, Enemys));
+		//Enemys.add(new Gegner(1000, 200, Enemys));
 	}
 
 }      
