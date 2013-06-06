@@ -11,6 +11,8 @@ public class Map
 	private static int x_Tiles;
 	private static int y_Tiles;
 	private String nextmap;
+	private String currentMap;
+	
 	
 	//KONSTRUKTOR
 	public Map(int x_Tiles, int y_Tiles, String nextmap){
@@ -107,42 +109,4 @@ public class Map
 			}
 		}
 	}
-	
-	//Maps
-	public void  erstelleTestMap(List<Gegner> Enemys){
-		this.Enemys=Enemys;
-		for(int a = 2; a<32; a++){
-			for(int b = 2; b<18; b++){
-				tiles[a][b] = new Tile(a*40,b*40,false,1);
-			}
-		}
-		for(int a = 1; a<2; a++){
-			for(int b = 1; b<18; b++){
-				tiles[a][b] = new Tile(a*40,b*40,true,2);
-			}
-		}
-		
-		for(int a = 32; a<33; a++){
-			for(int b = 1; b<18; b++){
-				tiles[a][b] = new Tile(a*40,b*40,true,2);
-			}
-		}
-		for(int a = 1; a<33; a++){
-			for(int b = 01; b<2; b++){
-				tiles[a][b] = new Tile(a*40,b*40,true,2);
-			}
-		}
-		for(int a = 1; a<33; a++){
-			for(int b = 18; b<19; b++){
-				tiles[a][b] = new Tile(a*40,b*40,true,2);
-			}
-		}
-		tiles[6][6].setTrap();
-		//Enemys.add(new Gegner( 500, 400, Enemys)); //spawnen in Testmap
-		//Enemys.add(new Gegner(1000, 500, Enemys));
-		//Enemys.add(new Gegner( 1000, 600, Enemys));
-		//Enemys.add(new Gegner(1000, 400, Enemys));
-		//Enemys.add(new Gegner(1000, 200, Enemys));
-	}
-
 }      

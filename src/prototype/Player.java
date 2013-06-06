@@ -47,7 +47,8 @@ public class Player {
 	private long now;
 	
 	private boolean needPort = false; //siehe Teleporter
-	
+	private boolean goShop = false;
+	private boolean resetMap = false;
 	
 //	Konstruktor
 	public Player(int x, int y,  Map map, List<Zauber>Zaubern, List<Gegner>Enemys){
@@ -71,8 +72,7 @@ public class Player {
 		if(!isAlive)return;	//wenn der spieler tot ist wird das update Uebersprungen
 		ZeitSeitLetztemSchuss+=frametime;
 		if (mana<1000) mana=mana+frametime*manaregeneration; //manaregeneration
-		gegneranzahl=Enemys.size();// Festellung der Gegnerzahl
-		
+			
 		x_Tiles=map.getXTiles();
 		y_Tiles=map.getYTiles();
 				
@@ -187,6 +187,9 @@ public class Player {
 
 					needPort = true; //Maploader Workaround
 				}
+				if(map.getTile(tilex, tiley).getIsShop()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+					goShop = true;
+				}
 			}
 		}
 	}
@@ -197,6 +200,14 @@ public class Player {
 	
 	public void setNeedPort(){
 		needPort = false;
+	}
+	
+	public boolean getGoShop(){
+		return goShop;
+	}
+	
+	public void setGoShop(){
+		goShop = false;
 	}
 	
 	private void exit(){
@@ -304,6 +315,7 @@ public class Player {
 		speedX=0;
 		speedY=0;
 		timeOfDeath = System.currentTimeMillis();
+		gegneranzahl=Enemys.size();// Festellung der Gegnerzahl
 		for(int i = 0; i<gegneranzahl; i++){
 		Enemys.remove(0);}
 					
@@ -324,9 +336,9 @@ public class Player {
 		speedY = 0;
 		isAlive = true;
 		map.setSpielerTod(false);
-		map.erstelleTestMap(Enemys);
 		leben=1000;
 		mana=1000;
+		resetMap = true;
 	    }
 	
 	//DEBUG Methoden bzgl der Kollisions und Sterbepruefung
@@ -362,6 +374,14 @@ public class Player {
 		f_playposy = f_posy;
 		return;
 		
+	}
+	
+	public boolean getResetMap(){
+		return resetMap;
+	}
+	
+	public void setResetMap(){
+		resetMap = false;
 	}
 
 }
