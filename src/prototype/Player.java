@@ -43,13 +43,12 @@ public class Player {
 	private float leben=1000;
 	private int gegneranzahl;
 
-	
-	private int mapCounter = 1;
 	private long timeOfDeath;
 	private long now;
 	
 	private boolean needPort = false; //siehe Teleporter
-	
+	private boolean goShop = false;
+	private boolean resetMap = false;
 	
 //	Konstruktor
 	public Player(int x, int y,  Map map, List<Zauber>Zaubern, List<Gegner>Enemys){
@@ -73,8 +72,7 @@ public class Player {
 		if(!isAlive)return;	//wenn der spieler tot ist wird das update Uebersprungen
 		ZeitSeitLetztemSchuss+=frametime;
 		if (mana<1000) mana=mana+frametime*manaregeneration; //manaregeneration
-		gegneranzahl=Enemys.size();// Festellung der Gegnerzahl
-		
+			
 		x_Tiles=map.getXTiles();
 		y_Tiles=map.getYTiles();
 				
@@ -177,7 +175,7 @@ public class Player {
 	}
 	
 	
-	//TODO Auf zukuenftigen Nutzen ueberpruefen
+	
 	private void teleport(){
 		for(int tilex = kartenPositionX; tilex <= kartenPositionX +1; tilex++){
 			if(tilex<0)continue;
@@ -188,28 +186,14 @@ public class Player {
 				if(map.getTile(tilex, tiley).getIsTeleporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
 
 					needPort = true; //Maploader Workaround
-/*					mapCounter++;
-					switch(mapCounter){
-						case 1:
-							map.errMap();
-							break;
-						case 2:
-							map.raumZwei();
-							f_playposx = 140;
-							f_playposy = 320;
-							break;
-						case 3:
-							map.raumDrei();
-							f_playposx = 120;
-							f_playposy = 120;
-							break;
-						
-					}
-	*/			}
+				}
+				if(map.getTile(tilex, tiley).getIsShop()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+					goShop = true;
+				}
 			}
 		}
 	}
-	//Hilfe für den Workaround
+	//Hilfe fuer den Workaround
 	public boolean getNeedPort(){
 		return needPort;
 	}
@@ -218,13 +202,20 @@ public class Player {
 		needPort = false;
 	}
 	
+	public boolean getGoShop(){
+		return goShop;
+	}
+	
+	public void setGoShop(){
+		goShop = false;
+	}
+	
 	private void exit(){
 		for(int tilex = kartenPositionX; tilex <= kartenPositionX +1; tilex++){
 			for( int tiley = kartenPositionY; tiley <= kartenPositionY+1; tiley++){
-				if(mapCounter == 3){
-				if(map.getTile(tilex, tiley).getIsExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+					if(map.getTile(tilex, tiley).getIsExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
 					map.setWin();
-				}
+				
 
 				}
 			}
@@ -262,7 +253,6 @@ public class Player {
 					e.setLeben(2);
 			    	}
 				//Schussschaden an Gegner
-				
 				
 				}
 			}
@@ -325,6 +315,7 @@ public class Player {
 		speedX=0;
 		speedY=0;
 		timeOfDeath = System.currentTimeMillis();
+		gegneranzahl=Enemys.size();// Festellung der Gegnerzahl
 		for(int i = 0; i<gegneranzahl; i++){
 		Enemys.remove(0);}
 					
@@ -345,11 +336,9 @@ public class Player {
 		speedY = 0;
 		isAlive = true;
 		map.setSpielerTod(false);
-		//map.raumEins();
-		map.erstelleTestMap(Enemys);
-		mapCounter = 1;
 		leben=1000;
 		mana=1000;
+		resetMap = true;
 	    }
 	
 	//DEBUG Methoden bzgl der Kollisions und Sterbepruefung
@@ -385,6 +374,14 @@ public class Player {
 		f_playposy = f_posy;
 		return;
 		
+	}
+	
+	public boolean getResetMap(){
+		return resetMap;
+	}
+	
+	public void setResetMap(){
+		resetMap = false;
 	}
 
 }

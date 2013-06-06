@@ -17,6 +17,7 @@ public class Tile {
 	private boolean killYou = false;
 	private boolean isTeleporter = false;
 	private boolean isExit = false;
+	private boolean isShop = false;
 	
 	
 //	Texturen
@@ -29,6 +30,7 @@ public class Tile {
 	private static BufferedImage tot2;
 	private static BufferedImage teleporter;
 	private static BufferedImage pokal;
+	private static BufferedImage shop;
 	
 	
 	// Texturen laden
@@ -42,7 +44,8 @@ public class Tile {
 			tot = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot.png"));
 			tot2 = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot2.png"));
 			teleporter = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyteleporter.png"));
-			pokal = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/pokal.png"));			
+			pokal = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/pokal.png"));
+			shop = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyshop.png"));
 			
 			}catch (IOException e) {e.printStackTrace();}
 		
@@ -69,6 +72,7 @@ public class Tile {
 		isTeleporter = false;
 		textur = 1;
 		isExit = false;
+		isShop = false;
 	}
 	
 	public void setTrap(){
@@ -77,6 +81,7 @@ public class Tile {
 		isTeleporter = false;
 		textur = 3;		
 		isExit = false;
+		isShop = false;
 	}
 	
 	public void setTeleporter(){
@@ -85,6 +90,7 @@ public class Tile {
 		blockiert = false;
 		textur = 7;
 		isExit = false;
+		isShop = false;
 	}
 	
 	public void setWall(){
@@ -93,6 +99,7 @@ public class Tile {
 		blockiert = true;
 		textur = 2;
 		isExit = false;
+		isShop = false;
 	}
 	
 	public void setExit(){
@@ -101,6 +108,7 @@ public class Tile {
 		blockiert = false;
 		isTeleporter = false;
 		isExit = true;
+		isShop = false;
 	}
 	
 	public void setErr(){
@@ -109,6 +117,7 @@ public class Tile {
 		blockiert = false;
 		textur = 0;
 		isExit = false;
+		isShop = false;
 	}
 	
 	public void setWintile(){
@@ -117,6 +126,16 @@ public class Tile {
 		blockiert = false;
 		isExit = false;
 		isTeleporter = false;
+		isShop = false;
+	}
+	
+	public void setShop(){
+		textur = 9;
+		killYou = false;
+		blockiert = false;
+		isExit = false;
+		isTeleporter = false;
+		isShop = true;
 	}
 	
 	//Getter und Setter
@@ -138,6 +157,8 @@ public class Tile {
 			return teleporter;
 		case 8:
 			return pokal;
+		case 9:
+			return shop;
 		default:
 			return err;			
 		}
@@ -173,6 +194,10 @@ public class Tile {
 	
 	public boolean getIsTeleporter(){
 		return isTeleporter;
+	}
+	
+	public boolean getIsShop(){
+		return isShop;
 	}
 	
 	public boolean getIsExit(){

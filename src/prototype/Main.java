@@ -25,9 +25,13 @@ public class Main {
 		
 //		Initialisierung
 		Map map=new Map(x_MapTiles,y_MapTiles,null);		
-		map.erstelleTestMap(Enemys);
-		//map.raumEins();
 		Player player = new Player(startx,starty,map, Zaubern, Enemys);
+		MapLoader ml = new MapLoader(map, player, Enemys);
+		Shop shop = new Shop();
+		
+		ml.lesen("maps/test.txt");
+		
+		
 		
 		//Sound
 		boolean playMusic = false;
@@ -81,7 +85,6 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
-			if(Keyboard.isKeyDown(KeyEvent.VK_T))map.erstelleTestMap(Enemys);
 			if(Keyboard.isKeyDown(KeyEvent.VK_0))map = new Map(15, 15,null);
 			
 			// Hintergrund Musik wird abgespielt
@@ -92,8 +95,8 @@ public class Main {
 				playMusic = true;
 			}
 			
-			// Beispiel für das Abspielen von Soundeffekten
-			// Im Anwendungsfall Verzögerung einbauen
+			// Beispiel fuer das Abspielen von Soundeffekten
+			// Im Anwendungsfall Verzoegerung einbauen
 			
 			if(Keyboard.isKeyDown(KeyEvent.VK_B))
 			{
@@ -115,32 +118,21 @@ public class Main {
 				System.exit(0);
 				
 			}
-			
-			
-		
-		//Maploader Testfunktion experimental Implementierung
-			//TODO Richtige Implementierung
-		if(Keyboard.isKeyDown(KeyEvent.VK_M))
-		{
-			try
-			{
-				String mapname = "maps/test.txt";
-				MapLoader ml = new MapLoader(mapname, map, player);
-				ml.lesen();
-
-			}catch(Exception e)
-			{
-				map.errMap();
-			}
-		}
-		
-		if(player.getNeedPort())
-		{
-			MapLoader ml = new MapLoader(map.getNextMap(), map, player);
-			ml.lesen();
+					
+		if(player.getNeedPort()){
+			ml.lesen(map.getNextMap(),false);
 			player.setNeedPort();
 		}
-
+		
+		if(player.getGoShop()){
+			ml.lesen("maps/shop.txt", true);
+			player.setGoShop();
+		}
+		if(player.getResetMap()){
+			ml.lesen("maps/test.txt");
+			player.setResetMap();
+		}
+		
 
 			
 			//Schlafen
@@ -152,5 +144,4 @@ public class Main {
 			}	
 		}
 	}//main Ende
-	
 }
