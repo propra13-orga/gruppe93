@@ -53,13 +53,13 @@ public class MapLoader {
 			//int sizeCheck = sizeX*sizeY;
 			int tileType;
 			String nextMap = s.next();
-			map.setNextMap(nextMap);	//  Ort der naechsten Karte
+				//  Ort der naechsten Karte
 			if(nextMap.equals(null))map.setWin();
 			player.setPosition((float)startX ,(float)startY);	//Spieler Spawnen lassen
 			
 			
 			map = new Map(sizeX,sizeY,nextMap);		//Map Laden
-			
+			map.setNextMap(nextMap);
 			
 			for(int y= 1; y<=sizeY;y++)
 			{

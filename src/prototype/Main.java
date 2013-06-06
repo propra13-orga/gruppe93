@@ -27,7 +27,7 @@ public class Main {
 		Map map=new Map(x_MapTiles,y_MapTiles,null);		
 		Player player = new Player(startx,starty,map, Zaubern, Enemys);
 		MapLoader ml = new MapLoader(map, player, Enemys);
-		Shop shop = new Shop();
+		//Shop shop = new Shop();
 		
 		ml.lesen("maps/test.txt");
 		

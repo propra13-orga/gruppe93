@@ -1,22 +1,20 @@
 package prototype;
 
-import java.util.List;
 
 public class Map 
 {
 	private boolean spielertot=false;
 	private float sekundenTakt=0;
 	private static Tile[][] tiles;
-	private List<Gegner> Enemys;
 	private static int x_Tiles;
 	private static int y_Tiles;
-	private String nextmap;
-	private String currentMap;
+	private static String nextmap;
+	//private String currentMap;
 	
 	
 	//KONSTRUKTOR
 	public Map(int x_Tiles, int y_Tiles, String nextmap){
-		this.nextmap=nextmap;
+		Map.nextmap=nextmap;
 		Map.x_Tiles = x_Tiles+1;
 		Map.y_Tiles = y_Tiles+1;
 		tiles = new Tile[x_Tiles+2][y_Tiles+2];
@@ -51,7 +49,7 @@ public class Map
 	
 	public void setNextMap(String nextmap)
 	{
-		this.nextmap = nextmap;
+		Map.nextmap = nextmap;
 	}
 	
 	public String getNextMap(){
