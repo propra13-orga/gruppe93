@@ -110,19 +110,19 @@ public class Main {
 				
 			}
 					
-		if(player.getNeedPort()){
-			ml.lesen(map.getNextMap());
-			player.setNeedPort();
-		}
-		
-		if(player.getGoShop()){
-			ml.lesen("maps/shop.txt", true);
-			player.setGoShop();
-		}
-		if(player.getResetMap()){
-			ml.lesen("maps/test.txt");
-			player.setResetMap();
-		}
+			if(player.getNeedPort()){
+				ml.lesen(map.getNextMap());
+				player.setNeedPort();
+			}
+			
+			if(player.getGoShop()){
+				ml.lesen("maps/shop.txt", true);
+				player.setGoShop();
+			}
+			if(player.getResetMap()){
+				ml.lesen("maps/test.txt");
+				player.setResetMap();
+			}
 		
 
 			
@@ -133,6 +133,6 @@ public class Main {
 				try {Thread.sleep(15-berechnungsZeit);} 
 				catch (InterruptedException e) {e.printStackTrace();}
 			}	
-		}
+		}//WHILE ENDE
 	}//main Ende
 }

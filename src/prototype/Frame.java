@@ -76,7 +76,7 @@ public class Frame extends JFrame{
 			}
 		}
 		
-		dieKugelnUndLeiste(g);//wegen der Komplexitaet ist die Statusleiste in ihrer eigenen Funktion
+		
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
 			if (b.getid()==2){
@@ -95,7 +95,9 @@ public class Frame extends JFrame{
 			if (b.getid()==1){
 			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 		}	}
-	
+		
+		//am Ende, damit da nix drübermalt
+		dieKugelnUndLeiste(g);//wegen der Komplexitaet ist die Statusleiste in ihrer eigenen Funktion
 		
 		g.dispose();	//gibt den zeichner wieder frei
 		buff.show();	//zeigt dann den aktuellen buffer
