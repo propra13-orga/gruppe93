@@ -195,7 +195,7 @@ public class Player {
 		
 	private void gegnerKolision()
 	{
-		//Kollision fuer Spieler-Gegner und Zauber-Gegner
+		//Kollision fuer Spieler-Gegner und Zauber-Gegner und Gegnerzauber-Spieler
 		
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner e = Enemys.get(i);
@@ -204,7 +204,17 @@ public class Player {
 				leben=leben-(float)10;
 			}
 		}
-		
+		for(int a=0; a<Zaubern.size(); a++){
+			Zauber f = Zaubern.get(a);
+			if(bounding.intersects(f.getBounding())){
+				if (f.getid()==3){
+					leben=leben-50;
+				}
+			}
+		}
+			
+			
+			
 		
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner e = Enemys.get(i);
