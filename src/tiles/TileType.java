@@ -1,13 +1,11 @@
 package tiles;
 
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 abstract class TileType implements TileMethod{
 	
 	protected int positionX;
 	protected int positionY;
-	protected BufferedImage bimg;
 	protected boolean isBlockiert=false;
 	protected boolean isTrap=false;
 	protected boolean isTeleporter=false;
@@ -29,10 +27,6 @@ abstract class TileType implements TileMethod{
 
 	public int getPositionY() {
 		return positionY;
-	}
-	
-	public BufferedImage getBimg() {
-		return bimg;
 	}
 	
 	public boolean isBlockiert() {

@@ -1,10 +1,12 @@
 package tiles;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class WinTile extends TileType{
+	protected static BufferedImage bimg;
 
 	public WinTile(int positionX, int positionY) {
 		super(positionX, positionY);
@@ -16,5 +18,8 @@ public class WinTile extends TileType{
 		}
 	}
 	
+	public BufferedImage getBimg() {
+		return bimg;
+	}
 
 }

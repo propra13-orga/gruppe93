@@ -1,10 +1,12 @@
 package tiles;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class ShopTile extends TileType{
+	protected static BufferedImage bimg;
 
 	public ShopTile(int positionX, int positionY) {
 		super(positionX, positionY);
@@ -16,5 +18,7 @@ public class ShopTile extends TileType{
 		}
 	}
 	
-
+	public BufferedImage getBimg() {
+		return bimg;
+	}
 }

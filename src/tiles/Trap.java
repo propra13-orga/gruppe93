@@ -1,10 +1,12 @@
 package tiles;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class Trap extends TileType{
+	protected static BufferedImage bimg;
 
 	public Trap(int positionX, int positionY) {
 		super(positionX, positionY);
@@ -16,7 +18,9 @@ public class Trap extends TileType{
 		}
 	}
 	
-	
+	public BufferedImage getBimg() {
+		return bimg;
+	}
 	
 
 }

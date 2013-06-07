@@ -1,10 +1,13 @@
 package tiles;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class Wand extends TileType{
+	protected static BufferedImage bimg;
+	
 
 	public Wand(int positionX, int positionY) {
 		super(positionX, positionY);
@@ -16,5 +19,7 @@ public class Wand extends TileType{
 		}
 	}
 	
-	
+	public BufferedImage getBimg() {
+		return bimg;
+	}
 }
