@@ -23,5 +23,7 @@ public interface TileMethod{
 	public boolean isShop(); 
 	
 	public Rectangle getBounding();
+	
+	public short getfeldGroesse();
 
 }

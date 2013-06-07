@@ -59,4 +59,8 @@ abstract class TileType implements TileMethod{
 		return bounding;
 	}
 	
+	public short getfeldGroesse(){
+		return feldGroesse;
+	}
+	
 }

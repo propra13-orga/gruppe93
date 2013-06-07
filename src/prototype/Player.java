@@ -80,10 +80,10 @@ public class Player {
 		schussGen();// Schuesse werden hier generiert
 		
 		// Kolisionen
-	//	if(bCheck){
-	//		Kollision();
-	//		gegnerKolision();	
-	//	}
+		if(bCheck){
+			Kollision();
+			gegnerKolision();	
+		}
 
 		//Taste erzeugt Gegner zum testen
 		
@@ -119,12 +119,12 @@ public class Player {
 		
 		
 		
-	//	kartenPositionX=(short)(f_playposx/Tile.getFeldGroesse());
-	//	kartenPositionY=(short)(f_playposy/Tile.getFeldGroesse());
+		kartenPositionX=(short)(f_playposx/map.getTile(0, 0).getfeldGroesse());
+		kartenPositionY=(short)(f_playposy/map.getTile(0, 0).getfeldGroesse());
 		bounding.x = ((int) f_playposx)+10;	//Aufgrund der Natur des Bilds machen diese einrueckungen Sinn
 		bounding.y = ((int) f_playposy)+10;
 	}
-/*	
+	
 	private void Kollision(){
 		for(int tilex = kartenPositionX; tilex <= kartenPositionX + 1; tilex++){//hier muss <= geprueft werden, damit an kartenposition+1 auch eine ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als Ausgangsbasis nehmen
 			if(tilex<0)tilex=0;	//sorgt dafuer, daß beim ueberschreiten der levelgrenzen kein absturz auftritt
@@ -132,7 +132,7 @@ public class Player {
 			for(int tiley = kartenPositionY; tiley<= kartenPositionY + 1; tiley++){
 				if(tiley<0)tiley=0;
 				if(tiley>y_Tiles)break;
-				if(map.getTile(tilex, tiley).getBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){//wenn hier abprallen gebrueft werden muss und die richtung nicht schon geaendert wurde
+				if(map.getTile(tilex, tiley).isBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){//wenn hier abprallen gebrueft werden muss und die richtung nicht schon geaendert wurde
 					Rectangle inter =  bounding.intersection(map.getTile(tilex, tiley).getBounding());
 					richtungWurdeGeaendert=true; //wichtig, damit pro vorgang nicht doppelt die richtung umgedreht wird
 					if(inter.getWidth()>inter.getHeight())
@@ -153,29 +153,29 @@ public class Player {
 						}
 					}	
 				}
-				//Fallenpruefung
-				if(map.getTile(tilex, tiley).getKillYou()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))
+				
+				if(map.getTile(tilex, tiley).isTrap()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))
 				{
 					spielerTot();
 					break;
 				}
 				// Teleporterpruefung
-				if(map.getTile(tilex, tiley).getIsTeleporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+				if(map.getTile(tilex, tiley).isTeleporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
 					needPort = true; 
 				}
 				//Shoppruefung
-				if(map.getTile(tilex, tiley).getIsShop()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())&&(System.currentTimeMillis()-Shop.getNextPort())>0){
+				if(map.getTile(tilex, tiley).isShop()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())&&(System.currentTimeMillis()-Shop.getNextPort())>0){
 					goShop = true;
 				}
 				//Exitpruefung
-				if(map.getTile(tilex, tiley).getIsExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))map.setWin();
+				//if(map.getTile(tilex, tiley).IsExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))map.setWin();
 				
 				
 			}
 		}
 		richtungWurdeGeaendert=false;
 	}	
-*/
+
 	//Hilfe fuer den Workaround
 	public boolean getNeedPort(){
 		return needPort;
@@ -306,7 +306,7 @@ public class Player {
 		speedX = 0;
 		speedY = 0;
 		isAlive = true;
-		map.setSpielerTod(false);
+		//map.setSpielerTod(false);
 		leben=1000;
 		mana=1000;
 		resetMap = true;
