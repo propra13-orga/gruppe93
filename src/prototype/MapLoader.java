@@ -122,7 +122,7 @@ public class MapLoader {
 							Map.tiles[x][y]=new Exit(x*40, y*40);
 							break;
 						case 6:
-							Map.tiles[x][y]=new Boden(x*40, y*40);
+							Map.tiles[x][y]=new WinTile(x*40, y*40);
 							break;
 						case 7:
 							Map.tiles[x][y]=new ShopTile(x*40, y*40);

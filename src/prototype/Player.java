@@ -119,8 +119,8 @@ public class Player {
 		
 		
 		
-		kartenPositionX=(short)(f_playposx/Tile.getFeldGroesse());
-		kartenPositionY=(short)(f_playposy/Tile.getFeldGroesse());
+	//	kartenPositionX=(short)(f_playposx/Tile.getFeldGroesse());
+	//	kartenPositionY=(short)(f_playposy/Tile.getFeldGroesse());
 		bounding.x = ((int) f_playposx)+10;	//Aufgrund der Natur des Bilds machen diese einrueckungen Sinn
 		bounding.y = ((int) f_playposy)+10;
 	}

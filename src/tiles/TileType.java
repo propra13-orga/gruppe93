@@ -7,7 +7,7 @@ abstract class TileType implements TileMethod{
 	
 	protected int positionX;
 	protected int positionY;
-	protected static BufferedImage bimg;
+	protected BufferedImage bimg;
 	protected boolean isBlockiert=false;
 	protected boolean isTrap=false;
 	protected boolean isTeleporter=false;
