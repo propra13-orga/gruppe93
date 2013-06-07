@@ -22,16 +22,16 @@ public class Map
 		for(int x = 1; x <= x_Tiles; x++)
 		{
 			for(int y = 0; y <= y_Tiles; y++){
-				tiles[x][y] = TileSpawner.Boden(x*40, y*40); //Initialisiert jedes Feld der nutzbaren Map
+				tiles[x][y] = TileSpawner.Boden(x, y); //Initialisiert jedes Feld der nutzbaren Map
 			}
 		}
 		
 		// Zwangsrahmen
 		
-		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0]= TileSpawner.Wand(x*40, 0);}
-		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1]= TileSpawner.Wand(x*40, (y_Tiles+1)*40);}
-		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y]= TileSpawner.Wand(0*40, y*40);}
-		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y]= TileSpawner.Wand((x_Tiles+1)*40, y*40);}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0]= TileSpawner.Wand(x, 0);}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1]= TileSpawner.Wand(x, (y_Tiles+1));}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y]= TileSpawner.Wand(0, y);}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y]= TileSpawner.Wand(x_Tiles+1, y);}
 	}
 
 	//METHODEN
