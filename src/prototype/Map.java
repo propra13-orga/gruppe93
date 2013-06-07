@@ -1,11 +1,12 @@
 package prototype;
 
+import tiles.*;
 
 public class Map 
 {
 	private boolean spielertot=false;
 	private float sekundenTakt=0;
-	private static Tile[][] tiles;
+	static Tile[][] tiles;
 	private static int x_Tiles;
 	private static int y_Tiles;
 	private static String nextmap;
@@ -17,20 +18,20 @@ public class Map
 		Map.nextmap=nextmap;
 		Map.x_Tiles = x_Tiles+1;
 		Map.y_Tiles = y_Tiles+1;
-		tiles = new Tile[x_Tiles+2][y_Tiles+2];
+		tiles =new  Tile[x_Tiles+2][y_Tiles+2];
 		for(int x = 1; x <= x_Tiles; x++)
 		{
 			for(int y = 0; y <= y_Tiles; y++){
-				tiles[x][y] = new  Tile(x*40, y*40, false, 1); //Initialisiert jedes Feld der nutzbaren Map
+				tiles[x][y] = TileSpawner.Boden(x*40, y*40); //Initialisiert jedes Feld der nutzbaren Map
 			}
 		}
 		
 		// Zwangsrahmen
 		
-		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0]= new Tile(x*40, 0*40, true, 2);}
-		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1]= new Tile(x*40, (y_Tiles+1)*40, true, 2);}
-		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y]= new Tile(0*40, y*40, true, 2);}
-		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y]= new Tile((x_Tiles+1)*40, y*40, true, 2);}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0]= TileSpawner.Wand(x*40, 0);}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1]= TileSpawner.Wand(x*40, (y_Tiles+1)*40);}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y]= TileSpawner.Wand(0*40, y*40);}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y]= TileSpawner.Wand((x_Tiles+1)*40, y*40);}
 	}
 
 	//METHODEN
@@ -72,7 +73,7 @@ public class Map
 			{
 				for(int y = 0; y <= y_Tiles; y++)
 				{
-					tiles[x][y].setTex(5);
+					tiles[x][y].setTileTyp(101);
 				}
 			}
 		}else if(spielertot)//sekundentakt zwischen 1und 2 ist hier klar und muss nicht nochmal geprueft werden
@@ -81,7 +82,7 @@ public class Map
 			{
 				for(int y = 0; y <=y_Tiles; y++)
 				{
-					tiles[x][y].setTex(6);
+					tiles[x][y].setTileTyp(102);
 				}
 			}
 		}
@@ -93,7 +94,7 @@ public class Map
 		{
 			for(int y = 0;y<=y_Tiles;y++)
 			{
-				tiles[x][y].setErr();
+				tiles[x][y] = TileSpawner.Err(x, y);
 			}
 		}
 	}
@@ -101,9 +102,9 @@ public class Map
 	public void setWin(){ 		//Pokale Pokale Pokale
 		for(int x = 0; x<=x_Tiles;x++)
 		{
-			for(int y = 0;y<y_Tiles;y++)
+			for(int y = 0;y<=y_Tiles;y++)
 			{
-				tiles[x][y].setWintile();
+				tiles[x][y].setTileTyp(7);
 			}
 		}
 	}
