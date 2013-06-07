@@ -84,6 +84,7 @@ public class MapLoader {
 				if(comeback){
 					startX = (int)Shop.getF_playPosx();
 					startY = (int)Shop.getF_playPosy();
+					comeback = false;
 				}
 				
 				//Neuaufbau

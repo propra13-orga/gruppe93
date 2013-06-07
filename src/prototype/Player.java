@@ -212,9 +212,13 @@ public class Player {
 	
 	private void exit(){
 		for(int tilex = kartenPositionX; tilex <= kartenPositionX +1; tilex++){
+			if(tilex<0)continue;
+			if(tilex>x_Tiles)break;
 			for( int tiley = kartenPositionY; tiley <= kartenPositionY+1; tiley++){
-					if(map.getTile(tilex, tiley).getIsExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
-					map.setWin();
+				if(tiley<0)continue;
+				if(tiley>y_Tiles)break;
+				if(map.getTile(tilex, tiley).getIsExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+				map.setWin();
 				
 
 				}

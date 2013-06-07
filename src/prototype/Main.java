@@ -114,7 +114,7 @@ public class Main {
 			}
 					
 		if(player.getNeedPort()){
-			ml.lesen(map.getNextMap(),false);
+			ml.lesen(map.getNextMap());
 			player.setNeedPort();
 		}
 		
