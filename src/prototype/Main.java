@@ -37,11 +37,6 @@ public class Main {
 		
 		//Spielfenster
 		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern,Enemys);
-		spielFenster.makeBuff();		//ist fuer die BufferStrategy zwingend erforderlich
-		spielFenster.setSizeRight(worldsizex,worldsizey);	//Groeﬂe kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
-//		spielFenster.setLocationRelativeTo(null);
-		
-		
 		
 		//Frameratelimiter Variabeln
 		float timeSinceLastFrame =0;

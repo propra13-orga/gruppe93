@@ -35,6 +35,12 @@ public class Frame extends JFrame{
 		this.Zaubern=Zaubern;
 		this.Enemys=Enemys;
 		
+		createBufferStrategy(2);	//Buffer mit 2 Bildern wird erzeugt
+		buff= getBufferStrategy();	//buff wird die Bufferstrat
+		
+		setSize(800, 600);			//Damit man, wenn man vom maximierten Modus umschaltet immernoch ne Fenstergröße hat
+		setExtendedState(MAXIMIZED_BOTH);	//Frame über den ges. Bilfdschirm
+		
 //		screen = new Screen();
 //		screen.setBounds(0, 0, worldsizex, worldsizey);
 //		add(screen);
@@ -51,22 +57,6 @@ public class Frame extends JFrame{
 	
 	
 	//METHODEN
-	public void makeBuff(){		//kann das auch in den konstruktor...test spaeter
-		createBufferStrategy(2);
-		buff= getBufferStrategy();
-	}
-	
-	
-	
-	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen zunaechst falscher Insets
-		setSize(800, 600);
-		setExtendedState(MAXIMIZED_BOTH);		
-		//resizable, weil es nach dem einfuehren der Kamera keinen Unterschied mehr macht
-//		setResizable(false);	//kann erst hier hin, weil sonst beim Maximieren die Windows Taskleiste unsichtbar wird
-	}
-	
-	
-	
 	public void nextFrame(){
 		fensterbreite=getWidth();
 		fensterhoehe=getHeight();
