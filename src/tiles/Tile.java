@@ -35,7 +35,7 @@ public class Tile {
 	/**
 	 * @param tileTyp the tileTyp to set
 	 */
-	void setTileTyp(int tileTyp) {
+	public void setTileTyp(int tileTyp) {
 		this.tileTyp = tileTyp;
 	}
 

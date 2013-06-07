@@ -63,7 +63,7 @@ public class Map
 		sekundenTakt=0;//damit das Blinken immer auf schwarz beginnt und gleichmaeßig startet
 	}
 	
-/*	public void spielerTodAnimation(float frametime)//Blinken fuer Spielertod
+	public void spielerTodAnimation(float frametime)//Blinken fuer Spielertod
 	{
 		sekundenTakt+=frametime;
 		if(sekundenTakt>=2)sekundenTakt=0;
@@ -73,7 +73,7 @@ public class Map
 			{
 				for(int y = 0; y <= y_Tiles; y++)
 				{
-					tiles[x][y].setTex(5);
+					tiles[x][y].setTileTyp(101);
 				}
 			}
 		}else if(spielertot)//sekundentakt zwischen 1und 2 ist hier klar und muss nicht nochmal geprueft werden
@@ -82,7 +82,7 @@ public class Map
 			{
 				for(int y = 0; y <=y_Tiles; y++)
 				{
-					tiles[x][y].setTex(6);
+					tiles[x][y].setTileTyp(102);
 				}
 			}
 		}
@@ -94,7 +94,7 @@ public class Map
 		{
 			for(int y = 0;y<=y_Tiles;y++)
 			{
-				tiles[x][y].setErr();
+				tiles[x][y] = TileSpawner.Err(x, y);
 			}
 		}
 	}
@@ -102,13 +102,13 @@ public class Map
 	public void setWin(){ 		//Pokale Pokale Pokale
 		for(int x = 0; x<=x_Tiles;x++)
 		{
-			for(int y = 0;y<y_Tiles;y++)
+			for(int y = 0;y<=y_Tiles;y++)
 			{
-				tiles[x][y].setWintile();
+				tiles[x][y].setTileTyp(7);
 			}
 		}
 	}
-*/
+
 	public static String getCurrentMap() {
 		return currentMap;
 	}

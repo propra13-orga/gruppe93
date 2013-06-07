@@ -51,6 +51,12 @@ class TileTextur {
 				return exit;
 			case 7:
 				return pokal;
+				
+			case 101:
+				return tot;
+			case 102:
+				return tot2;
+				
 			default:
 				return err;
 		}

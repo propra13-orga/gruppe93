@@ -45,14 +45,13 @@ public class TileSpawner{
 	public static Tile Exit(int positionX, int positionY)
 	{
 		Tile Exit = new Tile(6,positionX, positionY);
-		Exit.setBlockiert(true);
+		Exit.setExit(true);
 		return Exit;
 	}	
 	
 	public static Tile WinTile(int positionX, int positionY)
 	{
 		Tile Win = new Tile(7,positionX, positionY);
-		Win.setBlockiert(true);
 		return Win;
 	}	
 	
