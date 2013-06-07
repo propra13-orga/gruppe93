@@ -59,8 +59,8 @@ public class Frame extends JFrame{
 	
 	
 	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen zunaechst falscher Insets
-//		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Groeﬂe + Randeinrueckungen, damit der Sichtbare bereich genau die eingegebene Groeﬂe hat
-		setExtendedState(MAXIMIZED_BOTH);
+		setSize(800, 600);
+		setExtendedState(MAXIMIZED_BOTH);		
 		//resizable, weil es nach dem einfuehren der Kamera keinen Unterschied mehr macht
 //		setResizable(false);	//kann erst hier hin, weil sonst beim Maximieren die Windows Taskleiste unsichtbar wird
 	}
