@@ -16,6 +16,8 @@ public class Gegner {
 	private float entfernung; //entfernung zwischen Gegner und Spieler
 	private int gegnergeschwindigkeit;
 	private float zufallszahl; //fuer zufallsbasierte Bewegung 
+	private float zufallszahl2;
+	private float zufallszahl3;
 	private float reichweite=700; //legt fast ab welcher Entfernung zum Spieler die Gegner angreifen
 	float leben; 
 	private List<Gegner> Enemys;
@@ -87,7 +89,7 @@ public class Gegner {
 		            bounding.y = (int)f_Gegnerposy_y;}
 		}
 		if (gegnerid==2){ //Bewegung Dragoran
-			  if(Math.sqrt((Player.getBounding().x-f_Gegnerposy_x)*(Player.getBounding().x-f_Gegnerposy_x)+(Player.getBounding().y-f_Gegnerposy_y)*(Player.getBounding().y-f_Gegnerposy_y))<reichweite){
+			  if(entfernung<reichweite){
 				    xadd=(Player.getBounding().x-f_Gegnerposy_x)/entfernung;
 				    yadd=(Player.getBounding().y-f_Gegnerposy_y)/entfernung;
 				
@@ -99,10 +101,13 @@ public class Gegner {
 		            if(yadd<0&&xadd<0)animationsrichtung=3;
 		            if(yadd>0&&xadd<0)animationsrichtung=0;
 		            if(yadd>0&&xadd>0)animationsrichtung=1;
-		        }
-			  if (zeitBisZurNächstenAnimation>0.3){
-			  Zaubern.add(new Zauber(f_Gegnerposy_x, f_Gegnerposy_y, xadd*1000, yadd*1000, 3, Zaubern));
+		            if (zeitBisZurNächstenAnimation>0.3){
+		            	zufallszahl2=(float)(Math.random());
+		            	zufallszahl3=(float)(Math.random());
+					 Zaubern.add(new Zauber(f_Gegnerposy_x, f_Gegnerposy_y, xadd*1000*zufallszahl2, yadd*1000*zufallszahl3, 3, Zaubern));
+				  }
 			  }
+			 
 		}
 		
 		

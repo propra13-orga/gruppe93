@@ -41,7 +41,7 @@ public class Zauber {
 		bounding = new Rectangle((int)x, (int)y, bimg2.getWidth(), bimg2.getHeight());
 		}
 		if (zauberid==3){
-		darfexistieren=(float)8;
+		darfexistieren=(float)2;
 		bounding = new Rectangle((int)x, (int)y, bimg3.getWidth(), bimg3.getHeight());
 		}
 		this.f_playposx = x;
