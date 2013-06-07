@@ -16,18 +16,18 @@ public class Gegner {
 	private float entfernung; //entfernung zwischen Gegner und Spieler
 	private int gegnergeschwindigkeit;
 	private float zufallszahl; //fuer zufallsbasierte Bewegung 
-	private float zufallszahl2;
-	private float zufallszahl3;
+	private float zufallszahl2;//fuer  zufallsbasierte Geschosse
+	private float zufallszahl3;//fuer  zufallsbasierte Geschosse
 	private float reichweite=700; //legt fast ab welcher Entfernung zum Spieler die Gegner angreifen
 	float leben; 
 	private List<Gegner> Enemys;
 	private List<Zauber>Zaubern;
-	private static float zeitBisZurNächstenAnimation = (float) -0.5;
-	private final static float Animationsdauer = 0.5f;
-	private int animationsrichtung=1;
-	private int gegnerid;
-	private float xadd;
-	private float yadd;
+	private static float zeitBisZurNächstenAnimation = (float) -0.5; //Zählt mit frametime hoch um zu entscheiden wann welche Animation kommt
+	private final static float Animationsdauer = 0.5f; //Wie lange ein Animationsdurchgang dauert d.h 4 Bilder in x Sekunden
+	private int animationsrichtung=1; // Animationsrichtungen 1-4 für 4 Richtungen
+	private int gegnerid; //Entscheidet welcher Gegner spawnt
+	private float xadd; //x Abstand zum Spieler
+	private float yadd; //y Abstand zum Spieler
 	
 	static {
 		try {
@@ -97,10 +97,12 @@ public class Gegner {
 					f_Gegnerposy_y=f_Gegnerposy_y+yadd*gegnergeschwindigkeit*timeSinceLastFrame;
 					bounding.x = (int)f_Gegnerposy_x;
 		            bounding.y = (int)f_Gegnerposy_y;
+		            //Animationsrichtung
 		            if(yadd<0&&xadd>0)animationsrichtung=2;
 		            if(yadd<0&&xadd<0)animationsrichtung=3;
 		            if(yadd>0&&xadd<0)animationsrichtung=0;
 		            if(yadd>0&&xadd>0)animationsrichtung=1;
+		            //zufallsbasierte Geschossrichtung
 		            if (zeitBisZurNächstenAnimation>0.3){
 		            	zufallszahl2=(float)(Math.random());
 		            	zufallszahl3=(float)(Math.random());
@@ -115,7 +117,7 @@ public class Gegner {
 	    
 	    if(leben<0){
 			Enemys.remove(this);}
-	    
+	    //Animationszähler
 		zeitBisZurNächstenAnimation=zeitBisZurNächstenAnimation+timeSinceLastFrame;
 		if(zeitBisZurNächstenAnimation>Animationsdauer)zeitBisZurNächstenAnimation = (float) -0.5;
 		
