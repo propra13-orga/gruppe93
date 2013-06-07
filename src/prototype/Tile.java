@@ -36,16 +36,16 @@ public class Tile {
 	// Texturen laden
 	static{
 		try{
-			err = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyerr.png"));
-			floor = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyfloor.png"));
-			wall = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglywall.png"));
-			trap = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglytrap.png"));
-			exit = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyexit.png"));
-			tot = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot.png"));
-			tot2 = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/tot2.png"));
-			teleporter = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyteleporter.png"));
-			pokal = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/pokal.png"));
-			shop = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/uglyshop.png"));
+			err = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglyerr.png"));
+			floor = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglyfloor.png"));
+			wall = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglywall.png"));
+			trap = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglytrap.png"));
+			exit = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglyexit.png"));
+			tot = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/tot.png"));
+			tot2 = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/tot2.png"));
+			teleporter = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglyteleporter.png"));
+			pokal = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/pokal.png"));
+			shop = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglyshop.png"));
 			
 			}catch (IOException e) {e.printStackTrace();}
 		
