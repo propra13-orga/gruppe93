@@ -24,7 +24,7 @@ public class Zauber {
 		try {
 			bimg = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Zauber.png"));
 			bimg2 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/circle.png"));
-			bimg3 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Dragoran/Dragoranspell.png"));
+			bimg3 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Dragoran/Dragoranspell3.png"));
 			} catch (IOException e) {e.printStackTrace();}
         }
 	
@@ -42,7 +42,7 @@ public class Zauber {
 		}
 		if (zauberid==3){
 		darfexistieren=(float)2;
-		bounding = new Rectangle((int)x, (int)y, bimg3.getWidth(), bimg3.getHeight());
+		bounding = new Rectangle((int)x-5, (int)y-5, bimg3.getWidth()-10, bimg3.getHeight()-10);
 		}
 		this.f_playposx = x;
 		this.f_playposy = y;
