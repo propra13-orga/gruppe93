@@ -107,39 +107,39 @@ public class MapLoader {
 						switch(tileType)
 						{
 						case 1:
-							Map.tiles[x][y]=new Boden(x*40, y*40);
+							Map.tiles[x][y]=TileSpawner.Boden(x*40, y*40);
 							break;
 						case 2:
-							Map.tiles[x][y]=new Wand(x*40, y*40);
+							Map.tiles[x][y]=TileSpawner.Wand(x*40, y*40);
 							break;
 						case 3:
-							Map.tiles[x][y]=new Trap(x*40, y*40);
+							Map.tiles[x][y]=TileSpawner.Trap(x*40, y*40);
 							break;
 						case 4:
-							Map.tiles[x][y]=new Teleporter(x*40, y*40);
+							Map.tiles[x][y]=TileSpawner.Teleporter(x*40, y*40);
 							break;
 						case 5:
-							Map.tiles[x][y]=new Exit(x*40, y*40);
+							Map.tiles[x][y]=TileSpawner.Shop(x*40, y*40);
 							break;
 						case 6:
-							Map.tiles[x][y]=new WinTile(x*40, y*40);
+							Map.tiles[x][y]=TileSpawner.Exit(x*40, y*40);
 							break;
 						case 7:
-							Map.tiles[x][y]=new ShopTile(x*40, y*40);
+							Map.tiles[x][y]=TileSpawner.WinTile(x*40, y*40);
 							break;
 						
 							// Spawnt Gegner
 						case 51:
-							Map.tiles[x][y]=new Boden(x*40, y*40);
+							Map.tiles[x][y]=TileSpawner.Boden(x*40, y*40);
 							Enemys.add(new Gegner(x*40+10, y*40+10,1, Enemys));
 							break;
 						case 52:
-							Map.tiles[x][y]=new Boden(x*40, y*40);
+							Map.tiles[x][y]=TileSpawner.Boden(x*40, y*40);
 							Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys));
 							break;
 					
 						default:
-							Map.tiles[x][y]=new Err(x*40, y*40);
+							Map.tiles[x][y]=TileSpawner.Err(x*40, y*40);
 							break;
 							
 					

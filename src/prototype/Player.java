@@ -80,10 +80,10 @@ public class Player {
 		schussGen();// Schuesse werden hier generiert
 		
 		// Kolisionen
-		if(bCheck){
-			Kollision();
-			gegnerKolision();	
-		}
+		//if(bCheck){
+		//	Kollision();
+		//	gegnerKolision();	
+		//}
 
 		//Taste erzeugt Gegner zum testen
 		
@@ -125,7 +125,7 @@ public class Player {
 		bounding.y = ((int) f_playposy)+10;
 	}
 	
-	private void Kollision(){
+/*	private void Kollision(){
 		for(int tilex = kartenPositionX; tilex <= kartenPositionX + 1; tilex++){//hier muss <= geprueft werden, damit an kartenposition+1 auch eine ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als Ausgangsbasis nehmen
 			if(tilex<0)tilex=0;	//sorgt dafuer, daß beim ueberschreiten der levelgrenzen kein absturz auftritt
 			if(tilex>x_Tiles)break;
@@ -177,7 +177,7 @@ public class Player {
 			}
 		}
 		richtungWurdeGeaendert=false;
-	}	
+	}	*/
 
 	//Hilfe fuer den Workaround
 	public boolean getNeedPort(){

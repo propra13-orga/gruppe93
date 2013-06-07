@@ -6,7 +6,7 @@ public class Map
 {
 	private boolean spielertot=false;
 	private float sekundenTakt=0;
-	static TileMethod[][] tiles;
+	static Tile[][] tiles;
 	private static int x_Tiles;
 	private static int y_Tiles;
 	private static String nextmap;
@@ -18,24 +18,24 @@ public class Map
 		Map.nextmap=nextmap;
 		Map.x_Tiles = x_Tiles+1;
 		Map.y_Tiles = y_Tiles+1;
-		tiles =new  TileMethod[x_Tiles+2][y_Tiles+2];
+		tiles =new  Tile[x_Tiles+2][y_Tiles+2];
 		for(int x = 1; x <= x_Tiles; x++)
 		{
 			for(int y = 0; y <= y_Tiles; y++){
-				tiles[x][y] = new  Boden(x*40, y*40); //Initialisiert jedes Feld der nutzbaren Map
+				tiles[x][y] = TileSpawner.Boden(x*40, y*40); //Initialisiert jedes Feld der nutzbaren Map
 			}
 		}
 		
 		// Zwangsrahmen
 		
-		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0]= new Wand(x*40, 0*40);}
-		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1]= new Wand(x*40, (y_Tiles+1)*40);}
-		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y]= new Wand(0*40, y*40);}
-		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y]= new Wand((x_Tiles+1)*40, y*40);}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0]= TileSpawner.Wand(x*40, 0);}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1]= TileSpawner.Wand(x*40, (y_Tiles+1)*40);}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y]= TileSpawner.Wand(0*40, y*40);}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y]= TileSpawner.Wand((x_Tiles+1)*40, y*40);}
 	}
 
 	//METHODEN
-	public TileMethod getTile(int x,int y)
+	public Tile getTile(int x,int y)
 	{
 		return tiles[x][y];
 	}
