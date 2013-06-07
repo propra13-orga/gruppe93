@@ -1,12 +1,19 @@
 package prototype;
-
+ /*
+  * 
+  *  Zwischenspeicher fuer Shopport
+  * 
+  */
+ 
 public class Shop {
-	private static boolean inShop;
+	private static boolean inShop = false;
 	private static float f_playPosx;
 	private static float f_playPosy;
 	private static String lastMap;
-	private static long lastPort;
+	private static long nextPort = 0;
 	
+	
+	//Setter und Getter nothing new here
 	public static boolean isInShop() {
 		return inShop;
 	}
@@ -39,14 +46,14 @@ public class Shop {
 		Shop.lastMap = lastMap;
 	}
 	
-	public static long getLastPort() {
-		return lastPort;
+	public static long getNextPort() {
+		return nextPort;
 	}
 	
-	public static void setLastPort(long lastPort) {
-		Shop.lastPort = lastPort;
+	public static void setNextPort(long lastPort) {
+		Shop.nextPort = lastPort;
 	}
-	
+
 	
 
 }

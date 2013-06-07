@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 public class Zauber {
 	private static BufferedImage bimg;
 	private static BufferedImage bimg2;
+	private static BufferedImage bimg3;
 	private float f_Zaubergeschwindigkeitx;
 	private float f_Zaubergeschwindigkeity;
 	private Rectangle bounding;
@@ -23,6 +24,7 @@ public class Zauber {
 		try {
 			bimg = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Zauber.png"));
 			bimg2 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/circle.png"));
+			bimg3 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Dragoran/Dragoranspell3.png"));
 			} catch (IOException e) {e.printStackTrace();}
         }
 	
@@ -37,6 +39,10 @@ public class Zauber {
 		if (zauberid==2){
 		darfexistieren=(float)8;
 		bounding = new Rectangle((int)x, (int)y, bimg2.getWidth(), bimg2.getHeight());
+		}
+		if (zauberid==3){
+		darfexistieren=(float)2;
+		bounding = new Rectangle((int)x-5, (int)y-5, bimg3.getWidth()-10, bimg3.getHeight()-10);
 		}
 		this.f_playposx = x;
 		this.f_playposy = y;
@@ -61,10 +67,16 @@ public class Zauber {
 	}
 	
 	public BufferedImage getLook(){
+		if (zauberid==3){
+			return bimg3;
+		}
+		if (zauberid==1){
 		return bimg;
-	}
-	public BufferedImage getLook2(){
-		return bimg2;
+		}
+	
+	    return bimg2;
+
+	
 	}
 	public int getX(){
 		return (int)f_playposx;

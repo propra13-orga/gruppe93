@@ -35,6 +35,12 @@ public class Frame extends JFrame{
 		this.Zaubern=Zaubern;
 		this.Enemys=Enemys;
 		
+		createBufferStrategy(2);	//Buffer mit 2 Bildern wird erzeugt
+		buff= getBufferStrategy();	//buff wird die Bufferstrat
+		
+		setSize(800, 600);			//Damit man, wenn man vom maximierten Modus umschaltet immernoch ne Fenstergröße hat
+		setExtendedState(MAXIMIZED_BOTH);	//Frame über den ges. Bilfdschirm
+		
 //		screen = new Screen();
 //		screen.setBounds(0, 0, worldsizex, worldsizey);
 //		add(screen);
@@ -51,22 +57,6 @@ public class Frame extends JFrame{
 	
 	
 	//METHODEN
-	public void makeBuff(){		//kann das auch in den konstruktor...test spaeter
-		createBufferStrategy(2);
-		buff= getBufferStrategy();
-	}
-	
-	
-	
-	public void setSizeRight(int x,int y){		//kann nicht im Konstruktor gemacht werden, wegen zunaechst falscher Insets
-//		setSize(x+getInsets().left+getInsets().right, y+getInsets().top+getInsets().bottom);	//Groeße + Randeinrueckungen, damit der Sichtbare bereich genau die eingegebene Groeße hat
-		setExtendedState(MAXIMIZED_BOTH);
-		//resizable, weil es nach dem einfuehren der Kamera keinen Unterschied mehr macht
-//		setResizable(false);	//kann erst hier hin, weil sonst beim Maximieren die Windows Taskleiste unsichtbar wird
-	}
-	
-	
-	
 	public void nextFrame(){
 		fensterbreite=getWidth();
 		fensterhoehe=getHeight();
@@ -86,11 +76,11 @@ public class Frame extends JFrame{
 			}
 		}
 		
-		dieKugelnUndLeiste(g);//wegen der Komplexitaet ist die Statusleiste in ihrer eigenen Funktion
+		
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
 			if (b.getid()==2){
-			g.drawImage(b.getLook2(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 			
 			}
 		}
@@ -98,14 +88,16 @@ public class Frame extends JFrame{
 		
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner c = Enemys.get(i);
-			g.drawImage(Gegner.getLook(), c.getX()+xVerschiebung, c.getY()+yVerschiebung, null);
+			g.drawImage(c.getLook(), c.getX()+xVerschiebung, c.getY()+yVerschiebung, null);
 	    }
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
-			if (b.getid()==1){
+			if (b.getid()==1 || b.getid()==3 ){
 			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 		}	}
-	
+		
+		//am Ende, damit da nix drübermalt
+		dieKugelnUndLeiste(g);//wegen der Komplexitaet ist die Statusleiste in ihrer eigenen Funktion
 		
 		g.dispose();	//gibt den zeichner wieder frei
 		buff.show();	//zeigt dann den aktuellen buffer

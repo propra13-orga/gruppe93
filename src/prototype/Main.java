@@ -12,8 +12,6 @@ public class Main {
 	
 	public static void main(String[] args) {	
 		//Start Einstellungen 
-		int worldsizex = 1280;
-		int worldsizey = 720;
 		int startx = 120;
 		int starty = 550;
 		List<Zauber> Zaubern= new LinkedList<Zauber>();
@@ -26,8 +24,7 @@ public class Main {
 //		Initialisierung
 		Map map=new Map(x_MapTiles,y_MapTiles,null);		
 		Player player = new Player(startx,starty,map, Zaubern, Enemys);
-		MapLoader ml = new MapLoader(map, player, Enemys);
-		Shop shop = new Shop();
+		MapLoader ml = new MapLoader(map, player, Enemys, Zaubern);
 		
 		ml.lesen("maps/test.txt");
 		
@@ -38,11 +35,6 @@ public class Main {
 		
 		//Spielfenster
 		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern,Enemys);
-		spielFenster.makeBuff();		//ist fuer die BufferStrategy zwingend erforderlich
-		spielFenster.setSizeRight(worldsizex,worldsizey);	//Groeﬂe kann erst hier gesetzt werden, weil im Konstruktor die Insets des Fenster noch falsch sind
-//		spielFenster.setLocationRelativeTo(null);
-		
-		
 		
 		//Frameratelimiter Variabeln
 		float timeSinceLastFrame =0;
@@ -85,7 +77,6 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
-			if(Keyboard.isKeyDown(KeyEvent.VK_0))map = new Map(15, 15,null);
 			
 			// Hintergrund Musik wird abgespielt
 			if(playMusic==false){
@@ -119,19 +110,19 @@ public class Main {
 				
 			}
 					
-		if(player.getNeedPort()){
-			ml.lesen(map.getNextMap(),false);
-			player.setNeedPort();
-		}
-		
-		if(player.getGoShop()){
-			ml.lesen("maps/shop.txt", true);
-			player.setGoShop();
-		}
-		if(player.getResetMap()){
-			ml.lesen("maps/test.txt");
-			player.setResetMap();
-		}
+			if(player.getNeedPort()){
+				ml.lesen(map.getNextMap());
+				player.setNeedPort();
+			}
+			
+			if(player.getGoShop()){
+				ml.lesen("maps/shop.txt", true);
+				player.setGoShop();
+			}
+			if(player.getResetMap()){
+				ml.lesen("maps/test.txt");
+				player.setResetMap();
+			}
 		
 
 			
@@ -142,6 +133,6 @@ public class Main {
 				try {Thread.sleep(15-berechnungsZeit);} 
 				catch (InterruptedException e) {e.printStackTrace();}
 			}	
-		}
+		}//WHILE ENDE
 	}//main Ende
 }
