@@ -94,7 +94,11 @@ public class MapLoader {
 					// Spawnt Gegnet
 					case 51:
 						map.getTile(x, y).setFloor();
-						Enemys.add(new Gegner(x*40+10, y*40+10, Enemys));
+						Enemys.add(new Gegner(x*40+10, y*40+10,1, Enemys));
+						break;
+					case 52:
+						map.getTile(x, y).setFloor();
+						Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys));
 						break;
 					
 					default:

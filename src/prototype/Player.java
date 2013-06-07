@@ -92,7 +92,7 @@ public class Player {
 		
 		if(ZeitSeitLetztemSchuss>schussfrequenz&&Keyboard.isKeyDown(KeyEvent.VK_1)){
 			ZeitSeitLetztemSchuss = 0;
-			Enemys.add(new Gegner( 600, 600, Enemys));
+			Enemys.add(new Gegner( 600, 600,1, Enemys));
 		}
 	
 		if (leben<0) spielerTot();
