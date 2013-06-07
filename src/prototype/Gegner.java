@@ -104,9 +104,14 @@ public class Gegner {
 		            if(yadd>0&&xadd>0)animationsrichtung=1;
 		            //zufallsbasierte Geschossrichtung
 		            if (zeitBisZurNächstenAnimation>0.3){
-		            	zufallszahl2=(float)(Math.random());
-		            	zufallszahl3=(float)(Math.random());
-					 Zaubern.add(new Zauber(f_Gegnerposy_x, f_Gegnerposy_y, xadd*1000*zufallszahl2, yadd*1000*zufallszahl3, 3, Zaubern));
+		            	zufallszahl2=(float)(Math.random()+(float)0.1);
+		            	zufallszahl3=(float)(Math.random()+(float)0.1);
+	            	if (animationsrichtung==0 || animationsrichtung==3){
+			     		 Zaubern.add(new Zauber(f_Gegnerposy_x, f_Gegnerposy_y, xadd*800*zufallszahl2, yadd*800*zufallszahl3, 3, Zaubern));
+	                 	}
+		            	if(animationsrichtung==1 || animationsrichtung==2){
+		           		 Zaubern.add(new Zauber(f_Gegnerposy_x+50, f_Gegnerposy_y, xadd*1000*zufallszahl2, yadd*1000*zufallszahl3, 3, Zaubern));
+		            	}
 				  }
 			  }
 			 
