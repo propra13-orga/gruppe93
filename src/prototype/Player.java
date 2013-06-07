@@ -119,8 +119,8 @@ public class Player {
 		
 		
 		
-		kartenPositionX=(short)(f_playposx/map.getTile(0, 0).getfeldGroesse());
-		kartenPositionY=(short)(f_playposy/map.getTile(0, 0).getfeldGroesse());
+		kartenPositionX=(short)(f_playposx/40);
+		kartenPositionY=(short)(f_playposy/40);
 		bounding.x = ((int) f_playposx)+10;	//Aufgrund der Natur des Bilds machen diese einrueckungen Sinn
 		bounding.y = ((int) f_playposy)+10;
 	}
@@ -132,7 +132,8 @@ public class Player {
 			for(int tiley = kartenPositionY; tiley<= kartenPositionY + 1; tiley++){
 				if(tiley<0)tiley=0;
 				if(tiley>y_Tiles)break;
-				if(map.getTile(tilex, tiley).isBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){//wenn hier abprallen gebrueft werden muss und die richtung nicht schon geaendert wurde
+				if(map.getTile(tilex, tiley).isBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))//wenn hier abprallen gebrueft werden muss und die richtung nicht schon geaendert wurde
+				{
 					Rectangle inter =  bounding.intersection(map.getTile(tilex, tiley).getBounding());
 					richtungWurdeGeaendert=true; //wichtig, damit pro vorgang nicht doppelt die richtung umgedreht wird
 					if(inter.getWidth()>inter.getHeight())
@@ -160,10 +161,12 @@ public class Player {
 					break;
 				}
 				// Teleporterpruefung
+				
 				if(map.getTile(tilex, tiley).isTeleporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
 					needPort = true; 
 				}
 				//Shoppruefung
+				
 				if(map.getTile(tilex, tiley).isShop()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())&&(System.currentTimeMillis()-Shop.getNextPort())>0){
 					goShop = true;
 				}

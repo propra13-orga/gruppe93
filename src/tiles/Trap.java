@@ -8,6 +8,7 @@ public class Trap extends TileType{
 
 	public Trap(int positionX, int positionY) {
 		super(positionX, positionY);
+		isTrap=true;
 		try {
 			bimg = ImageIO.read(Trap.class.getClassLoader().getResourceAsStream("gfx/Tiles/trap.png"));
 		} catch (IOException e) {

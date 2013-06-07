@@ -8,6 +8,7 @@ public class ShopTile extends TileType{
 
 	public ShopTile(int positionX, int positionY) {
 		super(positionX, positionY);
+		isShop=true;
 		try {
 			bimg = ImageIO.read(ShopTile.class.getClassLoader().getResourceAsStream("gfx/Tiles/shop.png"));
 		} catch (IOException e) {

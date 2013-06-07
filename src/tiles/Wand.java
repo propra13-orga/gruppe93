@@ -8,7 +8,7 @@ public class Wand extends TileType{
 
 	public Wand(int positionX, int positionY) {
 		super(positionX, positionY);
-		isBlockiert = false;
+		isBlockiert = true;
 		try {
 			bimg = ImageIO.read(Wand.class.getClassLoader().getResourceAsStream("gfx/Tiles/wall.png"));
 		} catch (IOException e) {
