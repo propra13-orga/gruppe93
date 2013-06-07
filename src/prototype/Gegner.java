@@ -19,6 +19,7 @@ public class Gegner {
 	private float reichweite=700; //legt fast ab welcher Entfernung zum Spieler die Gegner angreifen
 	float leben; 
 	private List<Gegner> Enemys;
+	private List<Zauber>Zaubern;
 	private static float zeitBisZurNächstenAnimation = -2;
 	private final static float Animationsdauer = 0.5f;
 	private int animationsrichtung=1;
@@ -49,8 +50,8 @@ public class Gegner {
 			} catch (IOException e) {e.printStackTrace();}
 }
 	
-	public Gegner( float Gegnerx, float Gegnery,int Gegnerid, List<Gegner> Enemys){
-
+	public Gegner( float Gegnerx, float Gegnery,int Gegnerid, List<Gegner> Enemys,List<Zauber>Zaubern){
+        this.Zaubern=Zaubern;
 		this.gegnerid=Gegnerid;
 		this.f_Gegnerposy_x = Gegnerx;
 		this.f_Gegnerposy_y = Gegnery;
@@ -87,11 +88,11 @@ public class Gegner {
 		}
 		if (gegnerid==2){ //Bewegung Dragoran
 			  if(Math.sqrt((Player.getBounding().x-f_Gegnerposy_x)*(Player.getBounding().x-f_Gegnerposy_x)+(Player.getBounding().y-f_Gegnerposy_y)*(Player.getBounding().y-f_Gegnerposy_y))<reichweite){
-				    xadd=(Player.getBounding().x-f_Gegnerposy_x)/entfernung*timeSinceLastFrame;
-				    yadd=(Player.getBounding().y-f_Gegnerposy_y)/entfernung*timeSinceLastFrame;
+				    xadd=(Player.getBounding().x-f_Gegnerposy_x)/entfernung;
+				    yadd=(Player.getBounding().y-f_Gegnerposy_y)/entfernung;
 				
-					f_Gegnerposy_x=f_Gegnerposy_x+xadd*gegnergeschwindigkeit;
-					f_Gegnerposy_y=f_Gegnerposy_y+yadd*gegnergeschwindigkeit;
+					f_Gegnerposy_x=f_Gegnerposy_x+xadd*gegnergeschwindigkeit*timeSinceLastFrame;
+					f_Gegnerposy_y=f_Gegnerposy_y+yadd*gegnergeschwindigkeit*timeSinceLastFrame;
 					bounding.x = (int)f_Gegnerposy_x;
 		            bounding.y = (int)f_Gegnerposy_y;
 		            if(yadd<0&&xadd>0)animationsrichtung=2;
@@ -99,6 +100,9 @@ public class Gegner {
 		            if(yadd>0&&xadd<0)animationsrichtung=0;
 		            if(yadd>0&&xadd>0)animationsrichtung=1;
 		        }
+			  if (zeitBisZurNächstenAnimation>0.3){
+			  Zaubern.add(new Zauber(f_Gegnerposy_x, f_Gegnerposy_y, xadd*1000, yadd*1000, 3, Zaubern));
+			  }
 		}
 		
 		

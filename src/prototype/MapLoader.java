@@ -130,11 +130,11 @@ public class MapLoader {
 							// Spawnt Gegner
 						case 51:
 							map.getTile(x, y).setFloor();
-							Enemys.add(new Gegner(x*40+10, y*40+10,1, Enemys));
+							Enemys.add(new Gegner(x*40+10, y*40+10,1, Enemys,Zaubern));
 							break;
 						case 52:
 							map.getTile(x, y).setFloor();
-							Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys));
+							Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys,Zaubern));
 							break;
 					
 						default:
