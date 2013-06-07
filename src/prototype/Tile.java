@@ -138,9 +138,9 @@ public class Tile {
 		isShop = true;
 	}
 	
-	//Getter und Setter
-	public static BufferedImage getLook(int tex){
-		switch(tex){
+/*	//Getter und Setter
+	public static BufferedImage getLook(BufferedImage bufferedImage){
+		switch(bufferedImage){
 		case 1:
 			return floor;
 		case 2:
@@ -163,7 +163,7 @@ public class Tile {
 			return err;			
 		}
 	}
-	
+*/	
 	public void setTex(int tex){
 		textur = tex;
 	}

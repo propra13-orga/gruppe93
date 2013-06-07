@@ -6,9 +6,9 @@ import javax.imageio.ImageIO;
 
 import prototype.Tile;
 
-public class Shop extends TileType{
+public class ShopTile extends TileType{
 
-	public Shop(int positionX, int positionY) {
+	public ShopTile(int positionX, int positionY) {
 		super(positionX, positionY);
 		try {
 			bimg = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/shop.png"));

@@ -3,6 +3,7 @@ package prototype;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
+import tiles.*;
 
 public class MapLoader {
 
@@ -106,39 +107,39 @@ public class MapLoader {
 						switch(tileType)
 						{
 						case 1:
-							map.getTile(x, y).setFloor();
+							Map.tiles[x][y]=new Boden(x*40, y*40);
 							break;
 						case 2:
-							map.getTile(x, y).setWall();
+							Map.tiles[x][y]=new Wand(x*40, y*40);
 							break;
 						case 3:
-							map.getTile(x, y).setTrap();
+							Map.tiles[x][y]=new Trap(x*40, y*40);
 							break;
 						case 4:
-							map.getTile(x, y).setTeleporter();
+							Map.tiles[x][y]=new Teleporter(x*40, y*40);
 							break;
 						case 5:
-							map.getTile(x, y).setExit();
+							Map.tiles[x][y]=new Exit(x*40, y*40);
 							break;
 						case 6:
-							map.getTile(x, y).setWintile();
+							Map.tiles[x][y]=new Boden(x*40, y*40);
 							break;
 						case 7:
-							map.getTile(x, y).setShop();
+							Map.tiles[x][y]=new ShopTile(x*40, y*40);
 							break;
 						
 							// Spawnt Gegner
 						case 51:
-							map.getTile(x, y).setFloor();
-							Enemys.add(new Gegner(x*40+10, y*40+10,1, Enemys));
+							Map.tiles[x][y]=new Boden(x*40, y*40);
+							//Enemys.add(new Gegner(x*40+10, y*40+10,1, Enemys));
 							break;
 						case 52:
-							map.getTile(x, y).setFloor();
-							Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys));
+							Map.tiles[x][y]=new Boden(x*40, y*40);
+							//Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys));
 							break;
 					
 						default:
-							map.getTile(x, y).setErr();
+							Map.tiles[x][y]=new Err(x*40, y*40);
 							break;
 							
 					
@@ -147,6 +148,7 @@ public class MapLoader {
 				}
 			}
 			s.close();
-		}catch (Exception e){map.errMap();}
+		}catch (Exception e){//map.errMap();
+		}
 	}
 }

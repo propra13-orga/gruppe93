@@ -61,7 +61,7 @@ public class Main {
 			
 			//Updates der Objekte und Akteure
 			player.update(timeSinceLastFrame);
-			map.spielerTodAnimation(timeSinceLastFrame);
+			//map.spielerTodAnimation(timeSinceLastFrame);
 			for(int i = 0; i<Zaubern.size(); i++){
 				Zaubern.get(i).update(timeSinceLastFrame);}
 			for(int i = 0; i<Enemys.size(); i++){
@@ -99,16 +99,17 @@ public class Main {
 			
 			//Aufruf bei Sieg 
 			//TODO Verlagern
-			if(map.getTile(1, 1).getTex()==8){
-				try {
-					Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE")); //Ruft Youtube auf siehe Java API
-				} catch (IOException | URISyntaxException e) {}
-				try {
-					Thread.sleep(8000);
-				} catch (InterruptedException e) {}
-				System.exit(0);
-				
-			}
+	//		if(map.getTile(1, 1).getTex()==8){
+	//			try {
+	//				Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE")); //Ruft Youtube auf siehe Java API
+	//			} catch (IOException | URISyntaxException e) {}
+	//			try {
+	//				Thread.sleep(8000);
+	//			} catch (InterruptedException e) {}
+	//			System.exit(0);
+	//			
+	//		}
+		
 					
 			if(player.getNeedPort()){
 				ml.lesen(map.getNextMap());

@@ -1,8 +1,9 @@
 package tiles;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-abstract class TileType {
+abstract class TileType implements TileMethod{
 	
 	protected int positionX;
 	protected int positionY;
@@ -12,31 +13,25 @@ abstract class TileType {
 	protected boolean isTeleporter=false;
 	protected boolean isExit=false;
 	protected boolean isShop=false;
+	protected Rectangle bounding;
+	protected final short feldGroesse=40;
 	
 	public TileType(int positionX, int positionY)
 	{
 		this.positionX=positionX;
 		this.positionY=positionY;
+		bounding = new Rectangle(positionX, positionY, feldGroesse, feldGroesse);
 	}
-
-	/**
-	 * @return the positionX
-	 */
-	public int getPositionX() {
+	
+	public int getPositionX(){
 		return positionX;
 	}
 
-	/**
-	 * @return the positionY
-	 */
 	public int getPositionY() {
 		return positionY;
 	}
 	
-	/**
-	 * @return the Textur
-	 */
-	public static BufferedImage getBimg() {
+	public BufferedImage getBimg() {
 		return bimg;
 	}
 	
@@ -50,16 +45,18 @@ abstract class TileType {
 
 	public boolean isTeleporter() {
 		return isTeleporter;
-	}
+	} 
 
 	public boolean isExit() {
 		return isExit;
-	}
+	} 
 
 	public boolean isShop() {
 		return isShop;
+	} 
+	
+	public Rectangle getBounding() {
+		return bounding;
 	}
 	
-	
-
 }
