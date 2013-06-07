@@ -1,5 +1,10 @@
 package prototype;
-
+ /*
+  * 
+  *  Zwischenspeicher fuer Shopport
+  * 
+  */
+ 
 public class Shop {
 	private static boolean inShop = false;
 	private static float f_playPosx;
@@ -7,6 +12,8 @@ public class Shop {
 	private static String lastMap;
 	private static long nextPort = 0;
 	
+	
+	//Setter und Getter nothing new here
 	public static boolean isInShop() {
 		return inShop;
 	}
