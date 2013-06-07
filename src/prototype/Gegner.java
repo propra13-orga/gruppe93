@@ -20,7 +20,7 @@ public class Gegner {
 	float leben; 
 	private List<Gegner> Enemys;
 	private List<Zauber>Zaubern;
-	private static float zeitBisZurNächstenAnimation = -2;
+	private static float zeitBisZurNächstenAnimation = (float) -0.5;
 	private final static float Animationsdauer = 0.5f;
 	private int animationsrichtung=1;
 	private int gegnerid;
@@ -112,7 +112,7 @@ public class Gegner {
 			Enemys.remove(this);}
 	    
 		zeitBisZurNächstenAnimation=zeitBisZurNächstenAnimation+timeSinceLastFrame;
-		if(zeitBisZurNächstenAnimation>Animationsdauer)zeitBisZurNächstenAnimation = -2;
+		if(zeitBisZurNächstenAnimation>Animationsdauer)zeitBisZurNächstenAnimation = (float) -0.5;
 		
 	}
 	
