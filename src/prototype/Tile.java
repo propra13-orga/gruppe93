@@ -36,16 +36,16 @@ public class Tile {
 	// Texturen laden
 	static{
 		try{
-			err = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglyerr.png"));
-			floor = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglyfloor.png"));
-			wall = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglywall.png"));
-			trap = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglytrap.png"));
-			exit = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglyexit.png"));
+			err = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/err.png"));
+			floor = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/floor.png"));
+			wall = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/wall.png"));
+			trap = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/trap.png"));
+			exit = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/exit.png"));
 			tot = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/tot.png"));
 			tot2 = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/tot2.png"));
-			teleporter = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglyteleporter.png"));
+			teleporter = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/teleporter.png"));
 			pokal = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/pokal.png"));
-			shop = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/uglyshop.png"));
+			shop = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/shop.png"));
 			
 			}catch (IOException e) {e.printStackTrace();}
 		
