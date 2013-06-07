@@ -12,7 +12,6 @@ public class MapLoader {
 	private Player player;
 	private List<Gegner> Enemys;
 	private List<Zauber> Zaubern;
-	private Shop shop;
 	private boolean comeback = false;
 	
 	MapLoader(Map map, Player player,List<Gegner> Enemys,List<Zauber> Zaubern)

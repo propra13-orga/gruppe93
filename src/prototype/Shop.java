@@ -1,7 +1,5 @@
 package prototype;
 
-import java.util.List;
-
 public class Shop {
 	private static boolean inShop = false;
 	private static float f_playPosx;
