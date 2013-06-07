@@ -31,8 +31,8 @@ public class MapLoader {
 	{
 		int sizeX;
 		int sizeY;
-		int startX;
-		int startY;
+		float startX;
+		float startY;
 		String nextMap;
 		
 		//intern Store
@@ -81,15 +81,15 @@ public class MapLoader {
 				//Modifikatoren fuer internen Rueckport
 				
 				if(comeback){
-					startX = (int)Shop.getF_playPosx();
-					startY = (int)Shop.getF_playPosy();
+					startX = Shop.getF_playPosx();
+					startY = Shop.getF_playPosy();
 					comeback = false;
 				}
 				
 				//Neuaufbau
 				
 				map = new Map(sizeX,sizeY,nextMap);		//Map Laden
-				player.setPosition((float)startX ,(float)startY);	//Spieler Spawnen lassen
+				player.setPosition(startX ,startY);	//Spieler Spawnen lassen
 				player.stop();
 				Map.setCurrentMap(filename);
 				

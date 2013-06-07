@@ -77,7 +77,6 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
 			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
-			if(Keyboard.isKeyDown(KeyEvent.VK_0))map = new Map(15, 15,null);
 			
 			// Hintergrund Musik wird abgespielt
 			if(playMusic==false){
