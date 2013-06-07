@@ -26,8 +26,7 @@ public class Main {
 //		Initialisierung
 		Map map=new Map(x_MapTiles,y_MapTiles,null);		
 		Player player = new Player(startx,starty,map, Zaubern, Enemys);
-		MapLoader ml = new MapLoader(map, player, Enemys);
-		//Shop shop = new Shop();
+		MapLoader ml = new MapLoader(map, player, Enemys, Zaubern);
 		
 		ml.lesen("maps/test.txt");
 		

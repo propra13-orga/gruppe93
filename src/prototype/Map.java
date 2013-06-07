@@ -9,7 +9,7 @@ public class Map
 	private static int x_Tiles;
 	private static int y_Tiles;
 	private static String nextmap;
-	//private String currentMap;
+	private static String currentMap;
 	
 	
 	//KONSTRUKTOR
@@ -106,5 +106,13 @@ public class Map
 				tiles[x][y].setWintile();
 			}
 		}
+	}
+
+	public static String getCurrentMap() {
+		return currentMap;
+	}
+
+	public static void setCurrentMap(String currentMap) {
+		Map.currentMap = currentMap;
 	}
 }      

@@ -8,18 +8,19 @@ public class MapLoader {
 
 	
 	private Map map;
-
 	private InputStream files;
 	private Player player;
 	private List<Gegner> Enemys;
+	private List<Zauber> Zaubern;
+	private Shop shop;
+	private boolean comeback = false;
 	
-	MapLoader(Map map, Player player,List<Gegner> Enemys)
+	MapLoader(Map map, Player player,List<Gegner> Enemys,List<Zauber> Zaubern)
 	{
 		this.map = map;
-		
 		this.player = player;
 		this.Enemys = Enemys;
-
+		this.Zaubern = Zaubern;
 	}
 	
 	public void lesen(String filename)
@@ -29,87 +30,123 @@ public class MapLoader {
 
 	public void lesen(String filename, boolean intern)
 	{
-		// Loescht Gegner
+		int sizeX;
+		int sizeY;
+		int startX;
+		int startY;
+		String nextMap;
 		
-		int gegneranzahl=Enemys.size();// Festellung der Gegnerzahl
+		//intern Store
+		if(intern)
+		{
+			if(Shop.isInShop()){
+				filename = Shop.getLastMap();
+				Shop.setInShop(false);
+				Shop.setNextPort(3000+System.currentTimeMillis());
+				comeback = true;
+			}else{
+				Shop.setInShop(true);
+				Shop.setF_playPosx(player.posX());
+				Shop.setF_playPosy(player.getY());
+				Shop.setLastMap(Map.getCurrentMap());
+				Shop.setNextPort(3000+System.currentTimeMillis());
+			}
+		}
+		
+		// Loescht Gegner und Zauber
+		
+	
+		int gegneranzahl=Enemys.size();
 		for(int i = 0; i<gegneranzahl; i++){
 		Enemys.remove(0);}
+				
+		int zauberzahl=Zaubern.size();
+		for(int i = 0; i < zauberzahl; i++){
+			Zaubern.remove(0);}
 		
-		
-		//intern = intern;
 	
-		
-		files = MapLoader.class.getClassLoader().getResourceAsStream(filename);
-		Scanner s = new Scanner(files);
-		
-		if(s.hasNext())
-		{
+		try{
+			files = MapLoader.class.getClassLoader().getResourceAsStream(filename);
+			Scanner s = new Scanner(files);
 			
-			//Header Lesen und verarbeiten 
-			int sizeX = s.nextInt();   	//Hoehe in Tiles
-			int sizeY = s.nextInt();	//Breite in Tiles
-			int startX = s.nextInt();	//Spawnposition 
-			int startY = s.nextInt();	// s.o.
-			//int sizeCheck = sizeX*sizeY;
-			int tileType;
-			String nextMap = s.next();
-				//  Ort der naechsten Karte
-			if(nextMap.equals(null))map.setWin();
-			player.setPosition((float)startX ,(float)startY);	//Spieler Spawnen lassen
-			
-			
-			map = new Map(sizeX,sizeY,nextMap);		//Map Laden
-			map.setNextMap(nextMap);
-			
-			for(int y= 1; y<=sizeY;y++)
+			if(s.hasNext())
 			{
-				for(int x = 1; x<=sizeX;x++)
+				
+				//Header Lesen und verarbeiten 
+				sizeX = s.nextInt();   	//Hoehe in Tiles
+				sizeY = s.nextInt();	//Breite in Tiles
+				startX = s.nextInt();	//Spawnposition 
+				startY = s.nextInt();	// s.o.
+				nextMap = s.next();//  Ort der naechsten Karte
+				
+				//Modifikatoren fuer internen Rueckport
+				
+				if(comeback){
+					startX = (int)Shop.getF_playPosx();
+					startY = (int)Shop.getF_playPosy();
+				}
+				
+				//Neuaufbau
+				
+				map = new Map(sizeX,sizeY,nextMap);		//Map Laden
+				player.setPosition((float)startX ,(float)startY);	//Spieler Spawnen lassen
+				player.stop();
+				Map.setCurrentMap(filename);
+				
+				
+				//Tiles füllen
+				
+				int tileType;
+				for(int y= 1; y<=sizeY;y++)
 				{
-					if(s.hasNextInt()){tileType = s.nextInt();}else{tileType = 0;}
-					
-					switch(tileType)
+					for(int x = 1; x<=sizeX;x++)
 					{
-					case 1:
-						map.getTile(x, y).setFloor();
-						break;
-					case 2:
-						map.getTile(x, y).setWall();
-						break;
-					case 3:
-						map.getTile(x, y).setTrap();
-						break;
-					case 4:
-						map.getTile(x, y).setTeleporter();
-						break;
-					case 5:
-						map.getTile(x, y).setExit();
-						break;
-					case 6:
-						map.getTile(x, y).setWintile();
-						break;
-					case 7:
-						map.getTile(x, y).setShop();
-						break;
+						if(s.hasNextInt()){tileType = s.nextInt();}else{tileType = 0;}
 						
-					// Spawnt Gegnet
-					case 51:
-						map.getTile(x, y).setFloor();
-						Enemys.add(new Gegner(x*40+10, y*40+10,1, Enemys));
-						break;
-					case 52:
-						map.getTile(x, y).setFloor();
-						Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys));
-						break;
-					
-					default:
-						map.getTile(x, y).setErr();
-						break;
+						switch(tileType)
+						{
+						case 1:
+							map.getTile(x, y).setFloor();
+							break;
+						case 2:
+							map.getTile(x, y).setWall();
+							break;
+						case 3:
+							map.getTile(x, y).setTrap();
+							break;
+						case 4:
+							map.getTile(x, y).setTeleporter();
+							break;
+						case 5:
+							map.getTile(x, y).setExit();
+							break;
+						case 6:
+							map.getTile(x, y).setWintile();
+							break;
+						case 7:
+							map.getTile(x, y).setShop();
+							break;
 						
+							// Spawnt Gegner
+						case 51:
+							map.getTile(x, y).setFloor();
+							Enemys.add(new Gegner(x*40+10, y*40+10,1, Enemys));
+							break;
+						case 52:
+							map.getTile(x, y).setFloor();
+							Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys));
+							break;
 					
+						default:
+							map.getTile(x, y).setErr();
+							break;
+							
+					
+						}
 					}
 				}
 			}
-		}
-		s.close();
+			s.close();
+		}catch (Exception e){map.errMap();}
 	}
 }

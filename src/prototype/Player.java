@@ -187,7 +187,7 @@ public class Player {
 
 					needPort = true; //Maploader Workaround
 				}
-				if(map.getTile(tilex, tiley).getIsShop()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+				if(map.getTile(tilex, tiley).getIsShop()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())&&(System.currentTimeMillis()-Shop.getNextPort())>0){
 					goShop = true;
 				}
 			}
@@ -373,7 +373,14 @@ public class Player {
 		f_playposx = f_posx;
 		f_playposy = f_posy;
 		return;
-		
+	}
+	
+	public float posX(){
+		return f_playposx;
+	}
+	
+	public float posY(){
+		return f_playposy;
 	}
 	
 	public boolean getResetMap(){
@@ -383,5 +390,10 @@ public class Player {
 	public void setResetMap(){
 		resetMap = false;
 	}
-
+	
+	public void stop(){
+		speedX = 0;
+		speedY = 0;
+	}
+	
 }

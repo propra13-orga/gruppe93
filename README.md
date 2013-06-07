@@ -5,4 +5,4 @@
 ###Steuerung:
 
 Laufen: WASD
-Schießen: Pfeiltasten
+Fernkampf: Pfeiltasten
