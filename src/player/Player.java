@@ -19,6 +19,17 @@ class Player {
 	private static Map map;
 	private static List<Zauber>Zaubern;
 	private static List<Gegner>Enemys;
+	
+	public Player(int PositionX, int PositionY, Map map, List<Gegner> Enemys, List<Zauber> Zaubern) {
+		
+		Player.f_PlayerPositionX = PositionX;
+		Player.f_PlayerPositionY = PositionY;
+		
+		Player.map = map;
+		Player.Enemys = Enemys;
+		Player.Zaubern = Zaubern;
+	}
+		
 	/**
 	 * @return the f_PlayerPositionX
 	 */
@@ -103,7 +114,13 @@ class Player {
 	static void setZaubern(List<Zauber> zaubern) {
 		Zaubern = zaubern;
 	}
-	
+	/**
+	 * @return the map
+	 */
+	static Map getMap() {
+		return map;
+	}
+
 	
 	
 }
