@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-
+@Deprecated
 public class Player {
 	
 	private static Rectangle bounding;

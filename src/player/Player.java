@@ -1,13 +1,17 @@
 package player;
 
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import prototype.Map;
 import prototype.Gegner;
 import prototype.Zauber;
 
-class Player {
+public class Player {
 	
 	private static float f_PlayerPositionX;
 	private static float f_PlayerPositionY;
@@ -15,19 +19,27 @@ class Player {
 	private static float f_mana;
 	private static float f_geld;
 	private static Rectangle bounding;
+	private static BufferedImage bimg;
 	
 	private static Map map;
 	private static List<Zauber>Zaubern;
 	private static List<Gegner>Enemys;
 	
-	public Player(int PositionX, int PositionY, Map map, List<Gegner> Enemys, List<Zauber> Zaubern) {
+	public Player(int PositionX, int PositionY, Map map, List<Zauber> Zaubern, List<Gegner> Enemys) {
+		
+		try {
+			bimg= ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/Rossi.png"));
+		} catch (IOException e) {e.printStackTrace();}
 		
 		Player.f_PlayerPositionX = PositionX;
 		Player.f_PlayerPositionY = PositionY;
+		Player.bounding = new Rectangle(PositionX+10,PositionY+10,bimg.getWidth()-20,bimg.getHeight()-20);
 		
 		Player.map = map;
 		Player.Enemys = Enemys;
 		Player.Zaubern = Zaubern;
+		
+
 	}
 		
 	/**
@@ -120,6 +132,12 @@ class Player {
 	static Map getMap() {
 		return map;
 	}
+
+	static BufferedImage getBimg() {
+		return bimg;
+	}
+
+	
 
 	
 	

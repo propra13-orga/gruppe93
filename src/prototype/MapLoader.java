@@ -3,6 +3,8 @@ package prototype;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
+
+import player.PlayerIO;
 import tiles.*;
 
 public class MapLoader {
@@ -10,15 +12,13 @@ public class MapLoader {
 	
 	private Map map;
 	private InputStream files;
-	private Player player;
 	private List<Gegner> Enemys;
 	private List<Zauber> Zaubern;
 	private boolean comeback = false;
 	
-	MapLoader(Map map, Player player,List<Gegner> Enemys,List<Zauber> Zaubern)
+	MapLoader(Map map,List<Gegner> Enemys,List<Zauber> Zaubern)
 	{
 		this.map = map;
-		this.player = player;
 		this.Enemys = Enemys;
 		this.Zaubern = Zaubern;
 	}
@@ -46,8 +46,8 @@ public class MapLoader {
 				comeback = true;
 			}else{
 				Shop.setInShop(true);
-				Shop.setF_playPosx(player.posX());
-				Shop.setF_playPosy(player.getY());
+				Shop.setF_playPosx(PlayerIO.getF_PlayerPostionX());
+				Shop.setF_playPosy(PlayerIO.getF_PlayerPostionY());
 				Shop.setLastMap(Map.getCurrentMap());
 				Shop.setNextPort(3000+System.currentTimeMillis());
 			}
@@ -90,8 +90,7 @@ public class MapLoader {
 				//Neuaufbau
 				
 				map = new Map(sizeX,sizeY,nextMap);		//Map Laden
-				player.setPosition(startX ,startY);	//Spieler Spawnen lassen
-				player.stop();
+				PlayerIO.playerTeleport(startX, startY);	//Spieler Spawnen lassen
 				Map.setCurrentMap(filename);
 				
 				

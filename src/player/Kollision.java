@@ -8,7 +8,7 @@ import tiles.Tile;
 
 class Kollision {
 	
-	void kollision(){
+	static void kollision(){
 		
 		int kartenPositionX = (int) (Player.getF_PlayerPositionX()/Tile.getFeldGroesse());
 		int kartenPositionY = (int) (Player.getF_PlayerPositionY()/Tile.getFeldGroesse());

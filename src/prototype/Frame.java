@@ -13,11 +13,12 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 //import javax.swing.JLabel;
 
+import player.PlayerIO;
+
 public class Frame extends JFrame{
 	private static final long serialVersionUID = 1L;	//noetig, damit kein Warning angezeigt wird
 	//DEKLARATION
 	private BufferStrategy buff;
-	final Player player;
 	private Map map;
 	private List<Zauber>Zaubern;
 	private List<Gegner>Enemys;
@@ -39,7 +40,7 @@ public class Frame extends JFrame{
 
 	
 	
-	public Frame(String name,Player player, Map map, List<Zauber>Zaubern,List<Gegner>Enemys){
+	public Frame(String name,Map map, List<Zauber>Zaubern,List<Gegner>Enemys){
 		super(name);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -60,7 +61,6 @@ public class Frame extends JFrame{
 		
 		
 		addKeyListener(new Keyboard());
-		this.player = player;
 		this.map=map;
 		
 
@@ -71,8 +71,8 @@ public class Frame extends JFrame{
 	public void nextFrame(){
 		fensterbreite=getWidth();
 		fensterhoehe=getHeight();
-		xVerschiebung=(-player.getX()+fensterbreite/2-player.getBimg().getWidth()/2);	//diese Werte liefern unter Beruecksichtigung der Faktoren wie Spielerposition, Insets, Fenstergroeﬂe, Spielergroeﬂe und Statusleistendicke die noetigen Verschiebungen aller Objekte
-		yVerschiebung=(-player.getY()+(fensterhoehe-kugelgroesse)/2-player.getBimg().getHeight()/2+getInsets().top-getInsets().bottom);
+		xVerschiebung=(-PlayerIO.getPlayerPositionX()+fensterbreite/2-PlayerIO.getBimg().getWidth()/2);	//diese Werte liefern unter Beruecksichtigung der Faktoren wie Spielerposition, Insets, Fenstergroeﬂe, Spielergroeﬂe und Statusleistendicke die noetigen Verschiebungen aller Objekte
+		yVerschiebung=(-PlayerIO.getPlayerPositionY()+(fensterhoehe-kugelgroesse)/2-PlayerIO.getBimg().getHeight()/2+getInsets().top-getInsets().bottom);
 		Graphics g=buff.getDrawGraphics();//uebergibt ein malobjekt aus der bufferstrat
 		
 		g.setColor(Color.BLACK);
@@ -95,7 +95,7 @@ public class Frame extends JFrame{
 			
 			}
 		}
-		g.drawImage(player.getBimg(), (fensterbreite-player.getBimg().getWidth())/2, (fensterhoehe-kugelgroesse-player.getBimg().getHeight())/2+getInsets().top-getInsets().bottom, null);	//Player in der Mitte des Bildes
+		g.drawImage(PlayerIO.getBimg(), (fensterbreite-PlayerIO.getBimg().getWidth())/2, (fensterhoehe-kugelgroesse-PlayerIO.getBimg().getHeight())/2+getInsets().top-getInsets().bottom, null);	//Player in der Mitte des Bildes
 		
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner c = Enemys.get(i);
@@ -131,7 +131,7 @@ public class Frame extends JFrame{
         gbi.setComposite(ac);
 
         gbi.setPaint(Color.blue);
-        gbi.fillRect(0, kugelgroesse*fensterhoehe/1080-((int)player.getmana()*kugelgroesse*fensterhoehe/1080/1000), kugelgroesse, kugelgroesse); 
+        gbi.fillRect(0, kugelgroesse*fensterhoehe/1080-((int)PlayerIO.getF_Mana()*kugelgroesse*fensterhoehe/1080/1000), kugelgroesse, kugelgroesse); 
     
         g.drawImage(buffImg, getWidth()-453*fensterbreite/1920-kugelgroesse*fensterbreite/1920, getHeight()-kugelgroesse*fensterhoehe/1080-getInsets().bottom-10*fensterhoehe/1080, null);  
 			
@@ -148,7 +148,7 @@ public class Frame extends JFrame{
         gbi2.setComposite(ac);
 
         gbi2.setPaint(Color.red);
-        gbi2.fillRect(0, kugelgroesse*fensterhoehe/1080-((int)player.getleben()*kugelgroesse*fensterhoehe/1080/1000), kugelgroesse, kugelgroesse); 
+        gbi2.fillRect(0, kugelgroesse*fensterhoehe/1080-((int)PlayerIO.getF_Leben()*kugelgroesse*fensterhoehe/1080/1000), kugelgroesse, kugelgroesse); 
     
         g.drawImage(buffImg2, 478*fensterbreite/1920, getHeight()-kugelgroesse*fensterhoehe/1080-getInsets().bottom-10*fensterhoehe/1080, null);
 	}

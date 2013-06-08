@@ -11,7 +11,7 @@ class Schiessen {
 	private static final float schussfrequenz= 0.5f;
 	private static float ZeitSeitLetztemSchuss;
 	
-	void schussGen(float frametime)
+	static void schussGen(float frametime)
 	{
 		List<Zauber>Zaubern=Player.getZaubern();
 		float mana = Player.getF_mana();
