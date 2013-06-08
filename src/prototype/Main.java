@@ -69,7 +69,7 @@ public class Main {
 	//			Zaubern.get(i).update(timeSinceLastFrame);}
 	//		for(int i = 0; i<Enemys.size(); i++){
 	//			Enemys.get(i).update(timeSinceLastFrame);}
-	//		spielFenster.nextFrame();			//naechster frame
+			spielFenster.nextFrame();			//naechster frame
 			
 			
 			
