@@ -17,7 +17,7 @@ public class Gegner {
 	private Rectangle bounding;
 	private float existiertseit;
 	private float entfernung; //entfernung zwischen Gegner und Spieler
-	private int gegnergeschwindigkeit;
+	private float gegnergeschwindigkeit;
 	private float zufallszahl; //fuer zufallsbasierte Bewegung 
 	private float zufallszahl2;//fuer  zufallsbasierte Geschosse
 	private float reichweite=700; //legt fast ab welcher Entfernung zum Spieler die Gegner angreifen
@@ -34,6 +34,7 @@ public class Gegner {
 	private float phasecounter=0;
 	private float winkel=90; //steuert Streuung der Feuerbälle von Dragoran in Grad
 	private float Dragorangeschossgeschwindigkeit=800;
+	private float speedchange=1;
 	static {
 		try {
 			Gengar = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/gengar.png"));
@@ -106,15 +107,15 @@ public class Gegner {
 		
 		if (gegnerid==1){ //Bewegung Gengar
 	          if(entfernung<reichweite){
-		            f_Gegnerposy_x= (f_Gegnerposy_x+xadd*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4)); //-(x-2)^2+4
-		            f_Gegnerposy_y=f_Gegnerposy_y+yadd*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
+		            f_Gegnerposy_x= (f_Gegnerposy_x+xadd*timeSinceLastFrame*gegnergeschwindigkeit*speedchange+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4)); //-(x-2)^2+4
+		            f_Gegnerposy_y=f_Gegnerposy_y+yadd*timeSinceLastFrame*gegnergeschwindigkeit*speedchange+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
 		            bounding.x = (int)f_Gegnerposy_x;
 		            bounding.y = (int)f_Gegnerposy_y;}
 		}
 		if (gegnerid==2){ //Bewegung Dragoran
 				
-					f_Gegnerposy_x=f_Gegnerposy_x+xadd*gegnergeschwindigkeit*timeSinceLastFrame;
-					f_Gegnerposy_y=f_Gegnerposy_y+yadd*gegnergeschwindigkeit*timeSinceLastFrame;
+					f_Gegnerposy_x=f_Gegnerposy_x+xadd*gegnergeschwindigkeit*speedchange*timeSinceLastFrame;
+					f_Gegnerposy_y=f_Gegnerposy_y+yadd*gegnergeschwindigkeit*speedchange*timeSinceLastFrame;
 					bounding.x = (int)f_Gegnerposy_x;
 		            bounding.y = (int)f_Gegnerposy_y;
 		            //Animationsrichtung
@@ -140,6 +141,7 @@ public class Gegner {
 		            
 				  
 			  }
+		           
 			 
 		}
 		
@@ -153,6 +155,8 @@ public class Gegner {
 		if(zeitBisZurNächstenAnimation>Animationsdauer)zeitBisZurNächstenAnimation = (float) -0.5;
 		phasecounter=phasecounter+timeSinceLastFrame;
 		if(phasecounter>phase)  phasecounter=0;
+		
+		 speedchange=1;
 
 	}
 	
@@ -203,5 +207,10 @@ public class Gegner {
 	}
 	public int getid(){
 		return gegnerid;
+	}
+
+	public void setSpeed(float d) {
+		speedchange=d;
+		
 	}
 }

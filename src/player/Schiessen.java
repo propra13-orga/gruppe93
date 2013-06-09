@@ -56,13 +56,29 @@ class Schiessen {
 			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1, Zaubern));
 			mana -= 30;
 		}
-		if(Keyboard.isKeyDown(KeyEvent.VK_SPACE)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>800)
+		if(Keyboard.isKeyDown(KeyEvent.VK_1)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>500)
 		{
 			ZeitSeitLetztemSchuss = 0;
 			float Zauberrichtung_x=0;
 			float Zauberrichtung_y=0;
 			Zaubern.add(new Zauber(f_playposx-100, f_playposy-100, Zauberrichtung_x, Zauberrichtung_y,2, Zaubern));
-			mana -= 800;
+			mana -= 500;
+		}
+		if(Keyboard.isKeyDown(KeyEvent.VK_2)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>500)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			float Zauberrichtung_x=0;
+			float Zauberrichtung_y=0;
+			Zaubern.add(new Zauber(f_playposx-100, f_playposy-100, Zauberrichtung_x, Zauberrichtung_y,4, Zaubern));
+			mana -= 500;
+		}
+		if(Keyboard.isKeyDown(KeyEvent.VK_3)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>500)
+		{
+			ZeitSeitLetztemSchuss = 0;
+			float Zauberrichtung_x=0;
+			float Zauberrichtung_y=0;
+			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,5, Zaubern));
+			mana -=500;
 		}
 		
 		Player.setF_mana(mana);

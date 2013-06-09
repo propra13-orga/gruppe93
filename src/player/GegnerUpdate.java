@@ -15,23 +15,28 @@ class GegnerUpdate {
 		
 	
 		//Kollision fuer Spieler-Gegner und Zauber-Gegner und Gegnerzauber-Spieler
-		
+        if (Zauber.getbesiegbar()==true){
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner e = Enemys.get(i);
 			
 			if(Player.getBounding().intersects(e.getBounding())){
+			
 				Player.setF_leben(Player.getF_leben()-10f);
+				
 			}
 		}
 		for(int a=0; a<Zaubern.size(); a++){
 			Zauber f = Zaubern.get(a);
 			if(Player.getBounding().intersects(f.getBounding())){
 				if (f.getid()==3){
+			
 					Player.setF_leben(Player.getF_leben()-50f);
+					
 					
 				}
 			}
 		}
+        }
 		
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner e = Enemys.get(i);
@@ -49,6 +54,10 @@ class GegnerUpdate {
 		    	else
 		    	if (f.getid()==2){
 					e.setLeben(2);
+			    	}
+		    	else
+		    	if (f.getid()==4){
+					e.setSpeed((float) 0.4);
 			    	}
 				//Schussschaden an Gegner
 				
