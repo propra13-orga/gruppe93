@@ -1,5 +1,9 @@
 package tiles;
 
+/*
+ * Texturenspeicher fuer Felder
+ */
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -34,6 +38,8 @@ class TileTextur {
 			}catch (IOException e) {e.printStackTrace();}
 
 	}
+	
+	//Rueckgabe der Texturen and Frame
 	
 	static BufferedImage getTextur(int TileType){
 		switch(TileType){

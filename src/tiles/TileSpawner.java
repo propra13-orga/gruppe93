@@ -1,5 +1,9 @@
 package tiles;
 
+/*
+ *  Sammlung von Konstructorenaufrufen fuer verschiedene Felder
+ */
+
 public class TileSpawner{
 	
 	public static Tile Err(int positionX, int positionY)

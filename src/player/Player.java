@@ -1,5 +1,11 @@
 package player;
 
+/*
+ * Basisdatenspeicher
+ * 
+ * Zugriff aus anderen Packages NUR über PlayerIO herstellen!
+ */
+
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,13 +19,15 @@ import prototype.Zauber;
 
 public class Player {
 	
-	private static float f_PlayerPositionX;
-	private static float f_PlayerPositionY;
-	private static float f_leben = 1000;
-	private static float f_mana = 1000;
-	private static float f_geld;
-	private static Rectangle bounding;
-	private static BufferedImage bimg;
+	
+	
+	private static float f_PlayerPositionX;		// Position auf X
+	private static float f_PlayerPositionY;		// Position auf Y
+	private static float f_leben = 1000;		// Spieler Lebenspunkte 
+	private static float f_mana = 1000;			// Spieler Mana
+	private static float f_geld;				// Spieler Geld
+	private static Rectangle bounding;			// Rechteck für Kollisionen
+	private static BufferedImage bimg;			// Textur
 	
 	private static Map map;
 	private static List<Zauber>Zaubern;

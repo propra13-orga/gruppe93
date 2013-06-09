@@ -1,5 +1,9 @@
 package player;
 
+/*
+ * Kommunikationsklasse: Fuer die Kommunikation des Player Packages mit anderen Packages.
+ */
+
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 

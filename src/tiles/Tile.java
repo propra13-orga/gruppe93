@@ -5,18 +5,20 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
 	
-	private int tileTyp;
-	private int positionX;
-	private int positionY;
-	private Rectangle bounding;
-	private static short feldGroesse=40;
+	//Basisdaten
 	
-	//Modificatoren
-	private boolean blockiert = false;
-	private boolean trap = false; 
-	private boolean tranporter = false;
-	private boolean exit = false;
-	private boolean shop = false;
+	private int tileTyp;					// Legt Textur fest
+	private int positionX;					// Position auf X
+	private int positionY;					// Position auf Y
+	private Rectangle bounding;				// Aussenwand fuer Kollisionen
+	private static short feldGroesse=40;	// Seitenllänge
+	
+	//Modifikatoren
+	private boolean blockiert = false;		// Legt fest ob Feld passierbar ist
+	private boolean trap = false; 			// Legt fest ob Feld eine Falle ist
+	private boolean tranporter = false;		// Legt fest ob Feld ein Teleporter ist
+	private boolean exit = false;			// Legt fest ob Feld ein Ende ist
+	private boolean shop = false;			// Legt fest ob FEld ein Shop eingang ist
 	
 	Tile(int tileTyp, int positionX, int positionY){
 		this.setTileTyp(tileTyp);
