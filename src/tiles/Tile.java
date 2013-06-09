@@ -18,7 +18,8 @@ public class Tile {
 	private boolean trap = false; 			// Legt fest ob Feld eine Falle ist
 	private boolean tranporter = false;		// Legt fest ob Feld ein Teleporter ist
 	private boolean exit = false;			// Legt fest ob Feld ein Ende ist
-	private boolean shop = false;			// Legt fest ob FEld ein Shop eingang ist
+	private boolean shop = false;			// Legt fest ob Feld ein Shop eingang ist
+	private boolean checkpoint = false;		// Legt fest ob Feld ein Checkpoint ist
 	
 	Tile(int tileTyp, int positionX, int positionY){
 		this.setTileTyp(tileTyp);
@@ -158,6 +159,14 @@ public class Tile {
 	 */
 	public static short getFeldGroesse(){
 		return feldGroesse;
+	}
+
+	public boolean isCheckpoint() {
+		return checkpoint;
+	}
+
+	public void setCheckpoint(boolean checkpoint) {
+		this.checkpoint = checkpoint;
 	}
 	
 

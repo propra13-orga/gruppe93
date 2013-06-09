@@ -57,6 +57,12 @@ public class TileSpawner{
 	{
 		Tile Win = new Tile(7,positionX*40, positionY*40);
 		return Win;
-	}	
+	}
+	
+	public static Tile Checkpoint(int positionX, int positionY)
+	{
+		Tile Checkpoint = new Tile (8, positionX*40, positionY*40);
+		return Checkpoint;
+	}
 	
 }

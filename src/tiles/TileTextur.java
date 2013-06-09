@@ -21,6 +21,7 @@ class TileTextur {
 	private static BufferedImage teleporter;
 	private static BufferedImage pokal;
 	private static BufferedImage shop;
+	private static BufferedImage checkpoint;
 	
 	static{
 		try{
@@ -34,6 +35,7 @@ class TileTextur {
 			teleporter = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/teleporter.png"));
 			pokal = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/pokal.png"));
 			shop = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/shop.png"));
+			checkpoint = ImageIO.read(Tile.class.getClassLoader().getResourceAsStream("gfx/Tiles/checkpoint.png"));
 
 			}catch (IOException e) {e.printStackTrace();}
 
@@ -57,6 +59,8 @@ class TileTextur {
 				return exit;
 			case 7:
 				return pokal;
+			case 8:
+				return checkpoint;
 				
 			case 101:
 				return tot;

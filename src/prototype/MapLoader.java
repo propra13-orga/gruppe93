@@ -125,6 +125,10 @@ public class MapLoader {
 						case 7:
 							Map.tiles[x][y]=TileSpawner.WinTile(x, y);
 							break;
+						case 8:
+							Map.tiles[x][y]=TileSpawner.Checkpoint(x, y);
+							break;
+							
 						
 							// Spawnt Gegner
 						case 51:
