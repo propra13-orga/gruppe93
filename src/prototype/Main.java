@@ -15,8 +15,8 @@ public class Main {
 	
 	public static void main(String[] args) {	
 		//Start Einstellungen 
-		int startx = 120;
-		int starty = 550;
+		int startx = 0;
+		int starty = 0;
 		List<Zauber> Zaubern= new LinkedList<Zauber>();
 		List<Gegner> Enemys= new LinkedList<Gegner>();
 		
@@ -65,10 +65,10 @@ public class Main {
 			//Updates der Objekte und Akteure
 			PlayerIO.playerUpdate(timeSinceLastFrame);
 	//		map.spielerTodAnimation(timeSinceLastFrame);
-	//		for(int i = 0; i<Zaubern.size(); i++){
-	//			Zaubern.get(i).update(timeSinceLastFrame);}
-	//		for(int i = 0; i<Enemys.size(); i++){
-	//			Enemys.get(i).update(timeSinceLastFrame);}
+			for(int i = 0; i<Zaubern.size(); i++){
+				Zaubern.get(i).update(timeSinceLastFrame);}
+			for(int i = 0; i<Enemys.size(); i++){
+				Enemys.get(i).update(timeSinceLastFrame);}
 			spielFenster.nextFrame();			//naechster frame
 			
 			
@@ -114,19 +114,19 @@ public class Main {
 			}
 		
 					
-	//		if(player.getNeedPort()){
-	//			ml.lesen(map.getNextMap());
-	//			player.setNeedPort();
-	//		}
-	//		
-	//		if(player.getGoShop()){
-	//			ml.lesen("maps/shop.txt", true);
-	//			player.setGoShop();
-	//		}
-	//		if(player.getResetMap()){
-	//			ml.lesen("maps/test.txt");
-	//			player.setResetMap();
-	//		}
+			if(Map.needPort){
+				ml.lesen(map.getNextMap());
+				Map.needPort = false;
+			}
+		
+			if(Map.goShop){
+				ml.lesen("maps/shop.txt", true);
+				Map.goShop = false;
+			}
+			if(Map.resetMap){
+				ml.lesen("maps/test.txt");
+				Map.resetMap =false;
+			}
 		
 
 			

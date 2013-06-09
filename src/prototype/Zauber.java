@@ -14,7 +14,7 @@ public class Zauber {
 	private float f_Zaubergeschwindigkeitx;
 	private float f_Zaubergeschwindigkeity;
 	private Rectangle bounding;
-	private List<Zauber> Zaubern;
+	private static List<Zauber> Zaubern;
 	private float f_playposx;
 	private float f_playposy;
 	private float existiertseit;
@@ -48,13 +48,13 @@ public class Zauber {
 		this.f_playposy = y;
 		this.f_Zaubergeschwindigkeitx = speedx;
 		this.f_Zaubergeschwindigkeity = speedy;
-		this.Zaubern = Zaubern;
+		this.setZaubern(Zaubern);
 	}
 	
 	public void update(float timeSinceLastFrame){
 		existiertseit+=timeSinceLastFrame;
 		if(existiertseit>darfexistieren){
-			Zaubern.remove(this);
+			getZaubern().remove(this);
 		}
 		f_playposx+=f_Zaubergeschwindigkeitx*timeSinceLastFrame;
 		f_playposy+=f_Zaubergeschwindigkeity*timeSinceLastFrame;
@@ -88,4 +88,14 @@ public class Zauber {
 	public int getid(){
 		return (int)zauberid;
 	}
+
+	public List<Zauber> getZaubern() {
+		return Zaubern;
+	}
+
+	public void setZaubern(List<Zauber> zaubern) {
+		Zaubern = zaubern;
+	}
+	
+
 }

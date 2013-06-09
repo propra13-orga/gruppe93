@@ -15,8 +15,8 @@ public class Player {
 	
 	private static float f_PlayerPositionX;
 	private static float f_PlayerPositionY;
-	private static float f_leben;
-	private static float f_mana;
+	private static float f_leben = 1000;
+	private static float f_mana = 1000;
 	private static float f_geld;
 	private static Rectangle bounding;
 	private static BufferedImage bimg;
@@ -137,8 +137,8 @@ public class Player {
 		return bimg;
 	}
 
-	
-
-	
+	static List<Gegner> getEnemys() {
+		return Enemys;
+	}
 	
 }

@@ -9,7 +9,7 @@ import prototype.Zauber;
 class Schiessen {
 	
 	private static final float schussfrequenz= 0.5f;
-	private static float ZeitSeitLetztemSchuss;
+	private static float ZeitSeitLetztemSchuss=1;
 	
 	static void schussGen(float frametime)
 	{
@@ -18,7 +18,8 @@ class Schiessen {
 		float f_playposx = Player.getF_PlayerPositionX();
 		float f_playposy = Player.getF_PlayerPositionY();
 		
-		
+		System.out.println(mana);
+		System.out.println(ZeitSeitLetztemSchuss);
 		
 		//Zauber generierung jetzt ueber Pfeiltasten und in eigener Methode
 		
@@ -29,6 +30,7 @@ class Schiessen {
 			float Zauberrichtung_y=-1000;
 			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,1,  Zaubern));
 			mana -= 30;
+			System.out.println("bla");
 		}
 		
 		if(Keyboard.isKeyDown(KeyEvent.VK_DOWN)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
@@ -67,6 +69,7 @@ class Schiessen {
 		}
 		
 		Player.setF_mana(mana);
+		ZeitSeitLetztemSchuss += frametime;
 		
 	}
 

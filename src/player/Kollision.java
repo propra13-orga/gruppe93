@@ -55,18 +55,18 @@ class Kollision {
 				
 				if(map.getTile(tilex, tiley).isTrap()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))
 				{
-					//spielerTot();
+					Player.setF_leben(0);
 					break;
 				}
 				// Teleporterpruefung
 				
 				if(map.getTile(tilex, tiley).isTranporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
-					//needPort = true; 
+					Map.needPort = true; 
 				}
 				//Shoppruefung
 				
 				if(map.getTile(tilex, tiley).isShop()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())&&(System.currentTimeMillis()-Shop.getNextPort())>0){
-					//goShop = true;
+					Map.goShop = true;
 				}
 				//Exitpruefung
 				if(map.getTile(tilex, tiley).isExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))map.setWin();
