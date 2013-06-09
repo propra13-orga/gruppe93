@@ -16,11 +16,11 @@ public class Main {
 
 	public static void main(String[] args) {	
 		
-		Menue m = new Menue();
+		//Menue m = new Menue();
 		
 		while(true){
 			
-		if(m.play){
+	//	if(m.play){
 		//Start Einstellungen 
 		int startx = 0;
 		int starty = 0;
@@ -143,7 +143,7 @@ public class Main {
 				try {Thread.sleep(15-berechnungsZeit);} 
 				catch (InterruptedException e) {e.printStackTrace();}
 			}
-		}
+		//}
 		}//WHILE ENDE
 		}
 	}//main Ende
