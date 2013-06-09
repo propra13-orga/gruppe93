@@ -22,7 +22,7 @@ class PlayerUpdate {
 			GegnerUpdate.gegnerKolision();
 		}
 			
-		if(Player.getF_mana()<1000)Player.setF_mana(Player.getF_mana()+manaRegenaration);
+		if(Player.getF_mana()<1000)Player.setF_mana(Player.getF_mana()+manaRegenaration*frametime);
 		if(Player.getF_leben()<=0)spielerTot();
 		
 	}
