@@ -34,6 +34,8 @@ public class Menue extends JFrame{
 		beenden.addActionListener(new ButtonListener());
 		add(beenden);
 		
+		play = false;
+		
 	}
 
 	
@@ -44,13 +46,8 @@ public class Menue extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 
 				if(e.getSource() == start){
-
-						/*
-						 * Wenn das Spiel ueber eine Klasse gestartet wird,
-						 * funktionieren die Tatatureingaben nicht mehr!
-						 */
-					//Game g = new Game();
-					dispose();
+					play = true;
+					setVisible(false);	
 			}
 			if(e.getSource() == beenden){
 				System.exit(0);
