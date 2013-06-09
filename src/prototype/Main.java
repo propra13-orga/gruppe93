@@ -7,13 +7,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
+import player.PlayerIO;
+import player.Player;
+
 
 public class Main {
 	
 	public static void main(String[] args) {	
 		//Start Einstellungen 
-		int startx = 120;
-		int starty = 550;
+		int startx = 0;
+		int starty = 0;
 		List<Zauber> Zaubern= new LinkedList<Zauber>();
 		List<Gegner> Enemys= new LinkedList<Gegner>();
 		
@@ -24,7 +27,8 @@ public class Main {
 //		Initialisierung
 		Map map=new Map(x_MapTiles,y_MapTiles,null);		
 		Player player = new Player(startx,starty,map, Zaubern, Enemys);
-		MapLoader ml = new MapLoader(map, player, Enemys, Zaubern);
+		MapLoader ml = new MapLoader(map, Enemys, Zaubern);
+		
 		
 		ml.lesen("maps/test.txt");
 		
@@ -34,7 +38,7 @@ public class Main {
 		boolean playMusic = false;
 		
 		//Spielfenster
-		Frame spielFenster = new Frame("Gruppe93",player, map, Zaubern,Enemys);
+		Frame spielFenster = new Frame("Gruppe93", map, Zaubern,Enemys);
 		
 		//Frameratelimiter Variabeln
 		float timeSinceLastFrame =0;
@@ -60,7 +64,7 @@ public class Main {
 			
 			
 			//Updates der Objekte und Akteure
-			player.update(timeSinceLastFrame);
+			PlayerIO.playerUpdate(timeSinceLastFrame);
 			map.spielerTodAnimation(timeSinceLastFrame);
 			for(int i = 0; i<Zaubern.size(); i++){
 				Zaubern.get(i).update(timeSinceLastFrame);}
@@ -74,9 +78,9 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_ESCAPE))System.exit(0);
 			
 			// Debugging-Hilfen spaeter entfernen
-			if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
-			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
-			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
+			if(Keyboard.isKeyDown(KeyEvent.VK_R))PlayerIO.respawn();
+			if(Keyboard.isKeyDown(KeyEvent.VK_K))PlayerIO.setBCheck(true);
+			if(Keyboard.isKeyDown(KeyEvent.VK_L))PlayerIO.setBCheck(false);
 			
 			// Hintergrund Musik wird abgespielt
 			if(playMusic==false){
@@ -99,29 +103,30 @@ public class Main {
 			
 			//Aufruf bei Sieg 
 			//TODO Verlagern
-			if(map.getTile(1, 1).getTex()==8){
+			if(map.getTile(1, 1).getTileTyp()==7){
 				try {
 					Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE")); //Ruft Youtube auf siehe Java API
-				} catch (IOException | URISyntaxException e) {}
+					} catch (IOException | URISyntaxException e) {}
 				try {
 					Thread.sleep(8000);
-				} catch (InterruptedException e) {}
+			} catch (InterruptedException e) {}
 				System.exit(0);
 				
 			}
+		
 					
-			if(player.getNeedPort()){
+			if(Map.needPort){
 				ml.lesen(map.getNextMap());
-				player.setNeedPort();
+				Map.needPort = false;
 			}
-			
-			if(player.getGoShop()){
+		
+			if(Map.goShop){
 				ml.lesen("maps/shop.txt", true);
-				player.setGoShop();
+				Map.goShop = false;
 			}
-			if(player.getResetMap()){
+			if(Map.resetMap){
 				ml.lesen("maps/test.txt");
-				player.setResetMap();
+				Map.resetMap =false;
 			}
 		
 

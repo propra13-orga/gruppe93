@@ -4,20 +4,21 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
 
+import player.PlayerIO;
+import tiles.*;
+
 public class MapLoader {
 
 	
 	private Map map;
 	private InputStream files;
-	private Player player;
 	private List<Gegner> Enemys;
 	private List<Zauber> Zaubern;
 	private boolean comeback = false;
 	
-	MapLoader(Map map, Player player,List<Gegner> Enemys,List<Zauber> Zaubern)
+	MapLoader(Map map,List<Gegner> Enemys,List<Zauber> Zaubern)
 	{
 		this.map = map;
-		this.player = player;
 		this.Enemys = Enemys;
 		this.Zaubern = Zaubern;
 	}
@@ -45,8 +46,8 @@ public class MapLoader {
 				comeback = true;
 			}else{
 				Shop.setInShop(true);
-				Shop.setF_playPosx(player.posX());
-				Shop.setF_playPosy(player.getY());
+				Shop.setF_playPosx(PlayerIO.getF_PlayerPostionX());
+				Shop.setF_playPosy(PlayerIO.getF_PlayerPostionY());
 				Shop.setLastMap(Map.getCurrentMap());
 				Shop.setNextPort(3000+System.currentTimeMillis());
 			}
@@ -89,10 +90,8 @@ public class MapLoader {
 				//Neuaufbau
 				
 				map = new Map(sizeX,sizeY,nextMap);		//Map Laden
-				player.setPosition(startX ,startY);	//Spieler Spawnen lassen
-				player.stop();
+				PlayerIO.playerTeleport(startX, startY);	//Spieler Spawnen lassen
 				Map.setCurrentMap(filename);
-				
 				
 				//Tiles füllen
 				
@@ -106,39 +105,39 @@ public class MapLoader {
 						switch(tileType)
 						{
 						case 1:
-							map.getTile(x, y).setFloor();
+							Map.tiles[x][y]=TileSpawner.Boden(x, y);
 							break;
 						case 2:
-							map.getTile(x, y).setWall();
+							Map.tiles[x][y]=TileSpawner.Wand(x, y);
 							break;
 						case 3:
-							map.getTile(x, y).setTrap();
+							Map.tiles[x][y]=TileSpawner.Trap(x, y);
 							break;
 						case 4:
-							map.getTile(x, y).setTeleporter();
+							Map.tiles[x][y]=TileSpawner.Teleporter(x, y);
 							break;
 						case 5:
-							map.getTile(x, y).setExit();
+							Map.tiles[x][y]=TileSpawner.Shop(x, y);
 							break;
 						case 6:
-							map.getTile(x, y).setWintile();
+							Map.tiles[x][y]=TileSpawner.Exit(x, y);
 							break;
 						case 7:
-							map.getTile(x, y).setShop();
+							Map.tiles[x][y]=TileSpawner.WinTile(x, y);
 							break;
 						
 							// Spawnt Gegner
 						case 51:
-							map.getTile(x, y).setFloor();
+							Map.tiles[x][y]=TileSpawner.Boden(x, y);
 							Enemys.add(new Gegner(x*40+10, y*40+10,1, Enemys,Zaubern));
 							break;
 						case 52:
-							map.getTile(x, y).setFloor();
+							Map.tiles[x][y]=TileSpawner.Boden(x, y);
 							Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys,Zaubern));
 							break;
 					
 						default:
-							map.getTile(x, y).setErr();
+							Map.tiles[x][y]=TileSpawner.Err(x, y);
 							break;
 							
 					
@@ -147,6 +146,7 @@ public class MapLoader {
 				}
 			}
 			s.close();
-		}catch (Exception e){map.errMap();}
+		}catch (Exception e){//map.errMap();
+		}
 	}
 }

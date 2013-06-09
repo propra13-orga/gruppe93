@@ -6,9 +6,12 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import player.PlayerIO;
+
 public class Gegner {
 	private static BufferedImage Gengar;
 	private static BufferedImage[] Dragoran= new BufferedImage[16];
+	private static BufferedImage[] Dragoranfly= new BufferedImage[16];
 	private float f_Gegnerposy_x;
 	private float f_Gegnerposy_y;
 	private Rectangle bounding;
@@ -17,7 +20,6 @@ public class Gegner {
 	private int gegnergeschwindigkeit;
 	private float zufallszahl; //fuer zufallsbasierte Bewegung 
 	private float zufallszahl2;//fuer  zufallsbasierte Geschosse
-	private float zufallszahl3;//fuer  zufallsbasierte Geschosse
 	private float reichweite=700; //legt fast ab welcher Entfernung zum Spieler die Gegner angreifen
 	float leben; 
 	private List<Gegner> Enemys;
@@ -26,9 +28,12 @@ public class Gegner {
 	private final static float Animationsdauer = 0.5f; //Wie lange ein Animationsdurchgang dauert d.h 4 Bilder in x Sekunden
 	private int animationsrichtung=1; // Animationsrichtungen 1-4 für 4 Richtungen
 	private int gegnerid; //Entscheidet welcher Gegner spawnt
-	private float xadd; //x Abstand zum Spieler
-	private float yadd; //y Abstand zum Spieler
-	
+	private float xadd; //x Abstand zum Spieler /Abstand von Spieler
+	private float yadd; //y Abstand zum Spieler /Abstand von SpielerM
+	private int phase=20; //Wechsel zwischen Flug- und Bodenphase in 20 Sekunden Rhythmus
+	private float phasecounter=0;
+	private float winkel=90; //steuert Streuung der Feuerbälle von Dragoran in Grad
+	private float Dragorangeschossgeschwindigkeit=800;
 	static {
 		try {
 			Gengar = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/gengar.png"));
@@ -48,6 +53,22 @@ public class Gegner {
 			Dragoran[13] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/32.png"));
 			Dragoran[14]= ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/33.png"));
 			Dragoran[15] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/34.png"));
+			Dragoranfly[0]  = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/41.png"));
+			Dragoranfly[1] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/42.png"));
+			Dragoranfly[2]= ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/43.png"));
+			Dragoranfly[3] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/44.png"));
+			Dragoranfly[4]  = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/51.png"));
+			Dragoranfly[5] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/52.png"));
+			Dragoranfly[6]= ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/53.png"));
+			Dragoranfly[7] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/54.png"));
+			Dragoranfly[8]  = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/61.png"));
+			Dragoranfly[9] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/62.png"));
+			Dragoranfly[10]= ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/63.png"));
+			Dragoranfly[11] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/63.png"));
+			Dragoranfly[12]  = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/71.png"));
+			Dragoranfly[13] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/72.png"));
+			Dragoranfly[14]= ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/73.png"));
+			Dragoranfly[15] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/74.png"));
 			
 			} catch (IOException e) {e.printStackTrace();}
 }
@@ -76,22 +97,21 @@ public class Gegner {
 			zufallszahl=(float)(Math.random()-0.5);
 			existiertseit=0;
 		}
+		entfernung=(float) Math.sqrt((PlayerIO.getBounding().x-f_Gegnerposy_x)*(PlayerIO.getBounding().x-f_Gegnerposy_x)+(PlayerIO.getBounding().y-f_Gegnerposy_y)*(PlayerIO.getBounding().y-f_Gegnerposy_y));
+
+		xadd=(PlayerIO.getBounding().x-f_Gegnerposy_x)/entfernung;
+	    yadd=(PlayerIO.getBounding().y-f_Gegnerposy_y)/entfernung;
 		
 		
 		
-		
-		entfernung=(float) Math.sqrt((Player.getBounding().x-f_Gegnerposy_x)*(Player.getBounding().x-f_Gegnerposy_x)+(Player.getBounding().y-f_Gegnerposy_y)*(Player.getBounding().y-f_Gegnerposy_y));
 		if (gegnerid==1){ //Bewegung Gengar
-	          if(Math.sqrt((Player.getBounding().x-f_Gegnerposy_x)*(Player.getBounding().x-f_Gegnerposy_x)+(Player.getBounding().y-f_Gegnerposy_y)*(Player.getBounding().y-f_Gegnerposy_y))<reichweite){
-		            f_Gegnerposy_x=f_Gegnerposy_x+(Player.getBounding().x-f_Gegnerposy_x)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4); //-(x-2)^2+4
-		            f_Gegnerposy_y=f_Gegnerposy_y+(Player.getBounding().y-f_Gegnerposy_y)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
+	          if(entfernung<reichweite){
+		            f_Gegnerposy_x= (f_Gegnerposy_x+xadd*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4)); //-(x-2)^2+4
+		            f_Gegnerposy_y=f_Gegnerposy_y+yadd*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
 		            bounding.x = (int)f_Gegnerposy_x;
 		            bounding.y = (int)f_Gegnerposy_y;}
 		}
 		if (gegnerid==2){ //Bewegung Dragoran
-			  if(entfernung<reichweite){
-				    xadd=(Player.getBounding().x-f_Gegnerposy_x)/entfernung;
-				    yadd=(Player.getBounding().y-f_Gegnerposy_y)/entfernung;
 				
 					f_Gegnerposy_x=f_Gegnerposy_x+xadd*gegnergeschwindigkeit*timeSinceLastFrame;
 					f_Gegnerposy_y=f_Gegnerposy_y+yadd*gegnergeschwindigkeit*timeSinceLastFrame;
@@ -103,16 +123,22 @@ public class Gegner {
 		            if(yadd>0&&xadd<0)animationsrichtung=0;
 		            if(yadd>0&&xadd>0)animationsrichtung=1;
 		            //zufallsbasierte Geschossrichtung
-		            if (zeitBisZurNächstenAnimation>0.3){
-		            	zufallszahl2=(float)(Math.random()+(float)0.1);
-		            	zufallszahl3=(float)(Math.random()+(float)0.1);
+		            if (zeitBisZurNächstenAnimation>0.1){
+		            	zufallszahl2=(float)(Math.random()*winkel-winkel/2);
+		            	if(phasecounter<10){
+		            		gegnergeschwindigkeit=40;	
+		            	    xadd = (float) ((this.xadd * Math.cos(Math.toRadians(zufallszahl2))) - (this.yadd * Math.sin(Math.toRadians(zufallszahl2))));
+		            	    yadd = (float) ((this.xadd * Math.sin(Math.toRadians(zufallszahl2))) + (this.yadd * Math.cos(Math.toRadians(zufallszahl2))));
+		       
 	            	if (animationsrichtung==0 || animationsrichtung==3){
-			     		 Zaubern.add(new Zauber(f_Gegnerposy_x, f_Gegnerposy_y, xadd*800*zufallszahl2, yadd*800*zufallszahl3, 3, Zaubern));
+			     		 Zaubern.add(new Zauber(f_Gegnerposy_x, f_Gegnerposy_y, xadd*Dragorangeschossgeschwindigkeit, yadd*Dragorangeschossgeschwindigkeit, 3, Zaubern));
 	                 	}
 		            	if(animationsrichtung==1 || animationsrichtung==2){
-		           		 Zaubern.add(new Zauber(f_Gegnerposy_x+50, f_Gegnerposy_y, xadd*1000*zufallszahl2, yadd*1000*zufallszahl3, 3, Zaubern));
+		           		 Zaubern.add(new Zauber(f_Gegnerposy_x+50, f_Gegnerposy_y, xadd*Dragorangeschossgeschwindigkeit, yadd*Dragorangeschossgeschwindigkeit, 3, Zaubern));
 		            	}
-				  }
+		            	}else gegnergeschwindigkeit=200; 
+		            
+				  
 			  }
 			 
 		}
@@ -125,7 +151,9 @@ public class Gegner {
 	    //Animationszähler
 		zeitBisZurNächstenAnimation=zeitBisZurNächstenAnimation+timeSinceLastFrame;
 		if(zeitBisZurNächstenAnimation>Animationsdauer)zeitBisZurNächstenAnimation = (float) -0.5;
-		
+		phasecounter=phasecounter+timeSinceLastFrame;
+		if(phasecounter>phase)  phasecounter=0;
+
 	}
 	
 	public Rectangle getBounding(){
@@ -133,7 +161,9 @@ public class Gegner {
 	}
 	
 	public BufferedImage getLook(){
+		
 		if (gegnerid==2){
+			if(phasecounter<10){
 		if(Dragoran.length==0)return null;
 		for(int i = 0; i<4; i++){
 			if(Math.abs(zeitBisZurNächstenAnimation)<(float)(Animationsdauer/4*(i+1))){
@@ -143,6 +173,18 @@ public class Gegner {
 		
 		}
 		return Dragoran[3+4*animationsrichtung];
+			}
+			for(int i = 0; i<4; i++){
+				if(Math.abs(zeitBisZurNächstenAnimation)<(float)(Animationsdauer/4*(i+1))){
+					return Dragoranfly[i+4*animationsrichtung];}
+
+				
+			
+			}
+			return Dragoranfly[3+4*animationsrichtung];
+				
+			
+			
 
 	}	
 	
