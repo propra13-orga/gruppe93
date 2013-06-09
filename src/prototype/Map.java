@@ -12,6 +12,11 @@ public class Map
 	private static String nextmap;
 	private static String currentMap;
 	
+	//Map Flags
+	//TODO Move
+	public static boolean resetMap = false;
+	public static boolean needPort = false;
+	public static boolean goShop = false;
 	
 	//KONSTRUKTOR
 	public Map(int x_Tiles, int y_Tiles, String nextmap){

@@ -151,5 +151,12 @@ public class Tile {
 		return TileTextur.getTextur(this.tileTyp);
 	}
 	
+	/**
+	 * @return feldGroesse
+	 */
+	public static short getFeldGroesse(){
+		return feldGroesse;
+	}
+	
 
 }

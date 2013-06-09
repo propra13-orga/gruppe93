@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import player.PlayerIO;
+
 public class Gegner {
 	private static BufferedImage Gengar;
 	private static BufferedImage[] Dragoran= new BufferedImage[16];
@@ -99,18 +101,18 @@ public class Gegner {
 		
 		
 		
-		entfernung=(float) Math.sqrt((Player.getBounding().x-f_Gegnerposy_x)*(Player.getBounding().x-f_Gegnerposy_x)+(Player.getBounding().y-f_Gegnerposy_y)*(Player.getBounding().y-f_Gegnerposy_y));
+		entfernung=(float) Math.sqrt((PlayerIO.getBounding().x-f_Gegnerposy_x)*(PlayerIO.getBounding().x-f_Gegnerposy_x)+(PlayerIO.getBounding().y-f_Gegnerposy_y)*(PlayerIO.getBounding().y-f_Gegnerposy_y));
 		if (gegnerid==1){ //Bewegung Gengar
-	          if(Math.sqrt((Player.getBounding().x-f_Gegnerposy_x)*(Player.getBounding().x-f_Gegnerposy_x)+(Player.getBounding().y-f_Gegnerposy_y)*(Player.getBounding().y-f_Gegnerposy_y))<reichweite){
-		            f_Gegnerposy_x=f_Gegnerposy_x+(Player.getBounding().x-f_Gegnerposy_x)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4); //-(x-2)^2+4
-		            f_Gegnerposy_y=f_Gegnerposy_y+(Player.getBounding().y-f_Gegnerposy_y)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
+	          if(Math.sqrt((PlayerIO.getBounding().x-f_Gegnerposy_x)*(PlayerIO.getBounding().x-f_Gegnerposy_x)+(PlayerIO.getBounding().y-f_Gegnerposy_y)*(PlayerIO.getBounding().y-f_Gegnerposy_y))<reichweite){
+		            f_Gegnerposy_x=f_Gegnerposy_x+(PlayerIO.getBounding().x-f_Gegnerposy_x)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4); //-(x-2)^2+4
+		            f_Gegnerposy_y=f_Gegnerposy_y+(PlayerIO.getBounding().y-f_Gegnerposy_y)/entfernung*timeSinceLastFrame*gegnergeschwindigkeit+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
 		            bounding.x = (int)f_Gegnerposy_x;
 		            bounding.y = (int)f_Gegnerposy_y;}
 		}
 		if (gegnerid==2){ //Bewegung Dragoran
 			  if(entfernung<reichweite){
-				    xadd=(Player.getBounding().x-f_Gegnerposy_x)/entfernung;
-				    yadd=(Player.getBounding().y-f_Gegnerposy_y)/entfernung;
+				    xadd=(PlayerIO.getBounding().x-f_Gegnerposy_x)/entfernung;
+				    yadd=(PlayerIO.getBounding().y-f_Gegnerposy_y)/entfernung;
 				
 					f_Gegnerposy_x=f_Gegnerposy_x+xadd*gegnergeschwindigkeit*timeSinceLastFrame;
 					f_Gegnerposy_y=f_Gegnerposy_y+yadd*gegnergeschwindigkeit*timeSinceLastFrame;
