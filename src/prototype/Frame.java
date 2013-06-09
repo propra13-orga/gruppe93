@@ -103,9 +103,17 @@ public class Frame extends JFrame{
 	    }
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
-			if (b.getid()==1 || b.getid()==3 || b.getid()==5 ){
+			if (b.getid()==1 || b.getid()==3 ){
 			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
-		}	}
+			}
+			if(b.getid()==5 ){
+				g.drawImage(b.getLook(), (fensterbreite-PlayerIO.getBimg().getWidth())/2-10, (fensterhoehe-kugelgroesse-PlayerIO.getBimg().getHeight())/2+getInsets().top-getInsets().bottom-15, null);	
+			}
+			
+		}
+
+			
+			
 		
 		//am Ende, damit da nix drübermalt
 		dieKugelnUndLeiste(g);//wegen der Komplexitaet ist die Statusleiste in ihrer eigenen Funktion
