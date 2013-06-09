@@ -29,6 +29,7 @@ public class Main {
 		Player player = new Player(startx,starty,map, Zaubern, Enemys);
 		MapLoader ml = new MapLoader(map, Enemys, Zaubern);
 		
+		
 		ml.lesen("maps/test.txt");
 		
 		

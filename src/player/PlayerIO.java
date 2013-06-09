@@ -31,7 +31,7 @@ public class PlayerIO {
 	
 	public static void playerTeleport(float PositionX, float PositionY){
 		Player.setF_PlayerPositionX(PositionX);
-		Player.setF_PlayerPositionY(PositionX);
+		Player.setF_PlayerPositionY(PositionY);
 		Bewegen.setSpeedX(0);
 		Bewegen.setSpeedY(0);
 	}

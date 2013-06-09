@@ -93,7 +93,6 @@ public class MapLoader {
 				PlayerIO.playerTeleport(startX, startY);	//Spieler Spawnen lassen
 				Map.setCurrentMap(filename);
 				
-				
 				//Tiles füllen
 				
 				int tileType;
