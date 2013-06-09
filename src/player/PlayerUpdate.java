@@ -2,21 +2,26 @@ package player;
 
 import prototype.Map;
 
-public class PlayerUpdate {
+class PlayerUpdate {
 	
 	private static boolean isAlive = true;
 	private static final float manaRegenaration = 40;
 	private static long timeOfDeath = 0;
+	
+	private static boolean  bCheck = true;
 	
 	static void update(float frametime){
 		
 		if(!isAlive&&(System.currentTimeMillis()-timeOfDeath)>3000)respawn();
 		if(!isAlive)return;
 		
-		Bewegen.bewegen(frametime);
-		Kollision.kollision();
-		Schiessen.schussGen(frametime);
-		
+		if(bCheck){
+			Bewegen.bewegen(frametime);
+			Kollision.kollision();
+			Schiessen.schussGen(frametime);
+			GegnerUpdate.gegnerKolision();
+		}
+			
 		if(Player.getF_mana()<1000)Player.setF_mana(Player.getF_mana()+manaRegenaration);
 		if(Player.getF_leben()<=0)spielerTot();
 		
@@ -35,7 +40,7 @@ public class PlayerUpdate {
 					
 	}
 	
-	public static void respawn(){
+	static void respawn(){
 		isAlive = true;
 		Player.getMap().setSpielerTod(false);
 		Player.setF_leben(1000);
@@ -43,4 +48,8 @@ public class PlayerUpdate {
 		Map.resetMap = true;
 	    }
 
+	static void setbCheck(boolean bCheck) {
+		PlayerUpdate.bCheck = bCheck;
+	}
+	
 }

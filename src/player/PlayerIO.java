@@ -49,6 +49,13 @@ public class PlayerIO {
 		
 	}
 	
+	public static void setBCheck(boolean bCheck) {
+		PlayerUpdate.setbCheck(bCheck);		
+	}
+	
+	public static void respawn() {
+		PlayerUpdate.respawn();
+	}
 	
 	
 }

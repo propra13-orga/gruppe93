@@ -64,7 +64,7 @@ public class Main {
 			
 			//Updates der Objekte und Akteure
 			PlayerIO.playerUpdate(timeSinceLastFrame);
-	//		map.spielerTodAnimation(timeSinceLastFrame);
+			map.spielerTodAnimation(timeSinceLastFrame);
 			for(int i = 0; i<Zaubern.size(); i++){
 				Zaubern.get(i).update(timeSinceLastFrame);}
 			for(int i = 0; i<Enemys.size(); i++){
@@ -77,10 +77,10 @@ public class Main {
 			if(Keyboard.isKeyDown(KeyEvent.VK_ESCAPE))System.exit(0);
 			
 			// Debugging-Hilfen spaeter entfernen
-	/*		if(Keyboard.isKeyDown(KeyEvent.VK_R))player.respawn();
-			if(Keyboard.isKeyDown(KeyEvent.VK_K))player.bCheckOn();
-			if(Keyboard.isKeyDown(KeyEvent.VK_L))player.bCheckOff();
-	*/		
+			if(Keyboard.isKeyDown(KeyEvent.VK_R))PlayerIO.respawn();
+			if(Keyboard.isKeyDown(KeyEvent.VK_K))PlayerIO.setBCheck(true);
+			if(Keyboard.isKeyDown(KeyEvent.VK_L))PlayerIO.setBCheck(false);
+			
 			// Hintergrund Musik wird abgespielt
 			if(playMusic==false){
 				HintergrundMusik so = new HintergrundMusik();
