@@ -165,7 +165,7 @@ public class Tile {
 		return checkpoint;
 	}
 
-	public void setCheckpoint(boolean checkpoint) {
+	void setCheckpoint(boolean checkpoint) {
 		this.checkpoint = checkpoint;
 	}
 	

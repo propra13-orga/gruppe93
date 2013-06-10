@@ -61,8 +61,9 @@ public class TileSpawner{
 	
 	public static Tile Checkpoint(int positionX, int positionY)
 	{
-		Tile Checkpoint = new Tile (8, positionX*40, positionY*40);
-		return Checkpoint;
+		Tile Checkp = new Tile (8, positionX*40, positionY*40);
+		Checkp.setCheckpoint(true);
+		return Checkp;
 	}
 	
 }

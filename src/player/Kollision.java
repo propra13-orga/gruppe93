@@ -70,7 +70,11 @@ class Kollision {
 				}
 				//Exitpruefung
 				if(map.getTile(tilex, tiley).isExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))map.setWin();
-				if(map.getTile(tilex, tiley).isCheckpoint())tiles.Checkpoint.setCheckpoint(map.getTile(tilex, tiley).getPositionX(), map.getTile(tilex, tiley).getPositionY());
+				
+				// Checkpointsetzen
+				if(map.getTile(tilex, tiley).isCheckpoint()){
+					tiles.Checkpoint.setCheckpoint(map.getTile(tilex, tiley).getPositionX(), map.getTile(tilex, tiley).getPositionY());
+				}
 				
 				
 			}

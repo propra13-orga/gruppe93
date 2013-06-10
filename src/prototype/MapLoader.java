@@ -53,6 +53,10 @@ public class MapLoader {
 			}
 		}
 		
+		//Map reset
+		
+		//if(Map.resetMap){nextMap = Checkpoint.getMapname();}
+		
 		// Loescht Gegner und Zauber
 		
 	
@@ -86,6 +90,11 @@ public class MapLoader {
 					startY = Shop.getF_playPosy();
 					comeback = false;
 				}
+				
+				//if(Map.resetMap){
+				//	startX = (float)Checkpoint.getPositionX();
+				//	startY = (float)Checkpoint.getPositionY();
+				//}
 				
 				//Neuaufbau
 				
