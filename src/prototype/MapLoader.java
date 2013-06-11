@@ -55,7 +55,7 @@ public class MapLoader {
 		
 		//Map reset
 		
-		//if(Map.resetMap){nextMap = Checkpoint.getMapname();}
+		if(Map.resetMap&&Checkpoint.isSet()){nextMap = Checkpoint.getMapname();}
 		
 		// Loescht Gegner und Zauber
 		
@@ -91,10 +91,10 @@ public class MapLoader {
 					comeback = false;
 				}
 				
-				//if(Map.resetMap){
-				//	startX = (float)Checkpoint.getPositionX();
-				//	startY = (float)Checkpoint.getPositionY();
-				//}
+				if(Map.resetMap&&Checkpoint.isSet()){
+					startX = (float)Checkpoint.getPositionX();
+					startY = (float)Checkpoint.getPositionY();
+				}
 				
 				//Neuaufbau
 				

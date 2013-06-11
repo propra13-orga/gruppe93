@@ -7,6 +7,7 @@ public class Checkpoint {
 	private static int positionX;
 	private static int positionY;
 	private static String mapname;
+	private static boolean checkpointset = false;
 
 	
 	
@@ -14,8 +15,7 @@ public class Checkpoint {
 		if(positionX!=Checkpoint.positionX&&positionY!=Checkpoint.positionY){
 			Checkpoint.positionX=positionX;
 			Checkpoint.positionY=positionY;
-			System.out.println(positionX);
-			System.out.println(positionY);
+			Checkpoint.checkpointset = true;
 			
 			Checkpoint.mapname= Map.getCurrentMap();
 		}
@@ -34,6 +34,10 @@ public class Checkpoint {
 
 	public static String getMapname() {
 		return mapname;
+	}
+	
+	public static boolean isSet(){
+		return checkpointset;
 	}
 
 }
