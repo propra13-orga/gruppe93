@@ -24,6 +24,10 @@ public class Frame extends JFrame{
 	private List<Gegner>Enemys;
 	private static BufferedImage interface1; //unsklaliertes original interface.png
 	private static BufferedImage interface2; //Zwischenspeicher für skaliertes Interface
+	private static BufferedImage icon;
+	private static BufferedImage icon1; 
+	private static BufferedImage icon2;
+	private static BufferedImage icon3; 
 	private int kugelgroesse=152;
 	private int fensterbreite=0;
 	private int fensterhoehe=0;
@@ -34,8 +38,17 @@ public class Frame extends JFrame{
 	static {
 		try {
 			interface1 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/interface.png"));
+			icon = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon.png"));
+
+			icon1 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon1.png"));
+			icon2 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon2.png"));
+			icon3 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon3.png"));
+
+
 			} catch (IOException e) {e.printStackTrace();}
         }
+
+	
 	
 
 	
@@ -161,17 +174,56 @@ public class Frame extends JFrame{
         g.drawImage(buffImg2, 478*fensterbreite/1920, getHeight()-kugelgroesse*fensterhoehe/1080-getInsets().bottom-10*fensterhoehe/1080, null);
 	}
 	private void Interface(Graphics g){
+		Color myColour = new Color(0, 0, 0, 180);
 
-    if (fensterbreite!=altefensterbreite||fensterhoehe!=altefensterhoehe){
-        BufferedImage ergebnis = new BufferedImage(fensterbreite, fensterhoehe , BufferedImage.TYPE_INT_ARGB); 
-        ergebnis.createGraphics().drawImage(interface1, 0,0, fensterbreite, fensterhoehe, null); 
-        interface2=ergebnis;
-        altefensterbreite=fensterbreite;
-        altefensterhoehe=fensterhoehe;
-	   }
-		g.drawImage(interface2, -fensterbreite+getWidth(),getHeight()-fensterhoehe-getInsets().bottom, null);
+
+		if (fensterbreite != altefensterbreite
+				|| fensterhoehe != altefensterhoehe) { //Neues Interface wird erst sklaliert wenn Fensterhöhe und Breite sich unterscheiden und dann in interface2 gespeichtert
+			BufferedImage ergebnis = new BufferedImage(fensterbreite,fensterhoehe, BufferedImage.TYPE_INT_ARGB);
+			ergebnis.createGraphics().drawImage(interface1, 0, 0,fensterbreite, fensterhoehe, null);
+			ergebnis.createGraphics().drawImage(icon,982 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+			ergebnis.createGraphics().drawImage(icon1,643 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+			ergebnis.createGraphics().drawImage(icon2,709 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+			ergebnis.createGraphics().drawImage(icon3,774 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+
+			interface2 = ergebnis;
+			altefensterbreite = fensterbreite;
+			altefensterhoehe = fensterhoehe;
+		}
+		g.drawImage(interface2, -fensterbreite + getWidth(), getHeight()- fensterhoehe - getInsets().bottom, null); //Skaliertes Interface wird gezeichnet
+
+		if (PlayerIO.getZeitSeitLetztemSchuss() < 0.5) { //Graunhinterlegung für Schussfrequenz für Zauber ohne Abklingzeit
+			((Graphics2D) g).setPaint(myColour);
+
+			g.fillRect(643 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080) * (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss())));
+			g.fillRect(709 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080) * (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss())));
+			g.fillRect(982 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080)* (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss()))) ;
+
+		}
+		if (PlayerIO.getF_Mana()<500){ //Zauber werden grau hinterlegt wenn Manakosten>Manapool
+			((Graphics2D) g).setPaint(myColour);
+
+			g.fillRect(643 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
+			g.fillRect(709 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
+			g.fillRect(774 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
+
+		}
+		if (PlayerIO.getF_Mana()<30){ //Zauber werden grau hinterlegt wenn Manakosten>Manapool (für jeden Zauber gesondert mit unterschiedlichen Manakosten)
+			((Graphics2D) g).setPaint(myColour);
+
+			g.fillRect(982 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
+
+		}
+		if (PlayerIO.abklingzeitZauber5() < 20) { //Zauber werden grau hinterlegt wenn die Zeit seit der Zauber genutzt wurde, die Abklingzeit des Zaubers nicht überschreitet
+			((Graphics2D) g).setPaint(myColour);
+			g.fillRect(774 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080 * (1 - PlayerIO.abklingzeitZauber5() / 20)));
+
+		} else {
+			if (PlayerIO.getZeitSeitLetztemSchuss() < 0.5) { // Grauhinterlegung für Schussfrequenz bei Zaubern mit Abklingzeit in einer extra IF-Abfrage da vorher noch die Abklingzeit geprüft werden muss
+				g.fillRect(774 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080 * (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss())));
+			}
+		}
 
 	}
 
-	
 }

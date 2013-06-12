@@ -10,6 +10,7 @@ class Schiessen {
 	
 	private static final float schussfrequenz= 0.5f;
 	private static float ZeitSeitLetztemSchuss=1;
+	private static float abklingzeitZauber5;
 	
 	static void schussGen(float frametime)
 	{
@@ -21,7 +22,7 @@ class Schiessen {
 		
 		//Zauber generierung jetzt ueber Pfeiltasten und in eigener Methode
 		
-		if(Keyboard.isKeyDown(KeyEvent.VK_UP)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		if(Keyboard.isKeyDown(KeyEvent.VK_UP)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>30)
 		{
 			ZeitSeitLetztemSchuss = 0;
 			float Zauberrichtung_x=0;
@@ -30,7 +31,7 @@ class Schiessen {
 			mana -= 30;
 		}
 		
-		if(Keyboard.isKeyDown(KeyEvent.VK_DOWN)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		if(Keyboard.isKeyDown(KeyEvent.VK_DOWN)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>30)
 		{
 			ZeitSeitLetztemSchuss = 0;
 			float Zauberrichtung_x=0;
@@ -39,7 +40,7 @@ class Schiessen {
 			mana -= 30;
 		}
 		
-		if(Keyboard.isKeyDown(KeyEvent.VK_LEFT)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		if(Keyboard.isKeyDown(KeyEvent.VK_LEFT)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>30)
 		{
 			ZeitSeitLetztemSchuss = 0;
 			float Zauberrichtung_x=-1000;
@@ -48,7 +49,7 @@ class Schiessen {
 			mana -= 30;
 		}
 		
-		if(Keyboard.isKeyDown(KeyEvent.VK_RIGHT)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>130)
+		if(Keyboard.isKeyDown(KeyEvent.VK_RIGHT)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>30)
 		{
 			ZeitSeitLetztemSchuss = 0;
 			float Zauberrichtung_x=1000;
@@ -72,9 +73,10 @@ class Schiessen {
 			Zaubern.add(new Zauber(f_playposx-100, f_playposy-100, Zauberrichtung_x, Zauberrichtung_y,4, Zaubern));
 			mana -= 500;
 		}
-		if(Keyboard.isKeyDown(KeyEvent.VK_3)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>500)
+		if(Keyboard.isKeyDown(KeyEvent.VK_3)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>500&&abklingzeitZauber5>20)
 		{
 			ZeitSeitLetztemSchuss = 0;
+			abklingzeitZauber5 = 0;
 			float Zauberrichtung_x=0;
 			float Zauberrichtung_y=0;
 			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,5, Zaubern));
@@ -83,7 +85,14 @@ class Schiessen {
 		
 		Player.setF_mana(mana);
 		ZeitSeitLetztemSchuss += frametime;
+		abklingzeitZauber5 += frametime;
 		
+	}
+	public static float getZeitSeitLetztemSchuss() {
+		return ZeitSeitLetztemSchuss;
+	}
+	public static float abklingzeitZauber5() {
+		return abklingzeitZauber5;
 	}
 
 }

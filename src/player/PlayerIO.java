@@ -43,6 +43,12 @@ public class PlayerIO {
 	public static float getF_Leben() {
 		return Player.getF_leben();
 	}
+	public static float getZeitSeitLetztemSchuss() {
+		return Schiessen.getZeitSeitLetztemSchuss();
+	}
+	public static float abklingzeitZauber5() {
+		return Schiessen.abklingzeitZauber5();
+	}
 	
 	public static float getF_Mana() {
 		return Player.getF_mana();
