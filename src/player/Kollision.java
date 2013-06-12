@@ -28,7 +28,7 @@ class Kollision {
 			for(int tiley = kartenPositionY; tiley<= kartenPositionY + 1; tiley++){
 				if(tiley<0)tiley=0;
 				if(tiley>y_Tiles)break;
-				if(map.getTile(tilex, tiley).isBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))//wenn hier abprallen gebrueft werden muss und die richtung nicht schon geaendert wurde
+				if(map.getTile(tilex, tiley).getBlockiert()&&!richtungWurdeGeaendert&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))//wenn hier abprallen gebrueft werden muss und die richtung nicht schon geaendert wurde
 				{
 					Rectangle inter =  bounding.intersection(map.getTile(tilex, tiley).getBounding());
 					richtungWurdeGeaendert=true; //wichtig, damit pro vorgang nicht doppelt die richtung umgedreht wird
@@ -53,26 +53,26 @@ class Kollision {
 					Player.setF_PlayerPositionY(f_PlayerPositionY);
 				}
 				
-				if(map.getTile(tilex, tiley).isTrap()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))
+				if(map.getTile(tilex, tiley).getTrap()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))
 				{
 					Player.setF_leben(0);
 					break;
 				}
 				// Teleporterpruefung
 				
-				if(map.getTile(tilex, tiley).isTranporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+				if(map.getTile(tilex, tiley).getTranporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
 					Map.needPort = true; 
 				}
 				//Shoppruefung
 				
-				if(map.getTile(tilex, tiley).isShop()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())&&(System.currentTimeMillis()-Shop.getNextPort())>0){
+				if(map.getTile(tilex, tiley).getShop()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())&&(System.currentTimeMillis()-Shop.getNextPort())>0){
 					Map.goShop = true;
 				}
 				//Exitpruefung
-				if(map.getTile(tilex, tiley).isExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))map.setWin();
+				if(map.getTile(tilex, tiley).getExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))map.setWin();
 				
 				// Checkpointsetzen
-				if(map.getTile(tilex, tiley).isCheckpoint()){
+				if(map.getTile(tilex, tiley).getCheckpoint()){
 					tiles.Checkpoint.setCheckpoint(map.getTile(tilex, tiley).getPositionX(), map.getTile(tilex, tiley).getPositionY());
 				}
 				

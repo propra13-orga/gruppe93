@@ -1,6 +1,11 @@
 package prototype;
 
 import tiles.*;
+import typen.Err;
+import typen.Wand;
+import typen.WinTile;
+import typen.tot;
+import typen.tot2;
 
 public class Map 
 {
@@ -24,19 +29,19 @@ public class Map
 		Map.x_Tiles = x_Tiles+1;
 		Map.y_Tiles = y_Tiles+1;
 		tiles =new  Tile[x_Tiles+2][y_Tiles+2];
-		for(int x = 1; x <= x_Tiles; x++)
+		for(int x = 0; x <= x_Tiles+1; x++)
 		{
-			for(int y = 0; y <= y_Tiles; y++){
-				tiles[x][y] = TileSpawner.Boden(x, y); //Initialisiert jedes Feld der nutzbaren Map
+			for(int y = 0; y <= y_Tiles+1; y++){
+				tiles[x][y] = new Tile(x*40,y*40); //Initialisiert jedes Feld der nutzbaren Map
 			}
 		}
 		
 		// Zwangsrahmen
 		
-		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0]= TileSpawner.Wand(x, 0);}
-		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1]= TileSpawner.Wand(x, (y_Tiles+1));}
-		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y]= TileSpawner.Wand(0, y);}
-		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y]= TileSpawner.Wand(x_Tiles+1, y);}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0].setTileTyp(new Wand());}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1].setTileTyp(new Wand());}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y].setTileTyp(new Wand());}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y].setTileTyp(new Wand());}
 	}
 
 	//METHODEN
@@ -78,7 +83,7 @@ public class Map
 			{
 				for(int y = 0; y <= y_Tiles; y++)
 				{
-					tiles[x][y].setTileTyp(101);
+					tiles[x][y].setTileTyp(new tot());
 				}
 			}
 		}else if(spielertot)//sekundentakt zwischen 1und 2 ist hier klar und muss nicht nochmal geprueft werden
@@ -87,7 +92,7 @@ public class Map
 			{
 				for(int y = 0; y <=y_Tiles; y++)
 				{
-					tiles[x][y].setTileTyp(102);
+					tiles[x][y].setTileTyp(new tot2());
 				}
 			}
 		}
@@ -99,7 +104,7 @@ public class Map
 		{
 			for(int y = 0;y<=y_Tiles;y++)
 			{
-				tiles[x][y] = TileSpawner.Err(x, y);
+				tiles[x][y].setTileTyp(new Err());
 			}
 		}
 	}
@@ -109,7 +114,7 @@ public class Map
 		{
 			for(int y = 0;y<=y_Tiles;y++)
 			{
-				tiles[x][y].setTileTyp(7);
+				tiles[x][y].setTileTyp(new WinTile());
 			}
 		}
 	}

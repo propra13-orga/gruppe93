@@ -3,43 +3,39 @@ package tiles;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import typen.Boden;
+
 public class Tile {
 	
 	//Basisdaten
 	
-	private int tileTyp;					// Legt Textur fest
 	private int positionX;					// Position auf X
 	private int positionY;					// Position auf Y
 	private Rectangle bounding;				// Aussenwand fuer Kollisionen
 	private static short feldGroesse=40;	// Seitenllänge
 	
 	//Modifikatoren
-	private boolean blockiert = false;		// Legt fest ob Feld passierbar ist
-	private boolean trap = false; 			// Legt fest ob Feld eine Falle ist
-	private boolean tranporter = false;		// Legt fest ob Feld ein Teleporter ist
-	private boolean exit = false;			// Legt fest ob Feld ein Ende ist
-	private boolean shop = false;			// Legt fest ob Feld ein Shop eingang ist
-	private boolean checkpoint = false;		// Legt fest ob Feld ein Checkpoint ist
+	private Geländetyp typ;
 	
-	Tile(int tileTyp, int positionX, int positionY){
-		this.setTileTyp(tileTyp);
-		this.setPositionX(positionX);
-		this.setPositionY(positionY);
+	public Tile(int positionX, int positionY){
+		this.setPositionX(positionX*40);
+		this.setPositionY(positionY*40);
+		this.setTileTyp(new Boden());	//nicht unbedingt erforderlich, aber so kann ein tile schonmal nicht ohne typ sein
 		bounding = new Rectangle(positionX, positionY, feldGroesse, feldGroesse);
 	}
 
 	/**
 	 * @return the tileTyp
 	 */
-	public int getTileTyp() {
-		return tileTyp;
+	public Geländetyp getTileTyp() {
+		return typ;
 	}
 
 	/**
 	 * @param tileTyp the tileTyp to set
 	 */
-	public void setTileTyp(int tileTyp) {
-		this.tileTyp = tileTyp;
+	public void setTileTyp(Geländetyp typ) {
+		this.typ = typ;
 	}
 
 	/**
@@ -80,78 +76,44 @@ public class Tile {
 	/**
 	 * @return the blockiert
 	 */
-	public boolean isBlockiert() {
-		return blockiert;
+	public boolean getBlockiert() {
+		return typ.getBlockiert();
 	}
 
-	/**
-	 * @param blockiert the blockiert to set
-	 */
-	void setBlockiert(boolean blockiert) {
-		this.blockiert = blockiert;
-	}
 
 	/**
 	 * @return the trap
 	 */
-	public boolean isTrap() {
-		return trap;
-	}
-
-	/**
-	 * @param trap the trap to set
-	 */
-	void setTrap(boolean trap) {
-		this.trap = trap;
+	public boolean getTrap() {
+		return typ.getTrap();
 	}
 
 	/**
 	 * @return the exit
 	 */
-	public boolean isExit() {
-		return exit;
-	}
-
-	/**
-	 * @param exit the exit to set
-	 */
-	void setExit(boolean exit) {
-		this.exit = exit;
+	public boolean getExit() {
+		return typ.getExit();
 	}
 
 	/**
 	 * @return the tranporter
 	 */
-	public boolean isTranporter() {
-		return tranporter;
-	}
-
-	/**
-	 * @param tranporter the tranporter to set
-	 */
-	void setTranporter(boolean tranporter) {
-		this.tranporter = tranporter;
+	public boolean getTranporter() {
+		return typ.getTransporter();
 	}
 
 	/**
 	 * @return the shop
 	 */
-	public boolean isShop() {
-		return shop;
-	}
-
-	/**
-	 * @param shop the shop to set
-	 */
-	void setShop(boolean shop) {
-		this.shop = shop;
+	public boolean getShop() {
+		return typ.getShop();
 	}
 	
 	/**
 	 * @return textur
 	 */
 	public BufferedImage getBimg(){
-		return TileTextur.getTextur(this.tileTyp);
+		return typ.getBimg();
 	}
 	
 	/**
@@ -161,13 +123,7 @@ public class Tile {
 		return feldGroesse;
 	}
 
-	public boolean isCheckpoint() {
-		return checkpoint;
+	public boolean getCheckpoint() {
+		return typ.getCheckpoint();
 	}
-
-	void setCheckpoint(boolean checkpoint) {
-		this.checkpoint = checkpoint;
-	}
-	
-
 }

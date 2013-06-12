@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import player.PlayerIO;
 import player.Player;
+import typen.WinTile;
 
 
 public class Main {
@@ -113,7 +114,7 @@ public class Main {
 
 			//Aufruf bei Sieg 
 			//TODO Verlagern
-					if(map.getTile(1, 1).getTileTyp()==7){
+					if(map.getTile(1, 1).getTileTyp()==new WinTile()){
 						try {
 							Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE")); //Ruft Youtube auf siehe Java API
 						} catch (IOException | URISyntaxException e) {}

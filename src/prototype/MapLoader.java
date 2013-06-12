@@ -6,11 +6,18 @@ import java.util.Scanner;
 
 import player.PlayerIO;
 import tiles.*;
+import typen.Boden;
+import typen.CheckpointTile;
+import typen.Err;
+import typen.Exit;
+import typen.Teleporter;
+import typen.Trap;
+import typen.Wand;
+import typen.WinTile;
 
 public class MapLoader {
 
 	
-	private Map map;
 	private InputStream files;
 	private List<Gegner> Enemys;
 	private List<Zauber> Zaubern;
@@ -18,7 +25,6 @@ public class MapLoader {
 	
 	MapLoader(Map map,List<Gegner> Enemys,List<Zauber> Zaubern)
 	{
-		this.map = map;
 		this.Enemys = Enemys;
 		this.Zaubern = Zaubern;
 	}
@@ -98,7 +104,7 @@ public class MapLoader {
 				
 				//Neuaufbau
 				
-				map = new Map(sizeX,sizeY,nextMap);		//Map Laden
+				new Map(sizeX,sizeY,nextMap);
 				PlayerIO.playerTeleport(startX, startY);	//Spieler Spawnen lassen
 				Map.setCurrentMap(filename);
 				
@@ -110,47 +116,47 @@ public class MapLoader {
 					for(int x = 1; x<=sizeX;x++)
 					{
 						if(s.hasNextInt()){tileType = s.nextInt();}else{tileType = 0;}
-						
+						Map.tiles[x][y]=new Tile(x*40, y*40);
 						switch(tileType)
 						{
 						case 1:
-							Map.tiles[x][y]=TileSpawner.Boden(x, y);
+							Map.tiles[x][y].setTileTyp(new Boden());
 							break;
 						case 2:
-							Map.tiles[x][y]=TileSpawner.Wand(x, y);
+							Map.tiles[x][y].setTileTyp(new Wand());
 							break;
 						case 3:
-							Map.tiles[x][y]=TileSpawner.Trap(x, y);
+							Map.tiles[x][y].setTileTyp(new Trap());
 							break;
 						case 4:
-							Map.tiles[x][y]=TileSpawner.Teleporter(x, y);
+							Map.tiles[x][y].setTileTyp(new Teleporter());
 							break;
 						case 5:
-							Map.tiles[x][y]=TileSpawner.Shop(x, y);
+							Map.tiles[x][y].setTileTyp(new typen.Shop());
 							break;
 						case 6:
-							Map.tiles[x][y]=TileSpawner.Exit(x, y);
+							Map.tiles[x][y].setTileTyp(new Exit());
 							break;
 						case 7:
-							Map.tiles[x][y]=TileSpawner.WinTile(x, y);
+							Map.tiles[x][y].setTileTyp(new WinTile());
 							break;
 						case 8:
-							Map.tiles[x][y]=TileSpawner.Checkpoint(x, y);
+							Map.tiles[x][y].setTileTyp(new CheckpointTile());
 							break;
 							
 						
 							// Spawnt Gegner
 						case 51:
-							Map.tiles[x][y]=TileSpawner.Boden(x, y);
+							Map.tiles[x][y].setTileTyp(new Boden());
 							Enemys.add(new Gegner(x*40+10, y*40+10,1, Enemys,Zaubern));
 							break;
 						case 52:
-							Map.tiles[x][y]=TileSpawner.Boden(x, y);
+							Map.tiles[x][y].setTileTyp(new Boden());
 							Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys,Zaubern));
 							break;
 					
 						default:
-							Map.tiles[x][y]=TileSpawner.Err(x, y);
+							Map.tiles[x][y].setTileTyp(new Err());
 							break;
 							
 					
