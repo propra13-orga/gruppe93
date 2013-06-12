@@ -13,7 +13,7 @@ public class WinTile extends Geländetyp{
 	private boolean blockiert = false;		// Legt fest ob Feld passierbar ist
 	private boolean trap = false; 			// Legt fest ob Feld eine Falle ist
 	private boolean tranporter = false;		// Legt fest ob Feld ein Teleporter ist
-	private boolean exit = true;			// Legt fest ob Feld ein Ende ist
+	private boolean exit = false;			// Legt fest ob Feld ein Ende ist
 	private boolean shop = false;			// Legt fest ob Feld ein Shop eingang ist
 	private boolean checkpoint = false;
 	

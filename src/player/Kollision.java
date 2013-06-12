@@ -1,6 +1,10 @@
 package player;
 
+import java.awt.Desktop;
 import java.awt.Rectangle;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import prototype.Map;
 import prototype.Shop;
@@ -69,7 +73,16 @@ class Kollision {
 					Map.goShop = true;
 				}
 				//Exitpruefung
-				if(map.getTile(tilex, tiley).getExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))map.setWin();
+				if(map.getTile(tilex, tiley).getExit()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+					map.setWin();
+					try {
+						Desktop.getDesktop().browse(new URI("http://www.youtube.com/watch?v=DLTZctTG6cE")); //Ruft Youtube auf siehe Java API
+					} catch (IOException | URISyntaxException e) {}
+					try {
+						Thread.sleep(8000);
+					} catch (InterruptedException e) {}
+					System.exit(0);
+				}
 				
 				// Checkpointsetzen
 				if(map.getTile(tilex, tiley).getCheckpoint()){
