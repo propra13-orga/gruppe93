@@ -24,7 +24,7 @@ public class HintergrundMusik implements Runnable
 		
 		try 
 		{
-			file = HintergrundMusik.class.getClassLoader().getResourceAsStream("sound/Monaco.mp3"); // File öffnen
+			file = HintergrundMusik.class.getClassLoader().getResourceAsStream("sound/Monaco.mp3"); // File oeffnen
 	    
 			//MP3 anpassungen 
 	   

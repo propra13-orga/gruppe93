@@ -12,10 +12,10 @@ public class Tile {
 	private int positionX;					// Position auf X
 	private int positionY;					// Position auf Y
 	private Rectangle bounding;				// Aussenwand fuer Kollisionen
-	private static short feldGroesse=40;	// Seitenllänge
+	private static short feldGroesse=40;	// Seitenllaenge
 	
 	//Modifikatoren
-	private Geländetyp typ;
+	private Gelaendetyp typ;
 	
 	public Tile(int positionX, int positionY){
 		this.setPositionX(positionX*40);
@@ -27,14 +27,14 @@ public class Tile {
 	/**
 	 * @return the tileTyp
 	 */
-	public Geländetyp getTileTyp() {
+	public Gelaendetyp getTileTyp() {
 		return typ;
 	}
 
 	/**
 	 * @param tileTyp the tileTyp to set
 	 */
-	public void setTileTyp(Geländetyp typ) {
+	public void setTileTyp(Gelaendetyp typ) {
 		this.typ = typ;
 	}
 

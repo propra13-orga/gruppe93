@@ -3,7 +3,7 @@ package player;
 /*
  * Basisdatenspeicher
  * 
- * Zugriff aus anderen Packages NUR über PlayerIO herstellen!
+ * Zugriff aus anderen Packages NUR ueber PlayerIO herstellen!
  */
 
 import java.awt.Rectangle;
@@ -26,7 +26,7 @@ public class Player {
 	private static float f_leben = 1000;		// Spieler Lebenspunkte 
 	private static float f_mana = 1000;			// Spieler Mana
 	private static float f_geld;				// Spieler Geld
-	private static Rectangle bounding;			// Rechteck für Kollisionen
+	private static Rectangle bounding;			// Rechteck fuer Kollisionen
 	private static BufferedImage bimg;			// Textur
 	
 	private static Map map;

@@ -59,7 +59,7 @@ class Bewegen {
 		
 	}
 	
-	//Setter und Getter für externe Zugriffe.
+	//Setter und Getter fuer externe Zugriffe.
 
 	static float getSpeedX() {
 		return speedX;

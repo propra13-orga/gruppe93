@@ -24,15 +24,15 @@ public class Gegner {
 	float leben; 
 	private List<Gegner> Enemys;
 	private List<Zauber>Zaubern;
-	private static float zeitBisZurNächstenAnimation = (float) -0.5; //Zählt mit frametime hoch um zu entscheiden wann welche Animation kommt
+	private static float zeitBisZurNaechstenAnimation = (float) -0.5; //Zaehlt mit frametime hoch um zu entscheiden wann welche Animation kommt
 	private final static float Animationsdauer = 0.5f; //Wie lange ein Animationsdurchgang dauert d.h 4 Bilder in x Sekunden
-	private int animationsrichtung=1; // Animationsrichtungen 1-4 für 4 Richtungen
+	private int animationsrichtung=1; // Animationsrichtungen 1-4 fuer 4 Richtungen
 	private int gegnerid; //Entscheidet welcher Gegner spawnt
 	private float xadd; //x Abstand zum Spieler /Abstand von Spieler
 	private float yadd; //y Abstand zum Spieler /Abstand von SpielerM
 	private int phase=20; //Wechsel zwischen Flug- und Bodenphase in 20 Sekunden Rhythmus
 	private float phasecounter=0;
-	private float winkel=90; //steuert Streuung der Feuerbälle von Dragoran in Grad
+	private float winkel=90; //steuert Streuung der Feuerbaelle von Dragoran in Grad
 	private float Dragorangeschossgeschwindigkeit=800;
 	private float speedchange=1;
 	static {
@@ -79,12 +79,12 @@ public class Gegner {
 		this.gegnerid=Gegnerid;
 		this.f_Gegnerposy_x = Gegnerx;
 		this.f_Gegnerposy_y = Gegnery;
-		if (gegnerid==1){   //Attribute für Gegner 1 (Gengar)
+		if (gegnerid==1){   //Attribute fuer Gegner 1 (Gengar)
 		     bounding = new Rectangle((int)Gegnerx, (int)Gegnery, Gengar.getWidth(), Gengar.getHeight());
 		     leben=100;
 		     gegnergeschwindigkeit=300;
 		    }
-		if (gegnerid==2){ //Attribute für Gegner 2 (Dragoran)
+		if (gegnerid==2){ //Attribute fuer Gegner 2 (Dragoran)
 			bounding = new Rectangle((int)Gegnerx+10, (int)Gegnery+5, Dragoran[0].getWidth()-20, Dragoran[0].getHeight()-10);
 			leben=2000;
 			gegnergeschwindigkeit=40;
@@ -124,7 +124,7 @@ public class Gegner {
 		            if(yadd>0&&xadd<0)animationsrichtung=0;
 		            if(yadd>0&&xadd>0)animationsrichtung=1;
 		            //zufallsbasierte Geschossrichtung
-		            if (zeitBisZurNächstenAnimation>0.1){
+		            if (zeitBisZurNaechstenAnimation>0.1){
 		            	zufallszahl2=(float)(Math.random()*winkel-winkel/2);
 		            	if(phasecounter<10){
 		            		gegnergeschwindigkeit=40;	
@@ -150,9 +150,9 @@ public class Gegner {
 	    
 	    if(leben<0){
 			Enemys.remove(this);}
-	    //Animationszähler
-		zeitBisZurNächstenAnimation=zeitBisZurNächstenAnimation+timeSinceLastFrame;
-		if(zeitBisZurNächstenAnimation>Animationsdauer)zeitBisZurNächstenAnimation = (float) -0.5;
+	    //Animationszaehler
+		zeitBisZurNaechstenAnimation=zeitBisZurNaechstenAnimation+timeSinceLastFrame;
+		if(zeitBisZurNaechstenAnimation>Animationsdauer)zeitBisZurNaechstenAnimation = (float) -0.5;
 		phasecounter=phasecounter+timeSinceLastFrame;
 		if(phasecounter>phase)  phasecounter=0;
 		
@@ -170,7 +170,7 @@ public class Gegner {
 			if(phasecounter<10){
 		if(Dragoran.length==0)return null;
 		for(int i = 0; i<4; i++){
-			if(Math.abs(zeitBisZurNächstenAnimation)<(float)(Animationsdauer/4*(i+1))){
+			if(Math.abs(zeitBisZurNaechstenAnimation)<(float)(Animationsdauer/4*(i+1))){
 				return Dragoran[i+4*animationsrichtung];}
 
 			
@@ -179,7 +179,7 @@ public class Gegner {
 		return Dragoran[3+4*animationsrichtung];
 			}
 			for(int i = 0; i<4; i++){
-				if(Math.abs(zeitBisZurNächstenAnimation)<(float)(Animationsdauer/4*(i+1))){
+				if(Math.abs(zeitBisZurNaechstenAnimation)<(float)(Animationsdauer/4*(i+1))){
 					return Dragoranfly[i+4*animationsrichtung];}
 
 				

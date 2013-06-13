@@ -2,7 +2,7 @@ package tiles;
 
 import java.awt.image.BufferedImage;
 
-public abstract class Geländetyp {
+public abstract class Gelaendetyp {
 	//METHODEN
 	abstract public BufferedImage getBimg();
 

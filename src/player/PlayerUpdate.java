@@ -8,7 +8,7 @@ class PlayerUpdate {
 	private static final float manaRegenaration = 40;	// Manaeregenerationsrate
 	private static long timeOfDeath = 0;				// Teitpunkt des letzten Todes
 	
-	private static boolean  bCheck = true;				// Debug einstellung für Kollsionen und Gegnerschaden
+	private static boolean  bCheck = true;				// Debug einstellung fuer Kollsionen und Gegnerschaden
 	
 	static void update(float frametime){
 		

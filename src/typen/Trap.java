@@ -5,10 +5,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import tiles.Geländetyp;
+import tiles.Gelaendetyp;
 import tiles.Tile;
 
-public class Trap extends Geländetyp{
+public class Trap extends Gelaendetyp{
 	private static BufferedImage bimg;
 	private boolean blockiert = false;		// Legt fest ob Feld passierbar ist
 	private boolean trap = true; 			// Legt fest ob Feld eine Falle ist
