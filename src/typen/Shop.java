@@ -10,12 +10,12 @@ import tiles.Tile;
 
 public class Shop extends Gelaendetyp{
 	private static BufferedImage bimg;
-	private boolean blockiert = false;		// Legt fest ob Feld passierbar ist
-	private boolean trap = false; 			// Legt fest ob Feld eine Falle ist
-	private boolean tranporter = false;		// Legt fest ob Feld ein Teleporter ist
-	private boolean exit = false;			// Legt fest ob Feld ein Ende ist
-	private boolean shop = true;			// Legt fest ob Feld ein Shop eingang ist
-	private boolean checkpoint = false;
+	static boolean blockiert = false;		// Legt fest ob Feld passierbar ist
+	static boolean trap = false; 			// Legt fest ob Feld eine Falle ist
+	static boolean tranporter = false;		// Legt fest ob Feld ein Teleporter ist
+	static boolean exit = false;			// Legt fest ob Feld ein Ende ist
+	static boolean shop = true;			// Legt fest ob Feld ein Shop eingang ist
+	static boolean checkpoint = false;
 	
 	static{
 		try{
