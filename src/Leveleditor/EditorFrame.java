@@ -23,24 +23,27 @@ public class EditorFrame extends JFrame{
 	//DEKLARATION
 	private JPanel panel;
 	
-	public int feldart=0;
+	public static int feldart=2;
 	public int KartenBreite=0;
 	public int KartenHoehe=0;
 	public boolean newMap=false;
 	private Map map;
-	public MouseListener maus;
+	private Kamera kamera;
+	public EditorMaus maus=new EditorMaus();
 	
-	public EditorFrame(String name, Map map){
+	public EditorFrame(String name, Map map,Kamera kamera){
 		super(name);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		panel=(JPanel) this.getContentPane();
 		panel.setBackground(Color.BLACK);
-		panel.addMouseListener(maus);
-		setSize(800, 600);			//Damit man, wenn man vom maximierten Modus umschaltet immernoch ne Fenstergroeﬂe hat
 		initUI();
-		setExtendedState(MAXIMIZED_BOTH);	//Frame ueber den ges. Bilfdschirm
+		setSize(800, 600);			//Damit man, wenn man vom maximierten Modus umschaltet immernoch ne Fenstergroeﬂe hat
+//		setExtendedState(MAXIMIZED_BOTH);	//Frame ueber den ges. Bilfdschirm
 		this.map=map;
+		this.kamera=kamera;
+		addKeyListener(new Keyboard());
+		addMouseListener(maus);
 	}
 	
 	
@@ -54,7 +57,7 @@ public class EditorFrame extends JFrame{
 			for(int x = 0; x <= map.getXTiles() ; x++){
 				for(int y = 0 ; y<=map.getYTiles() ; y++){
 				
-					g.drawImage(map.getTile(x, y).getBimg(), map.getTile(x, y).getBounding().x, map.getTile(x, y).getBounding().y, null);
+					g.drawImage(map.getTile(x, y).getBimg(), (int)(map.getTile(x, y).getBounding().x-kamera.getX()), (int)(map.getTile(x, y).getBounding().y-kamera.getY()), null);
 					
 				}
 			}
@@ -119,7 +122,7 @@ public class EditorFrame extends JFrame{
 		wall1.setToolTipText("Baut Objekte vom Typ Boden1.");
 		wall1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				feldart=1;
+				feldart=2;
 			}
 		});
 		
@@ -127,7 +130,7 @@ public class EditorFrame extends JFrame{
 		floor1.setToolTipText("Baut Objekte vom Typ Wand1.");
 		floor1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				feldart=2;
+				feldart=1;
 			}
 		});
 		
