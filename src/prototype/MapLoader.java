@@ -63,8 +63,7 @@ public class MapLoader {
 		
 		if(Map.resetMap&&Checkpoint.isSet()){nextMap = Checkpoint.getMapname();}
 		
-		
-		
+	
 		// Loescht Gegner und Zauber
 		int gegneranzahl=Enemys.size();
 		for(int i = 0; i<gegneranzahl; i++){
@@ -97,8 +96,10 @@ public class MapLoader {
 				}
 				
 				if(Map.resetMap&&Checkpoint.isSet()){
-					startX = (float)Checkpoint.getPositionX();
-					startY = (float)Checkpoint.getPositionY();
+					startX = (float)Checkpoint.getPositionX()/40;
+					startY = (float)Checkpoint.getPositionY()/40;
+			    
+			        
 				}
 				
 				

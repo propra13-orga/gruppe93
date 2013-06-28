@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import player.PlayerIO;
 import player.Player;
+import tiles.Checkpoint;
 import typen.WinTile;
 
 
@@ -121,7 +122,7 @@ public class Main {
 						Map.goShop = false;
 					}
 					if(Map.resetMap){
-						ml.lesen("maps/test.txt");
+						ml.lesen(Checkpoint.getMapname());
 						Map.resetMap =false;
 					}
 
