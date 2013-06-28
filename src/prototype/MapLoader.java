@@ -61,7 +61,7 @@ public class MapLoader {
 		
 		//Map reset
 		
-		if(Map.resetMap&&Checkpoint.isSet()){nextMap = Checkpoint.getMapname();}
+		if(Map.resetMap&&Checkpoint.isSet()){filename = Checkpoint.getMapname();}
 		
 	
 		// Loescht Gegner und Zauber
