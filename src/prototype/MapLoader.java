@@ -63,9 +63,9 @@ public class MapLoader {
 		
 		if(Map.resetMap&&Checkpoint.isSet()){nextMap = Checkpoint.getMapname();}
 		
-		// Loescht Gegner und Zauber
 		
-	
+		
+		// Loescht Gegner und Zauber
 		int gegneranzahl=Enemys.size();
 		for(int i = 0; i<gegneranzahl; i++){
 		Enemys.remove(0);}
@@ -80,8 +80,7 @@ public class MapLoader {
 			Scanner s = new Scanner(files);
 			
 			if(s.hasNext())
-			{
-				
+			{	
 				//Header Lesen und verarbeiten 
 				sizeX = s.nextInt();   	//Hoehe in Tiles
 				sizeY = s.nextInt();	//Breite in Tiles
@@ -89,8 +88,8 @@ public class MapLoader {
 				startY = s.nextInt();	// s.o.
 				nextMap = s.next();//  Ort der naechsten Karte
 				
-				//Modifikatoren fuer internen Rueckport
 				
+				//Modifikatoren fuer internen Rueckport
 				if(comeback){
 					startX = Shop.getF_playPosx();
 					startY = Shop.getF_playPosy();
@@ -102,14 +101,14 @@ public class MapLoader {
 					startY = (float)Checkpoint.getPositionY();
 				}
 				
-				//Neuaufbau
 				
+				//Neuaufbau
 				new Map(sizeX,sizeY,nextMap);
 				PlayerIO.playerTeleport(startX, startY);	//Spieler Spawnen lassen
 				Map.setCurrentMap(filename);
 				
-				//Tiles fuellen
 				
+				//Tiles fuellen
 				int tileType;
 				for(int y= 1; y<=sizeY;y++)
 				{

@@ -43,7 +43,7 @@ public class Main {
 				MapLoader ml = new MapLoader(map, Enemys, Zaubern);
 
 
-				ml.lesen("maps/test.txt");
+				ml.lesen("maps/AktuelleMap.txt");
 
 				//Sound
 				boolean playMusic = false;

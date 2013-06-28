@@ -11,6 +11,7 @@ public class EditorMaus implements MouseListener{
 	//DEKLARATION
 	private Map map;
 	private Kamera kamera;
+	private EditorFrame frame;
 	//Ende DEKLARATION
 	
 	
@@ -24,13 +25,19 @@ public class EditorMaus implements MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		//Die 40 in der Methode steht hier fest, weil es mir zu unübersichtlich war die exakte größe der einzelnen Feldblocks aus der map bzw dem tile zu laden
+		//Falls der Klick nicht auf der map ist.
+		if(0>(int)(e.getX()+kamera.getX())/40||map.getXTiles()<(int)(e.getX()+kamera.getX())/40||0>(int)(e.getY()+kamera.getY())/40||map.getYTiles()<(int)(e.getY()+kamera.getY())/40){
+			return;
+		}
+		//wird direkt retrunt und kein Fehler erzeugt
 		if(EditorFrame.feldart==1){
 			System.out.println("Boden gesetzt");
-			map.getTile((int)(e.getX() - 8+kamera.getX())/40, (int)(e.getY()-45+kamera.getY())/40).setTileTyp(new Boden());
+			map.getTile((int)(e.getX()+kamera.getX())/40, (int)(e.getY()+kamera.getY())/40).setTileTyp(new Boden());
 		}
 		if(EditorFrame.feldart==2){
 			System.out.println("Wand gesetzt");
-			map.getTile((int)(e.getX() - 8+kamera.getX())/40, (int)(e.getY()-45+kamera.getY())/40).setTileTyp(new Wand());
+			map.getTile((int)(e.getX()+kamera.getX())/40, (int)(e.getY()+kamera.getY())/40).setTileTyp(new Wand());
 		}
 	}
 
@@ -56,5 +63,9 @@ public class EditorMaus implements MouseListener{
 	
 	public void setKamera(Kamera kamera){
 		this.kamera=kamera;
+	}
+	
+	public void setFenster(EditorFrame frame){
+		this.frame=frame;
 	}
 }

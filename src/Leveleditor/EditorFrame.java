@@ -20,16 +20,21 @@ import prototype.Map;
 
 public class EditorFrame extends JFrame{
 	private static final long serialVersionUID = 1L;	//noetig, damit kein Warning angezeigt wird
+	
+	
+	
 	//DEKLARATION
-	private JPanel panel;
+	private JPanel panel;	//dasjPanel erkennt im Unterschied zur Buffstrat, daß es unter die jmenubar gehört malt aber trotzdem fröhlich über die menüs drüber wenn die aufpoppen
 	
 	public static int feldart=2;
 	public int KartenBreite=0;
 	public int KartenHoehe=0;
 	public boolean newMap=false;
+	public boolean save=false;
 	private Map map;
 	private Kamera kamera;
-	public EditorMaus maus=new EditorMaus();
+	public EditorMaus maus=new EditorMaus();	//die Maus des Editor muss andere Anforderungen erfüllen, als die des Games
+	
 	
 	public EditorFrame(String name, Map map,Kamera kamera){
 		super(name);
@@ -43,7 +48,9 @@ public class EditorFrame extends JFrame{
 		this.map=map;
 		this.kamera=kamera;
 		addKeyListener(new Keyboard());
-		addMouseListener(maus);
+//		addMouseListener(maus);
+		panel.addMouseListener(maus);	//viel besser als im fenster, weil keine insets mehr berechnet werden müsen. man bin ich schlau
+		
 	}
 	
 	
@@ -56,13 +63,12 @@ public class EditorFrame extends JFrame{
 		if(map!=null){
 			for(int x = 0; x <= map.getXTiles() ; x++){
 				for(int y = 0 ; y<=map.getYTiles() ; y++){
-				
 					g.drawImage(map.getTile(x, y).getBimg(), (int)(map.getTile(x, y).getBounding().x-kamera.getX()), (int)(map.getTile(x, y).getBounding().y-kamera.getY()), null);
 					
 				}
 			}
 		}
-		
+
 		g.dispose();	//gibt den zeichner wieder frei
 		
 	}
@@ -73,10 +79,12 @@ public class EditorFrame extends JFrame{
 
 	public void initUI(){
 		JMenuBar menueleiste=new JMenuBar();
-		menueleiste.setDoubleBuffered(true);
+		menueleiste.setDoubleBuffered(true);	//warscheinlich unnötig
 		
 		JMenu data=new JMenu("Datei");
 		JMenu feldtyp=new JMenu("Feldtyp");
+		data.getPopupMenu().setLightWeightPopupEnabled(false);
+		feldtyp.getPopupMenu().setLightWeightPopupEnabled(false);
 		
 		JMenuItem New=new JMenuItem("Auf ein Neues");
 		JMenuItem Save=new JMenuItem("Osama bin Speichern");
@@ -95,7 +103,7 @@ public class EditorFrame extends JFrame{
 		Save.setToolTipText("Ruft das Speichermenü auf.");
 		Save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				save=true;
 			}
 		});
 		

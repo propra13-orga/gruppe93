@@ -65,5 +65,11 @@ public class tot2 extends Gelaendetyp{
 		return checkpoint;
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "tot2";
+	}
+
 
 }

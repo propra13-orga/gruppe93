@@ -65,5 +65,10 @@ public class CheckpointTile extends Gelaendetyp{
 		return checkpoint;
 	}
 
+	@Override
+	public String getName() {
+		return "Checkpoint";
+	}
+
 
 }

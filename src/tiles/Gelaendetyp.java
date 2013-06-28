@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 
 public abstract class Gelaendetyp {
 	//METHODEN
+	abstract public String getName();
+	
 	abstract public BufferedImage getBimg();
 
 	abstract public boolean getBlockiert();

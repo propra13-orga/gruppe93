@@ -65,5 +65,11 @@ public class Exit extends Gelaendetyp{
 		return checkpoint;
 	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "Exit";
+	}
+
 
 }
