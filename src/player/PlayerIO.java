@@ -43,6 +43,12 @@ public class PlayerIO {
 	public static float getF_Leben() {
 		return Player.getF_leben();
 	}
+	public static int getgeld() {
+		return Player.getF_geld();
+	}
+	public static void setgeld(int x) {
+		Player.setF_geld(x);
+	}
 	public static float getZeitSeitLetztemSchuss() {
 		return Schiessen.getZeitSeitLetztemSchuss();
 	}
