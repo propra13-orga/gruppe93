@@ -49,6 +49,15 @@ public class PlayerIO {
 	public static float abklingzeitZauber5() {
 		return Schiessen.abklingzeitZauber5();
 	}
+	public static float abklingzeittrank() {
+		return Schiessen.abklingzeittrank();
+	}
+	public static int lebenstrank() {
+		return Schiessen.Lebenstrank();
+	}
+	public static int manatrank() {
+		return Schiessen.Manatrank();
+	}
 	
 	public static float getF_Mana() {
 		return Player.getF_mana();

@@ -11,11 +11,15 @@ class Schiessen {
 	private static final float schussfrequenz= 0.5f;
 	private static float ZeitSeitLetztemSchuss=1;
 	private static float abklingzeitZauber5;
+	private static float abklingzeittrank;
+	private static int manatrank=3; //Anzahl an Traenken
+	private static int lebenstrank=3;
 	
 	static void schussGen(float frametime)
 	{
 		List<Zauber>Zaubern=Player.getZaubern();
 		float mana = Player.getF_mana();
+		float leben = Player.getF_leben();
 		float f_playposx = Player.getF_PlayerPositionX();
 		float f_playposy = Player.getF_PlayerPositionY();
 	
@@ -82,10 +86,28 @@ class Schiessen {
 			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,5, Zaubern));
 			mana -=500;
 		}
+		if(Keyboard.isKeyDown(KeyEvent.VK_Q)&&lebenstrank>0&&abklingzeittrank>10)
+		{
+			abklingzeittrank = 0;
+			lebenstrank=lebenstrank-1;
+			leben+=300;
+			
+			
+		}
+		if(Keyboard.isKeyDown(KeyEvent.VK_E)&&manatrank>0&&abklingzeittrank>10)
+		{
+			abklingzeittrank = 0;
+		    manatrank=manatrank-1;
+		    mana+=300;
+		    
+		    
+		}
 		
 		Player.setF_mana(mana);
+		Player.setF_leben(leben);
 		ZeitSeitLetztemSchuss += frametime;
 		abklingzeitZauber5 += frametime;
+		abklingzeittrank += frametime;
 		
 	}
 	public static float getZeitSeitLetztemSchuss() {
@@ -93,6 +115,15 @@ class Schiessen {
 	}
 	public static float abklingzeitZauber5() {
 		return abklingzeitZauber5;
+	}
+	public static float abklingzeittrank() {
+		return abklingzeittrank;
+	}
+	public static int Lebenstrank() {
+		return lebenstrank;
+	}
+	public static int Manatrank() {
+		return manatrank;
 	}
 
 }

@@ -2,6 +2,7 @@ package prototype;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
@@ -28,6 +29,8 @@ public class Frame extends JFrame{
 	private static BufferedImage icon1; 
 	private static BufferedImage icon2;
 	private static BufferedImage icon3; 
+	private static BufferedImage Lebenstrank; 
+	private static BufferedImage Manatrank; 
 	private int kugelgroesse=152;
 	private int fensterbreite=0;
 	private int fensterhoehe=0;
@@ -43,6 +46,8 @@ public class Frame extends JFrame{
 			icon1 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon1.png"));
 			icon2 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon2.png"));
 			icon3 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon3.png"));
+			Lebenstrank = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Lebenstrank.png"));
+			Manatrank = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Manatrank.png"));
 
 
 			} catch (IOException e) {e.printStackTrace();}
@@ -185,12 +190,20 @@ public class Frame extends JFrame{
 			ergebnis.createGraphics().drawImage(icon1,643 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 			ergebnis.createGraphics().drawImage(icon2,709 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 			ergebnis.createGraphics().drawImage(icon3,774 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+			ergebnis.createGraphics().drawImage(Lebenstrank,1125 * fensterbreite / 1920,fensterhoehe - 76 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+			ergebnis.createGraphics().drawImage(Manatrank,1190* fensterbreite / 1920,fensterhoehe - 76 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 
 			interface2 = ergebnis;
 			altefensterbreite = fensterbreite;
 			altefensterhoehe = fensterhoehe;
 		}
 		g.drawImage(interface2, -fensterbreite + getWidth(), getHeight()- fensterhoehe - getInsets().bottom, null); //Skaliertes Interface wird gezeichnet
+		
+		((Graphics2D) g).setPaint(Color.white); //Anzahl Manatränke/lebenstränke
+		g.setFont(new Font("TimesRoman", Font.BOLD, 30* fensterbreite / 1920));
+		g.drawString(""+PlayerIO.lebenstrank(), 1165* fensterbreite / 1920,fensterhoehe - 15* fensterhoehe / 1080);
+		g.drawString(""+PlayerIO.manatrank(), 1230* fensterbreite / 1920,fensterhoehe - 15 * fensterhoehe / 1080);
+		
 
 		if (PlayerIO.getZeitSeitLetztemSchuss() < 0.5) { //Graunhinterlegung fuer Schussfrequenz fuer Zauber ohne Abklingzeit
 			((Graphics2D) g).setPaint(myColour);
@@ -222,6 +235,10 @@ public class Frame extends JFrame{
 			if (PlayerIO.getZeitSeitLetztemSchuss() < 0.5) { // Grauhinterlegung fuer Schussfrequenz bei Zaubern mit Abklingzeit in einer extra IF-Abfrage da vorher noch die Abklingzeit geprueft werden muss
 				g.fillRect(774 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080 * (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss())));
 			}
+		}
+		if (PlayerIO.abklingzeittrank() < 10) { //Zauber werden grau hinterlegt wenn die Zeit seit der Zauber genutzt wurde, die Abklingzeit des Zaubers nicht ueberschreitet
+			((Graphics2D) g).setPaint(myColour);
+			g.fillRect(1130 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,125 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080 * (1 - PlayerIO.abklingzeittrank() / 10)));
 		}
 
 	}
