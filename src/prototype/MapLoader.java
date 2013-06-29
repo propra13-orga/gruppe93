@@ -21,12 +21,14 @@ public class MapLoader {
 	private InputStream files;
 	private List<Gegner> Enemys;
 	private List<Zauber> Zaubern;
+	private List<Gegenstand> gegenstaende;
 	private boolean comeback = false;
 	
-	MapLoader(Map map,List<Gegner> Enemys,List<Zauber> Zaubern)
+	MapLoader(Map map,List<Gegner> Enemys,List<Zauber> Zaubern, List<Gegenstand> gegenstaende)
 	{
 		this.Enemys = Enemys;
 		this.Zaubern = Zaubern;
+		this.gegenstaende=gegenstaende;
 	}
 	
 	public void lesen(String filename)
@@ -64,7 +66,7 @@ public class MapLoader {
 		if(Map.resetMap&&Checkpoint.isSet()){filename = Checkpoint.getMapname();}
 		
 	
-		// Loescht Gegner und Zauber
+		// Loescht Gegner und Zauber und Gegenstaende
 		int gegneranzahl=Enemys.size();
 		for(int i = 0; i<gegneranzahl; i++){
 		Enemys.remove(0);}
@@ -72,6 +74,10 @@ public class MapLoader {
 		int zauberzahl=Zaubern.size();
 		for(int i = 0; i < zauberzahl; i++){
 			Zaubern.remove(0);}
+		
+		int gegenstandzahl=gegenstaende.size();
+		for(int i = 0; i < gegenstandzahl; i++){
+			gegenstaende.remove(0);}
 		
 	
 		try{
@@ -153,6 +159,14 @@ public class MapLoader {
 						case 52:
 							Map.tiles[x][y].setTileTyp(new Boden());
 							Enemys.add(new Gegner(x*40+10, y*40+10,2, Enemys,Zaubern));
+							break;
+						case 61:
+							Map.tiles[x][y].setTileTyp(new Boden());
+							gegenstaende.add(new Gegenstand(x*40+10, y*40+10,1,gegenstaende));
+							break;
+						case 62:
+							Map.tiles[x][y].setTileTyp(new Boden());
+							gegenstaende.add(new Gegenstand(x*40+10, y*40+10,2,gegenstaende));
 							break;
 					
 						default:

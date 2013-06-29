@@ -32,6 +32,7 @@ public class Main {
 				int starty = 0;
 				List<Zauber> Zaubern= new LinkedList<Zauber>();
 				List<Gegner> Enemys= new LinkedList<Gegner>();
+				List<Gegenstand> Gegenstaende= new LinkedList<Gegenstand>();
 
 				int x_MapTiles = 32;
 				int y_MapTiles = 18;
@@ -40,7 +41,7 @@ public class Main {
 //				Initialisierung
 				Map map=new Map(x_MapTiles,y_MapTiles,null);		
 				Player player = new Player(startx,starty,map, Zaubern, Enemys);
-				MapLoader ml = new MapLoader(map, Enemys, Zaubern);
+				MapLoader ml = new MapLoader(map, Enemys, Zaubern,Gegenstaende);
 
 
 				ml.lesen("maps/AktuelleMap.txt");
@@ -49,7 +50,7 @@ public class Main {
 				boolean playMusic = false;
 
 				//Spielfenster
-				Frame spielFenster = new Frame("Gruppe93", map, Zaubern,Enemys);
+				Frame spielFenster = new Frame("Gruppe93", map, Zaubern,Enemys,Gegenstaende);
 
 				//Frameratelimiter Variabeln
 				float timeSinceLastFrame =0;
@@ -81,7 +82,10 @@ public class Main {
 						Zaubern.get(i).update(timeSinceLastFrame);}
 					for(int i = 0; i<Enemys.size(); i++){
 						Enemys.get(i).update(timeSinceLastFrame);}
+					Gegenstand.update(timeSinceLastFrame);
+					
 					spielFenster.nextFrame();			//naechster frame
+					
 
 
 

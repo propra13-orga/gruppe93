@@ -125,5 +125,11 @@ class Schiessen {
 	public static int Manatrank() {
 		return manatrank;
 	}
+	public static void setLebenstrank(int x) {
+		lebenstrank+=1;
+	}
+	public static void setManatrank(int x) {
+		manatrank+=1;
+	}
 
 }

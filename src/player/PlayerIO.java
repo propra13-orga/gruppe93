@@ -46,6 +46,12 @@ public class PlayerIO {
 	public static int getgeld() {
 		return Player.getF_geld();
 	}
+	public static void setlebenstrank(int x) {
+		Schiessen.setLebenstrank(x);
+	}
+	public static void setmanatrank(int x) {
+		Schiessen.setManatrank(x);
+	}
 	public static void setgeld(int x) {
 		Player.setF_geld(x);
 	}

@@ -23,14 +23,13 @@ public class Frame extends JFrame{
 	private Map map;
 	private List<Zauber>Zaubern;
 	private List<Gegner>Enemys;
+	private  List<Gegenstand> gegenstaende;
 	private static BufferedImage interface1; //unsklaliertes original interface.png
 	private static BufferedImage interface2; //Zwischenspeicher fuer skaliertes Interface
 	private static BufferedImage icon;
 	private static BufferedImage icon1; 
 	private static BufferedImage icon2;
 	private static BufferedImage icon3; 
-	private static BufferedImage Lebenstrank; 
-	private static BufferedImage Manatrank; 
 	private static BufferedImage gold; 
 	private int kugelgroesse=152;
 	private int fensterbreite=0;
@@ -47,8 +46,6 @@ public class Frame extends JFrame{
 			icon1 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon1.png"));
 			icon2 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon2.png"));
 			icon3 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon3.png"));
-			Lebenstrank = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Lebenstrank.png"));
-			Manatrank = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Manatrank.png"));
 			gold = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/gold.png"));
 
 
@@ -60,11 +57,12 @@ public class Frame extends JFrame{
 
 	
 	
-	public Frame(String name,Map map, List<Zauber>Zaubern,List<Gegner>Enemys){
+	public Frame(String name,Map map, List<Zauber>Zaubern,List<Gegner>Enemys, List<Gegenstand> gegenstaende){
 		super(name);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		this.Zaubern=Zaubern;
+		this.gegenstaende=gegenstaende;
 		this.Enemys=Enemys;
 		
 		createBufferStrategy(2);	//Buffer mit 2 Bildern wird erzeugt
@@ -115,6 +113,18 @@ public class Frame extends JFrame{
 			
 			}
 		}
+		for(int i = 0; i<gegenstaende.size(); i++){
+			Gegenstand b = gegenstaende.get(i);
+			if (b.getid()==1){
+			g.drawImage(Gegenstand.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			}
+			if (b.getid()==2){
+				g.drawImage(Gegenstand.getLook2(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+				
+			
+			}
+		}
+		
 		g.drawImage(PlayerIO.getBimg(), (fensterbreite-PlayerIO.getBimg().getWidth())/2, (fensterhoehe-kugelgroesse-PlayerIO.getBimg().getHeight())/2+getInsets().top-getInsets().bottom, null);	//Player in der Mitte des Bildes
 		
 		for(int i = 0; i<Enemys.size(); i++){
@@ -192,8 +202,8 @@ public class Frame extends JFrame{
 			ergebnis.createGraphics().drawImage(icon1,643 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 			ergebnis.createGraphics().drawImage(icon2,709 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 			ergebnis.createGraphics().drawImage(icon3,774 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
-			ergebnis.createGraphics().drawImage(Lebenstrank,1125 * fensterbreite / 1920,fensterhoehe - 76 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
-			ergebnis.createGraphics().drawImage(Manatrank,1190* fensterbreite / 1920,fensterhoehe - 76 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+			ergebnis.createGraphics().drawImage(Gegenstand.getLook(),1125 * fensterbreite / 1920,fensterhoehe - 76 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+			ergebnis.createGraphics().drawImage(Gegenstand.getLook2(),1190* fensterbreite / 1920,fensterhoehe - 76 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 			ergebnis.createGraphics().drawImage(gold,1260* fensterbreite / 1920,fensterhoehe - 70 * fensterhoehe / 1080,50* fensterbreite / 1920, 50 * fensterhoehe / 1080, null);
 
 			

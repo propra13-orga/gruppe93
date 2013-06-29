@@ -14,7 +14,7 @@ class GegnerUpdate {
 		List<Zauber> Zaubern = Player.getZaubern();
 		
 	
-		//Kollision fuer Spieler-Gegner und Zauber-Gegner und Gegnerzauber-Spieler
+		//Kollision fuer Spieler-Gegner und Zauber-Gegner und Gegnerzauber-Spieler 
         if (Zauber.getbesiegbar()==true){
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner e = Enemys.get(i);
