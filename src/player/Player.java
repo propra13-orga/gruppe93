@@ -25,7 +25,7 @@ public class Player {
 	private static float f_PlayerPositionY;		// Position auf Y
 	private static float f_leben = 1000;		// Spieler Lebenspunkte 
 	private static float f_mana = 1000;			// Spieler Mana
-	private static float f_geld;				// Spieler Geld
+	private static int f_geld=0;				// Spieler Geld
 	private static Rectangle bounding;			// Rechteck fuer Kollisionen
 	private static BufferedImage bimg;			// Textur
 	
@@ -101,13 +101,13 @@ public class Player {
 	/**
 	 * @return the f_geld
 	 */
-	static float getF_geld() {
+	static int getF_geld() {
 		return f_geld;
 	}
 	/**
 	 * @param f_geld the f_geld to set
 	 */
-	static void setF_geld(float f_geld) {
+	static void setF_geld(int f_geld) {
 		Player.f_geld = f_geld;
 	}
 	/**

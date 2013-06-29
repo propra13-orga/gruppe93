@@ -31,6 +31,7 @@ public class Frame extends JFrame{
 	private static BufferedImage icon3; 
 	private static BufferedImage Lebenstrank; 
 	private static BufferedImage Manatrank; 
+	private static BufferedImage gold; 
 	private int kugelgroesse=152;
 	private int fensterbreite=0;
 	private int fensterhoehe=0;
@@ -48,6 +49,7 @@ public class Frame extends JFrame{
 			icon3 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon3.png"));
 			Lebenstrank = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Lebenstrank.png"));
 			Manatrank = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Manatrank.png"));
+			gold = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/gold.png"));
 
 
 			} catch (IOException e) {e.printStackTrace();}
@@ -192,7 +194,9 @@ public class Frame extends JFrame{
 			ergebnis.createGraphics().drawImage(icon3,774 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 			ergebnis.createGraphics().drawImage(Lebenstrank,1125 * fensterbreite / 1920,fensterhoehe - 76 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 			ergebnis.createGraphics().drawImage(Manatrank,1190* fensterbreite / 1920,fensterhoehe - 76 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+			ergebnis.createGraphics().drawImage(gold,1260* fensterbreite / 1920,fensterhoehe - 70 * fensterhoehe / 1080,50* fensterbreite / 1920, 50 * fensterhoehe / 1080, null);
 
+			
 			interface2 = ergebnis;
 			altefensterbreite = fensterbreite;
 			altefensterhoehe = fensterhoehe;
@@ -203,6 +207,9 @@ public class Frame extends JFrame{
 		g.setFont(new Font("TimesRoman", Font.BOLD, 30* fensterbreite / 1920));
 		g.drawString(""+PlayerIO.lebenstrank(), 1165* fensterbreite / 1920,fensterhoehe - 15* fensterhoehe / 1080);
 		g.drawString(""+PlayerIO.manatrank(), 1230* fensterbreite / 1920,fensterhoehe - 15 * fensterhoehe / 1080);
+		((Graphics2D) g).setPaint(Color.yellow); 
+		g.drawString(""+PlayerIO.getgeld(), 1280* fensterbreite / 1920,fensterhoehe - 15 * fensterhoehe / 1080);
+
 		
 
 		if (PlayerIO.getZeitSeitLetztemSchuss() < 0.5) { //Graunhinterlegung fuer Schussfrequenz fuer Zauber ohne Abklingzeit
