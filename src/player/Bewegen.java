@@ -53,8 +53,8 @@ class Bewegen {
 		if(getSpeedX()<verlangsamung/1000){setSpeedX(getSpeedX() + verlangsamung*frametime);}
 		
 		Rectangle bounding = Player.getBounding();
-		bounding.x = ((int) f_PlayerPositionX)+10;	//Aufgrund der Natur des Bilds machen diese einrueckungen Sinn
-		bounding.y = ((int) f_PlayerPositionY)+10;
+		bounding.x = ((int) f_PlayerPositionX+10);	//Aufgrund der Natur des Bilds machen diese einrueckungen Sinn
+		bounding.y = ((int) f_PlayerPositionY+10); 
 		Player.setBounding(bounding);
 		
 	}

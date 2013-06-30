@@ -12,9 +12,9 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-//import javax.swing.JLabel;
 
 import player.PlayerIO;
+//import javax.swing.JLabel;
 
 public class Frame extends JFrame{
 	private static final long serialVersionUID = 1L;	//noetig, damit kein Warning angezeigt wird
@@ -38,6 +38,8 @@ public class Frame extends JFrame{
 	private int yVerschiebung=0;
 	private int altefensterbreite; //Interface wird erst neu skaliert wenn (fensterbreite!=altefensterbreite||fensterhoehe!=altefensterhoehe) wegen der Performance
 	private int altefensterhoehe; //
+	Color myColour = new Color(0, 0, 0, 180);
+	Color myColour2 = new Color(0, 0, 100, 180);
 	static {
 		try {
 			interface1 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/interface.png"));
@@ -74,8 +76,10 @@ public class Frame extends JFrame{
 //		screen = new Screen();
 //		screen.setBounds(0, 0, worldsizex, worldsizey);
 //		add(screen);
+
+	   
 		
-		
+
 		
 		
 		addKeyListener(new Keyboard());
@@ -96,7 +100,6 @@ public class Frame extends JFrame{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0 , getWidth(), getHeight());
 
-		
 		for(int x = 0; x <= map.getXTiles() ; x++){
 			for(int y = 0 ; y<=map.getYTiles() ; y++){
 			
@@ -104,7 +107,6 @@ public class Frame extends JFrame{
 				
 			}
 		}
-		
 		
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
@@ -131,6 +133,7 @@ public class Frame extends JFrame{
 			Gegner c = Enemys.get(i);
 			g.drawImage(c.getLook(), c.getX()+xVerschiebung, c.getY()+yVerschiebung, null);
 	    }
+//		Effekte(g);
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
 			if (b.getid()==1 || b.getid()==3 ){
@@ -141,10 +144,13 @@ public class Frame extends JFrame{
 			}
 			
 		}
+		
+
 
 			
 			
-		
+		g.drawImage(Licht.getLook(),xVerschiebung,yVerschiebung, null);
+
 		//am Ende, damit da nix druebermalt
 		dieKugelnUndLeiste(g);//wegen der Komplexitaet ist die Statusleiste in ihrer eigenen Funktion
 		Interface(g);
@@ -191,7 +197,7 @@ public class Frame extends JFrame{
         g.drawImage(buffImg2, 478*fensterbreite/1920, getHeight()-kugelgroesse*fensterhoehe/1080-getInsets().bottom-10*fensterhoehe/1080, null);
 	}
 	private void Interface(Graphics g){
-		Color myColour = new Color(0, 0, 0, 180);
+		Graphics2D g2d = (Graphics2D)g;
 
 
 		if (fensterbreite != altefensterbreite
@@ -213,17 +219,17 @@ public class Frame extends JFrame{
 		}
 		g.drawImage(interface2, -fensterbreite + getWidth(), getHeight()- fensterhoehe - getInsets().bottom, null); //Skaliertes Interface wird gezeichnet
 		
-		((Graphics2D) g).setPaint(Color.white); //Anzahl Manatränke/lebenstränke
+		g2d.setPaint(Color.white); //Anzahl Manatränke/lebenstränke
 		g.setFont(new Font("TimesRoman", Font.BOLD, 30* fensterbreite / 1920));
 		g.drawString(""+PlayerIO.lebenstrank(), 1165* fensterbreite / 1920,fensterhoehe - 15* fensterhoehe / 1080);
 		g.drawString(""+PlayerIO.manatrank(), 1230* fensterbreite / 1920,fensterhoehe - 15 * fensterhoehe / 1080);
-		((Graphics2D) g).setPaint(Color.yellow); 
+		g2d.setPaint(Color.yellow); 
 		g.drawString(""+PlayerIO.getgeld(), 1280* fensterbreite / 1920,fensterhoehe - 15 * fensterhoehe / 1080);
 
 		
 
 		if (PlayerIO.getZeitSeitLetztemSchuss() < 0.5) { //Graunhinterlegung fuer Schussfrequenz fuer Zauber ohne Abklingzeit
-			((Graphics2D) g).setPaint(myColour);
+			g2d.setPaint(myColour);
 
 			g.fillRect(643 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080) * (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss())));
 			g.fillRect(709 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080) * (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss())));
@@ -231,7 +237,7 @@ public class Frame extends JFrame{
 
 		}
 		if (PlayerIO.getF_Mana()<500){ //Zauber werden grau hinterlegt wenn Manakosten>Manapool
-			((Graphics2D) g).setPaint(myColour);
+			g2d.setPaint(myColour);
 
 			g.fillRect(643 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
 			g.fillRect(709 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
@@ -239,13 +245,13 @@ public class Frame extends JFrame{
 
 		}
 		if (PlayerIO.getF_Mana()<30){ //Zauber werden grau hinterlegt wenn Manakosten>Manapool (fuer jeden Zauber gesondert mit unterschiedlichen Manakosten)
-			((Graphics2D) g).setPaint(myColour);
+			g2d.setPaint(myColour);
 
 			g.fillRect(982 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
 
 		}
 		if (PlayerIO.abklingzeitZauber5() < 20) { //Zauber werden grau hinterlegt wenn die Zeit seit der Zauber genutzt wurde, die Abklingzeit des Zaubers nicht ueberschreitet
-			((Graphics2D) g).setPaint(myColour);
+			g2d.setPaint(myColour);
 			g.fillRect(774 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080 * (1 - PlayerIO.abklingzeitZauber5() / 20)));
 
 		} else {
@@ -254,10 +260,46 @@ public class Frame extends JFrame{
 			}
 		}
 		if (PlayerIO.abklingzeittrank() < 10) { //Zauber werden grau hinterlegt wenn die Zeit seit der Zauber genutzt wurde, die Abklingzeit des Zaubers nicht ueberschreitet
-			((Graphics2D) g).setPaint(myColour);
+			g2d.setPaint(myColour);
 			g.fillRect(1130 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,125 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080 * (1 - PlayerIO.abklingzeittrank() / 10)));
 		}
-
 	}
+	//	private void Effekte(Graphics g){
+//			Graphics2D g2d = (Graphics2D)g;
+//			
+//			for(int i = 0; i<Enemys.size(); i++){
+//				Gegner c = Enemys.get(i);
+//			double points[][] = { 
+//			        { c.getBounding().x+xVerschiebung+15 , c.getBounding().y+yVerschiebung+c.getBounding().height }, { c.getBounding().x+xVerschiebung-PlayerIO.getBounding().x, c.getBounding().y+yVerschiebung-PlayerIO.getBounding().y+c.getBounding().height  }, { c.getBounding().x+xVerschiebung+c.getBounding().width-PlayerIO.getBounding().x, c.getBounding().y+yVerschiebung-PlayerIO.getBounding().y  }, {  c.getBounding().x+xVerschiebung+c.getBounding().width-15, c.getBounding().y+yVerschiebung  }, 
+//			        { c.getBounding().x+xVerschiebung+15, c.getBounding().y+yVerschiebung+c.getBounding().height}};
+//			
+//     
+//
+//        g2d.translate(0, 0);
+//
+//        GeneralPath shadow = new GeneralPath();
+//
+//        shadow.moveTo(points[0][0], points[0][1]);
+//
+//        for (int k = 1; k < points.length; k++)
+//          shadow.lineTo(points[k][0], points[k][1]);
+//
+//       shadow.closePath();
+//       g2d.setPaint(myColour);
+//       g2d.fill(shadow);        
+//          
+//			}
+
+		
+
+		   
+	      
+
+
+	
+	
+
+
+//	}
 
 }

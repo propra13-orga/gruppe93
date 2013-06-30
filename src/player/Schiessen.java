@@ -1,5 +1,8 @@
 package player;
 
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.PointerInfo;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
@@ -15,8 +18,16 @@ class Schiessen {
 	private static int manatrank=3; //Anzahl an Traenken
 	private static int lebenstrank=3;
 	
+	
 	static void schussGen(float frametime)
 	{
+		 PointerInfo info = MouseInfo.getPointerInfo(); //Für spätere Steuerung mit der Maus
+		    
+		    Point location = info.getLocation();
+		    
+		    
+//		    System.out.println("x="+location.x+ " y="+location.y); 
+		
 		List<Zauber>Zaubern=Player.getZaubern();
 		float mana = Player.getF_mana();
 		float leben = Player.getF_leben();
@@ -131,5 +142,6 @@ class Schiessen {
 	public static void setManatrank(int x) {
 		manatrank+=1;
 	}
+
 
 }

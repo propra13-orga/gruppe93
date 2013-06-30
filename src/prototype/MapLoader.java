@@ -23,12 +23,14 @@ public class MapLoader {
 	private List<Zauber> Zaubern;
 	private List<Gegenstand> gegenstaende;
 	private boolean comeback = false;
+   
 	
 	MapLoader(Map map,List<Gegner> Enemys,List<Zauber> Zaubern, List<Gegenstand> gegenstaende)
 	{
 		this.Enemys = Enemys;
 		this.Zaubern = Zaubern;
 		this.gegenstaende=gegenstaende;
+
 	}
 	
 	public void lesen(String filename)
@@ -66,7 +68,7 @@ public class MapLoader {
 		if(Map.resetMap&&Checkpoint.isSet()){filename = Checkpoint.getMapname();}
 		
 	
-		// Loescht Gegner und Zauber und Gegenstaende
+		// Loescht Gegner und Zauber und Gegenstaende und Lichter
 		int gegneranzahl=Enemys.size();
 		for(int i = 0; i<gegneranzahl; i++){
 		Enemys.remove(0);}
@@ -78,6 +80,7 @@ public class MapLoader {
 		int gegenstandzahl=gegenstaende.size();
 		for(int i = 0; i < gegenstandzahl; i++){
 			gegenstaende.remove(0);}
+		Licht.newmap=true;
 		
 	
 		try{
@@ -113,6 +116,7 @@ public class MapLoader {
 				new Map(sizeX,sizeY,nextMap);
 				PlayerIO.playerTeleport(startX, startY);	//Spieler Spawnen lassen
 				Map.setCurrentMap(filename);
+				
 				
 				
 				//Tiles fuellen
@@ -167,6 +171,18 @@ public class MapLoader {
 						case 62:
 							Map.tiles[x][y].setTileTyp(new Boden());
 							gegenstaende.add(new Gegenstand(x*40+10, y*40+10,2,gegenstaende));
+							break;
+						case 71:
+							Map.tiles[x][y].setTileTyp(new Boden());
+							Licht licht=new Licht(x*40+10,y*40+10,200);
+							break;
+						case 72:
+							Map.tiles[x][y].setTileTyp(new Boden());
+							Licht licht2=new Licht(x*40+10,y*40+10,400);
+							break;
+						case 73:
+							Map.tiles[x][y].setTileTyp(new Boden());
+							Licht licht3=new Licht(x*40+10,y*40+10,600);
 							break;
 					
 						default:

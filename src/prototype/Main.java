@@ -34,6 +34,7 @@ public class Main {
 				List<Gegner> Enemys= new LinkedList<Gegner>();
 				List<Gegenstand> Gegenstaende= new LinkedList<Gegenstand>();
 
+
 				int x_MapTiles = 32;
 				int y_MapTiles = 18;
 
@@ -41,6 +42,8 @@ public class Main {
 //				Initialisierung
 				Map map=new Map(x_MapTiles,y_MapTiles,null);		
 				Player player = new Player(startx,starty,map, Zaubern, Enemys);
+
+
 				MapLoader ml = new MapLoader(map, Enemys, Zaubern,Gegenstaende);
 
 

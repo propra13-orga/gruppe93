@@ -112,6 +112,11 @@ public class Gegner {
 		            bounding.x = (int)f_Gegnerposy_x;
 		            bounding.y = (int)f_Gegnerposy_y;}
 		}
+		 //Animationsrichtung
+		 if(yadd<0&&xadd>0)animationsrichtung=2;
+         if(yadd<0&&xadd<0)animationsrichtung=3;
+         if(yadd>0&&xadd<0)animationsrichtung=0;
+         if(yadd>0&&xadd>0)animationsrichtung=1;
 		if (gegnerid==2){ //Bewegung Dragoran
 				
 					f_Gegnerposy_x=f_Gegnerposy_x+xadd*gegnergeschwindigkeit*speedchange*timeSinceLastFrame;
@@ -119,10 +124,10 @@ public class Gegner {
 					bounding.x = (int)f_Gegnerposy_x;
 		            bounding.y = (int)f_Gegnerposy_y;
 		            //Animationsrichtung
-		            if(yadd<0&&xadd>0)animationsrichtung=2;
-		            if(yadd<0&&xadd<0)animationsrichtung=3;
-		            if(yadd>0&&xadd<0)animationsrichtung=0;
-		            if(yadd>0&&xadd>0)animationsrichtung=1;
+//		            if(yadd<0&&xadd>0)animationsrichtung=2;
+//		            if(yadd<0&&xadd<0)animationsrichtung=3;
+//		            if(yadd>0&&xadd<0)animationsrichtung=0;
+//		            if(yadd>0&&xadd>0)animationsrichtung=1;
 		            //zufallsbasierte Geschossrichtung
 		            if (zeitBisZurNaechstenAnimation>0.1){
 		            	zufallszahl2=(float)(Math.random()*winkel-winkel/2);
