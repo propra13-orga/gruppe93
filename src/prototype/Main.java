@@ -1,15 +1,10 @@
 package prototype;
-
-import java.awt.Desktop;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
 import player.PlayerIO;
 import player.Player;
-import typen.WinTile;
+
 
 
 public class Main {
@@ -33,6 +28,7 @@ public class Main {
 				List<Zauber> Zaubern= new LinkedList<Zauber>();
 				List<Gegner> Enemys= new LinkedList<Gegner>();
 				List<Gegenstand> Gegenstaende= new LinkedList<Gegenstand>();
+				List<NPC> NPCs= new LinkedList<NPC>();
 
 
 				int x_MapTiles = 32;
@@ -47,14 +43,13 @@ public class Main {
 				MapLoader ml = new MapLoader(map, Enemys, Zaubern,Gegenstaende);
 
 
-				ml.lesen("maps/AktuelleMap.txt");
+				ml.lesen("maps/Map1.txt");
 
 				//Sound
 				boolean playMusic = false;
 
 				//Spielfenster
-				Frame spielFenster = new Frame("Gruppe93", map, Zaubern,Enemys,Gegenstaende);
-
+				Frame spielFenster = new Frame("Gruppe93", map, Zaubern,Enemys,Gegenstaende,NPCs);
 				//Frameratelimiter Variabeln
 				float timeSinceLastFrame =0;
 				long lastFrame=0;

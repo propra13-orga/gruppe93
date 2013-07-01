@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 
 import player.PlayerIO;
 //import javax.swing.JLabel;
+import player.Schiessen;
 
 public class Frame extends JFrame{
 	private static final long serialVersionUID = 1L;	//noetig, damit kein Warning angezeigt wird
@@ -32,8 +33,8 @@ public class Frame extends JFrame{
 	private static BufferedImage icon3; 
 	private static BufferedImage gold; 
 	private int kugelgroesse=152;
-	private int fensterbreite=0;
-	private int fensterhoehe=0;
+	public static int fensterbreite=0;
+	public static int fensterhoehe=0;
 	private int xVerschiebung=0;	//fuer die Verschiebungen, der alle Objekte ausser dem Spieler unterworfen sind
 	private int yVerschiebung=0;
 	private int altefensterbreite; //Interface wird erst neu skaliert wenn (fensterbreite!=altefensterbreite||fensterhoehe!=altefensterhoehe) wegen der Performance
@@ -59,7 +60,7 @@ public class Frame extends JFrame{
 
 	
 	
-	public Frame(String name,Map map, List<Zauber>Zaubern,List<Gegner>Enemys, List<Gegenstand> gegenstaende){
+	public Frame(String name,Map map, List<Zauber>Zaubern,List<Gegner>Enemys, List<Gegenstand> gegenstaende, List<NPC> nPCs){
 		super(name);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -83,6 +84,8 @@ public class Frame extends JFrame{
 		
 		
 		addKeyListener(new Keyboard());
+        addMouseListener(new Schiessen());
+
 		this.map=map;
 		
 
@@ -96,7 +99,7 @@ public class Frame extends JFrame{
 		xVerschiebung=(-PlayerIO.getPlayerPositionX()+fensterbreite/2-PlayerIO.getBimg().getWidth()/2);	//diese Werte liefern unter Beruecksichtigung der Faktoren wie Spielerposition, Insets, Fenstergroeﬂe, Spielergroeﬂe und Statusleistendicke die noetigen Verschiebungen aller Objekte
 		yVerschiebung=(-PlayerIO.getPlayerPositionY()+(fensterhoehe-kugelgroesse)/2-PlayerIO.getBimg().getHeight()/2+getInsets().top-getInsets().bottom);
 		Graphics g=buff.getDrawGraphics();//uebergibt ein malobjekt aus der bufferstrat
-		
+
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0 , getWidth(), getHeight());
 

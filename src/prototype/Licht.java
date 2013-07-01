@@ -31,7 +31,7 @@ public class Licht {
 		Graphics2D gbi3 = buffImage.createGraphics();
         if(newmap){
         gbi3.setColor(new Color(0,0,0,255));
-        gbi3.fillRect(0,0,2000,2000);
+        gbi3.fillRect(0,0,4000,4000);
 	    newmap=false;
         }
 
