@@ -1,4 +1,5 @@
 package prototype;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,11 +9,13 @@ import player.Player;
 
 
 public class Main {
+	public static Point point; //wird gebraucht für Mausposition
 
 
 	public static void main(String[] args) {	
 		
 		Menue m = new Menue();
+		
 		
 		while(true){
 			
@@ -29,6 +32,7 @@ public class Main {
 				List<Gegner> Enemys= new LinkedList<Gegner>();
 				List<Gegenstand> Gegenstaende= new LinkedList<Gegenstand>();
 				List<NPC> NPCs= new LinkedList<NPC>();
+				
 
 
 				int x_MapTiles = 32;
@@ -85,7 +89,8 @@ public class Main {
 					spielFenster.nextFrame();			//naechster frame
 					
 
-
+                    //Mausposition für Zauber
+					point = spielFenster.getLocationOnScreen();
 
 					//Spiel beenden
 					if(Keyboard.isKeyDown(KeyEvent.VK_ESCAPE))System.exit(0);
@@ -102,6 +107,7 @@ public class Main {
 						x.start();
 						playMusic = true;
 					}
+					
 
 			// Beispiel fuer das Abspielen von Soundeffekten
 			// Im Anwendungsfall Verzoegerung einbauen
@@ -140,4 +146,5 @@ public class Main {
 			}//WHILE ENDE
 		}
 	}//main Ende
+
 }

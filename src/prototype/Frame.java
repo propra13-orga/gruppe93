@@ -84,7 +84,7 @@ public class Frame extends JFrame{
 		
 		
 		addKeyListener(new Keyboard());
-        addMouseMotionListener(new Schiessen());
+        addMouseListener(new Schiessen());
 
 		this.map=map;
 		
