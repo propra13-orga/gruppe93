@@ -21,15 +21,17 @@ public class MapLoader {
 	private InputStream files;
 	private List<Gegner> Enemys;
 	private List<Zauber> Zaubern;
+	private List<NPC> npcs;
 	private List<Gegenstand> gegenstaende;
 	private boolean comeback = false;
    
 	
-	MapLoader(Map map,List<Gegner> Enemys,List<Zauber> Zaubern, List<Gegenstand> gegenstaende)
+	MapLoader(Map map,List<Gegner> Enemys,List<Zauber> Zaubern, List<Gegenstand> gegenstaende,List<NPC> npcs)
 	{
 		this.Enemys = Enemys;
 		this.Zaubern = Zaubern;
 		this.gegenstaende=gegenstaende;
+		this.npcs=npcs;
 
 	}
 	
@@ -80,6 +82,9 @@ public class MapLoader {
 		int gegenstandzahl=gegenstaende.size();
 		for(int i = 0; i < gegenstandzahl; i++){
 			gegenstaende.remove(0);}
+		int NPCzahl=npcs.size();
+		for(int i = 0; i < NPCzahl; i++){
+			npcs.remove(0);}
 		Licht.newmap=true;
 		
 	
@@ -172,6 +177,14 @@ public class MapLoader {
 							Map.tiles[x][y].setTileTyp(new Boden());
 							gegenstaende.add(new Gegenstand(x*40+10, y*40+10,2,gegenstaende));
 							break;
+						case 63:
+							Map.tiles[x][y].setTileTyp(new Boden());
+							gegenstaende.add(new Gegenstand(x*40+10, y*40+10,3,gegenstaende));
+							break;
+						case 64:
+							Map.tiles[x][y].setTileTyp(new Boden());
+							gegenstaende.add(new Gegenstand(x*40+10, y*40+10,4,gegenstaende));
+							break;
 						case 71:
 							Map.tiles[x][y].setTileTyp(new Boden());
 							Licht licht=new Licht(x*40+10,y*40+10,200);
@@ -184,6 +197,11 @@ public class MapLoader {
 							Map.tiles[x][y].setTileTyp(new Boden());
 							Licht licht3=new Licht(x*40+10,y*40+10,600);
 							break;
+						case 81:
+							Map.tiles[x][y].setTileTyp(new Boden());
+							npcs.add(new NPC(x*40+10, y*40+10,2,npcs));
+							break;
+					
 					
 						default:
 							Map.tiles[x][y].setTileTyp(new Err());

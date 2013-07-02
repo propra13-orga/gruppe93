@@ -6,9 +6,7 @@ import java.awt.PointerInfo;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.List;
-import javax.swing.SwingUtilities;
 import prototype.Frame;
 import prototype.Keyboard;
 import prototype.Main;
@@ -16,7 +14,7 @@ import prototype.Zauber;
 
 public class  Schiessen implements MouseListener{
 	
-	private static final float schussfrequenz= 0.5f;
+	private static final float schussfrequenz= 0.4f;
 	private static float ZeitSeitLetztemSchuss=1;
 	private static float abklingzeitZauber5;
 	private static float abklingzeittrank;

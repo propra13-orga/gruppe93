@@ -108,7 +108,7 @@ public class Player {
 	 * @param f_geld the f_geld to set
 	 */
 	static void setF_geld(int f_geld) {
-		Player.f_geld = f_geld;
+		Player.f_geld = f_geld+Player.f_geld;
 	}
 	/**
 	 * @return the bounding

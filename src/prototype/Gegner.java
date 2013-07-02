@@ -154,8 +154,8 @@ public class Gegner {
 		
 	    
 	    if(leben<0){
-			Enemys.remove(this);
-			PlayerIO.setgeld(1);}
+	    	PlayerIO.setgeld(1);
+			Enemys.remove(this);}
 	    //Animationszaehler
 		zeitBisZurNaechstenAnimation=zeitBisZurNaechstenAnimation+timeSinceLastFrame;
 		if(zeitBisZurNaechstenAnimation>Animationsdauer)zeitBisZurNaechstenAnimation = (float) -0.5;

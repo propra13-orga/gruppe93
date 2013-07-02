@@ -31,7 +31,7 @@ public class Main {
 				List<Zauber> Zaubern= new LinkedList<Zauber>();
 				List<Gegner> Enemys= new LinkedList<Gegner>();
 				List<Gegenstand> Gegenstaende= new LinkedList<Gegenstand>();
-				List<NPC> NPCs= new LinkedList<NPC>();
+				List<NPC> npcs= new LinkedList<NPC>();
 				
 
 
@@ -44,7 +44,7 @@ public class Main {
 				Player player = new Player(startx,starty,map, Zaubern, Enemys);
 
 
-				MapLoader ml = new MapLoader(map, Enemys, Zaubern,Gegenstaende);
+				MapLoader ml = new MapLoader(map, Enemys, Zaubern,Gegenstaende,npcs);
 
 
 				ml.lesen("maps/Map1.txt");
@@ -53,7 +53,7 @@ public class Main {
 				boolean playMusic = false;
 
 				//Spielfenster
-				Frame spielFenster = new Frame("Gruppe93", map, Zaubern,Enemys,Gegenstaende,NPCs);
+				Frame spielFenster = new Frame("Gruppe93", map, Zaubern,Enemys,Gegenstaende,npcs);
 				//Frameratelimiter Variabeln
 				float timeSinceLastFrame =0;
 				long lastFrame=0;
@@ -84,6 +84,8 @@ public class Main {
 						Zaubern.get(i).update(timeSinceLastFrame);}
 					for(int i = 0; i<Enemys.size(); i++){
 						Enemys.get(i).update(timeSinceLastFrame);}
+					for(int i = 0; i<npcs.size(); i++){
+						npcs.get(i).update(timeSinceLastFrame);}
 					Gegenstand.update(timeSinceLastFrame);
 					
 					spielFenster.nextFrame();			//naechster frame

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+
 import player.PlayerIO;
 //import javax.swing.JLabel;
 import player.Schiessen;
@@ -24,7 +25,8 @@ public class Frame extends JFrame{
 	private Map map;
 	private List<Zauber>Zaubern;
 	private List<Gegner>Enemys;
-	private  List<Gegenstand> gegenstaende;
+	private List<NPC>npcs;
+	private List<Gegenstand> gegenstaende;
 	private static BufferedImage interface1; //unsklaliertes original interface.png
 	private static BufferedImage interface2; //Zwischenspeicher fuer skaliertes Interface
 	private static BufferedImage icon;
@@ -60,11 +62,12 @@ public class Frame extends JFrame{
 
 	
 	
-	public Frame(String name,Map map, List<Zauber>Zaubern,List<Gegner>Enemys, List<Gegenstand> gegenstaende, List<NPC> nPCs){
+	public Frame(String name,Map map, List<Zauber>Zaubern,List<Gegner>Enemys, List<Gegenstand> gegenstaende, List<NPC> npcs){
 		super(name);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		this.Zaubern=Zaubern;
+		this.npcs=npcs;
 		this.gegenstaende=gegenstaende;
 		this.Enemys=Enemys;
 		
@@ -124,13 +127,25 @@ public class Frame extends JFrame{
 			}
 			if (b.getid()==2){
 				g.drawImage(Gegenstand.getLook2(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
-				
-			
+			}
+			if (b.getid()==3){
+				g.drawImage(Gegenstand.getLook3(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			}
+			if (b.getid()==4){
+				g.drawImage(Gegenstand.getLook4(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 			}
 		}
 		
 		g.drawImage(PlayerIO.getBimg(), (fensterbreite-PlayerIO.getBimg().getWidth())/2, (fensterhoehe-kugelgroesse-PlayerIO.getBimg().getHeight())/2+getInsets().top-getInsets().bottom, null);	//Player in der Mitte des Bildes
 		
+		for(int i = 0; i<npcs.size(); i++){
+			NPC b = npcs.get(i);
+			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			
+		}
+			
+			
+	
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner c = Enemys.get(i);
 			g.drawImage(c.getLook(), c.getX()+xVerschiebung, c.getY()+yVerschiebung, null);
@@ -148,8 +163,6 @@ public class Frame extends JFrame{
 		}
 		
 
-
-			
 			
 		g.drawImage(Licht.getLook(),xVerschiebung,yVerschiebung, null);
 
@@ -181,9 +194,7 @@ public class Frame extends JFrame{
     
         g.drawImage(buffImg, getWidth()-453*fensterbreite/1920-kugelgroesse*fensterbreite/1920, getHeight()-kugelgroesse*fensterhoehe/1080-getInsets().bottom-10*fensterhoehe/1080, null);  
 			
-        
-        
-       
+
 
         BufferedImage buffImg2 = new BufferedImage(200, 200,
                                     BufferedImage.TYPE_INT_ARGB);
@@ -229,15 +240,15 @@ public class Frame extends JFrame{
 
 		
 
-		if (PlayerIO.getZeitSeitLetztemSchuss() < 0.5) { //Graunhinterlegung fuer Schussfrequenz fuer Zauber ohne Abklingzeit
+		if (PlayerIO.getZeitSeitLetztemSchuss() < 0.4) { //Graunhinterlegung fuer Schussfrequenz fuer Zauber ohne Abklingzeit
 			g2d.setPaint(myColour);
 
-			g.fillRect(643 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080) * (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss())));
-			g.fillRect(709 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080) * (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss())));
-			g.fillRect(982 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080)* (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss()))) ;
+			g.fillRect(643 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080) * (1 - 2.5 * PlayerIO.getZeitSeitLetztemSchuss())));
+			g.fillRect(709 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080) * (1 - 2.5 * PlayerIO.getZeitSeitLetztemSchuss())));
+			g.fillRect(982 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080)* (1 - 2.5 * PlayerIO.getZeitSeitLetztemSchuss()))) ;
 
 		}
-		if (PlayerIO.getF_Mana()<500){ //Zauber werden grau hinterlegt wenn Manakosten>Manapool
+		if (PlayerIO.getF_Mana()<200){ //Zauber werden grau hinterlegt wenn Manakosten>Manapool
 			g2d.setPaint(myColour);
 
 			g.fillRect(643 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
@@ -256,8 +267,8 @@ public class Frame extends JFrame{
 			g.fillRect(774 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080 * (1 - PlayerIO.abklingzeitZauber5() / 20)));
 
 		} else {
-			if (PlayerIO.getZeitSeitLetztemSchuss() < 0.5) { // Grauhinterlegung fuer Schussfrequenz bei Zaubern mit Abklingzeit in einer extra IF-Abfrage da vorher noch die Abklingzeit geprueft werden muss
-				g.fillRect(774 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080 * (1 - 2 * PlayerIO.getZeitSeitLetztemSchuss())));
+			if (PlayerIO.getZeitSeitLetztemSchuss() < 0.4) { // Grauhinterlegung fuer Schussfrequenz bei Zaubern mit Abklingzeit in einer extra IF-Abfrage da vorher noch die Abklingzeit geprueft werden muss
+				g.fillRect(774 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080 * (1 - 2.5 * PlayerIO.getZeitSeitLetztemSchuss())));
 			}
 		}
 		if (PlayerIO.abklingzeittrank() < 10) { //Zauber werden grau hinterlegt wenn die Zeit seit der Zauber genutzt wurde, die Abklingzeit des Zaubers nicht ueberschreitet

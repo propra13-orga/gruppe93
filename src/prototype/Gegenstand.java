@@ -18,6 +18,8 @@ public class Gegenstand {
 	private static List<Gegenstand> gegenstaende;
 	private static BufferedImage Lebenstrank; 
 	private static BufferedImage Manatrank; 
+	private static BufferedImage Waffe;
+	private static BufferedImage Ruestung;
 	
 	
 	static {
@@ -25,7 +27,9 @@ public class Gegenstand {
 			
 			Lebenstrank = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Lebenstrank.png"));
 			Manatrank = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Manatrank.png"));
-			
+			Waffe = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Waffe.png"));
+			Ruestung = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Ruestung.png"));
+
 
 
 			} catch (IOException e) {e.printStackTrace();}
@@ -79,6 +83,20 @@ public class Gegenstand {
 	
 
 	}
+	public static BufferedImage getLook3() {
+		
+		return Waffe;
+	
+
+
+}
+	public static BufferedImage getLook4() {
+		
+		return Ruestung;
+	
+
+
+}
 
 
 	public int getX() {
