@@ -84,7 +84,7 @@ public class Frame extends JFrame{
 		
 		
 		addKeyListener(new Keyboard());
-        addMouseListener(new Schiessen());
+        addMouseMotionListener(new Schiessen());
 
 		this.map=map;
 		
@@ -99,7 +99,6 @@ public class Frame extends JFrame{
 		xVerschiebung=(-PlayerIO.getPlayerPositionX()+fensterbreite/2-PlayerIO.getBimg().getWidth()/2);	//diese Werte liefern unter Beruecksichtigung der Faktoren wie Spielerposition, Insets, Fenstergroeﬂe, Spielergroeﬂe und Statusleistendicke die noetigen Verschiebungen aller Objekte
 		yVerschiebung=(-PlayerIO.getPlayerPositionY()+(fensterhoehe-kugelgroesse)/2-PlayerIO.getBimg().getHeight()/2+getInsets().top-getInsets().bottom);
 		Graphics g=buff.getDrawGraphics();//uebergibt ein malobjekt aus der bufferstrat
-
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0 , getWidth(), getHeight());
 
@@ -215,7 +214,6 @@ public class Frame extends JFrame{
 			ergebnis.createGraphics().drawImage(Gegenstand.getLook2(),1190* fensterbreite / 1920,fensterhoehe - 76 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 			ergebnis.createGraphics().drawImage(gold,1260* fensterbreite / 1920,fensterhoehe - 70 * fensterhoehe / 1080,50* fensterbreite / 1920, 50 * fensterhoehe / 1080, null);
 
-			
 			interface2 = ergebnis;
 			altefensterbreite = fensterbreite;
 			altefensterhoehe = fensterhoehe;
@@ -294,13 +292,6 @@ public class Frame extends JFrame{
 //			}
 
 		
-
-		   
-	      
-
-
-	
-	
 
 
 //	}

@@ -5,14 +5,14 @@ import java.awt.Point;
 import java.awt.PointerInfo;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.List;
-
+import javax.swing.SwingUtilities;
 import prototype.Frame;
 import prototype.Keyboard;
 import prototype.Zauber;
 
-public class  Schiessen implements MouseListener {
+public class  Schiessen implements MouseMotionListener{
 	
 	private static final float schussfrequenz= 0.5f;
 	private static float ZeitSeitLetztemSchuss=1;
@@ -25,7 +25,8 @@ public class  Schiessen implements MouseListener {
 	private static float mana;
 	private static float leben;
 	private static List<Zauber>Zaubern;
-	
+	private static int locationx;
+	private static int locationy;
 	
 	 static void schussGen (float frametime)
 	{
@@ -48,6 +49,8 @@ public class  Schiessen implements MouseListener {
 			float Zauberrichtung_y=0;
 			Zaubern.add(new Zauber(f_playposx-100, f_playposy-100, Zauberrichtung_x, Zauberrichtung_y,2, Zaubern));
 			mana -= 200;
+
+
 		}
 		if(Keyboard.isKeyDown(KeyEvent.VK_2)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>200)
 		{
@@ -82,6 +85,18 @@ public class  Schiessen implements MouseListener {
 		    
 		    
 		}
+		if(Keyboard.isKeyDown(KeyEvent.VK_SPACE)&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>30){
+			
+			ZeitSeitLetztemSchuss = 0;
+		   
+			float entfernung=(float) Math.sqrt((locationx-Frame.fensterbreite/2)*(locationx-Frame.fensterbreite/2)+(locationy-Frame.fensterhoehe/2+65)*(locationy-Frame.fensterhoehe/2+65));
+
+			Zaubern.add(new Zauber(f_playposx, f_playposy, (locationx-Frame.fensterbreite/2)/entfernung*1000 ,(locationy-Frame.fensterhoehe/2+65)/entfernung*1000,1,  Zaubern));
+			mana -= 30;
+			
+		}
+
+
 		
 		Player.setF_mana(mana);
 		Player.setF_leben(leben);
@@ -111,45 +126,25 @@ public class  Schiessen implements MouseListener {
 	public static void setManatrank(int x) {
 		manatrank+=1;
 	}
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		
-//		while(ZeitSeitLetztemSchuss>schussfrequenz&&mana>20){
 
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
 		 PointerInfo info = MouseInfo.getPointerInfo(); //Für spätere Steuerung mit der Maus
 		    
 		    Point location = info.getLocation();
 		    
-		    
-		   
-			float entfernung=(float) Math.sqrt((location.x-Frame.fensterbreite/2)*(location.x-Frame.fensterbreite/2)+(location.y-Frame.fensterhoehe/2)*(location.y-Frame.fensterhoehe/2));
-
-			Zaubern.add(new Zauber(f_playposx, f_playposy, (location.x-Frame.fensterbreite/2)/entfernung*1000 ,(location.y-Frame.fensterhoehe/2)/entfernung*1000,1,  Zaubern));
-			mana -= 10;
-			Player.setF_mana(mana);
-//		}
-
-
-	}
-		
-	
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
+			SwingUtilities.convertPointFromScreen(location, arg0.getComponent());
+			
+			locationx=location.x;
+			locationy=location.y;		
+			
+			System.out.println(location.x+"      "+location.y);
+			
+			
 		
 	}
 
