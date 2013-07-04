@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 
 
 import player.PlayerIO;
@@ -33,6 +34,7 @@ public class Frame extends JFrame{
 	private static BufferedImage icon1; 
 	private static BufferedImage icon2;
 	private static BufferedImage icon3; 
+	private static BufferedImage NPCDIALOG;
 	private static BufferedImage gold; 
 	private int kugelgroesse=152;
 	public static int fensterbreite=0;
@@ -52,6 +54,7 @@ public class Frame extends JFrame{
 			icon2 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon2.png"));
 			icon3 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon3.png"));
 			gold = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/gold.png"));
+			NPCDIALOG = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/NPCDIALOG.png"));
 
 
 			} catch (IOException e) {e.printStackTrace();}
@@ -80,10 +83,6 @@ public class Frame extends JFrame{
 //		screen = new Screen();
 //		screen.setBounds(0, 0, worldsizex, worldsizey);
 //		add(screen);
-
-	   
-		
-
 		
 		
 		addKeyListener(new Keyboard());
@@ -138,11 +137,6 @@ public class Frame extends JFrame{
 		
 		g.drawImage(PlayerIO.getBimg(), (fensterbreite-PlayerIO.getBimg().getWidth())/2, (fensterhoehe-kugelgroesse-PlayerIO.getBimg().getHeight())/2+getInsets().top-getInsets().bottom, null);	//Player in der Mitte des Bildes
 		
-		for(int i = 0; i<npcs.size(); i++){
-			NPC b = npcs.get(i);
-			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
-			
-		}
 			
 			
 	
@@ -161,14 +155,21 @@ public class Frame extends JFrame{
 			}
 			
 		}
+		for(int i = 0; i<npcs.size(); i++){
+			NPC b = npcs.get(i);
+			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			if (b.dialogAn){g.drawImage(NPCDIALOG, b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			}
+		}
 		
-
+        
 			
 		g.drawImage(Licht.getLook(),xVerschiebung,yVerschiebung, null);
 
 		//am Ende, damit da nix druebermalt
 		dieKugelnUndLeiste(g);//wegen der Komplexitaet ist die Statusleiste in ihrer eigenen Funktion
 		Interface(g);
+
 		g.dispose();	//gibt den zeichner wieder frei
 		buff.show();	//zeigt dann den aktuellen buffer
 	}

@@ -3,6 +3,9 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.swing.JInternalFrame;
+
 import player.PlayerIO;
 import player.Player;
 
@@ -61,7 +64,8 @@ public class Main {
 				long nachBerechnungsZeit=0;
 				long berechnungsZeit=0;
 				lastFrame=System.currentTimeMillis();
-
+				
+				
 
 
 				// Haupschleife mit FPS Limiter (ca 60 FPS
@@ -86,10 +90,10 @@ public class Main {
 						Enemys.get(i).update(timeSinceLastFrame);}
 					for(int i = 0; i<npcs.size(); i++){
 						npcs.get(i).update(timeSinceLastFrame);}
-					Gegenstand.update(timeSinceLastFrame);
+					if (Gegenstaende.size()>0)Gegenstand.update(timeSinceLastFrame);
 					
 					spielFenster.nextFrame();			//naechster frame
-					
+
 
                     //Mausposition für Zauber
 					point = spielFenster.getLocationOnScreen();

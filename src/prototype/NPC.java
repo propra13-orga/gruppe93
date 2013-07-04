@@ -15,7 +15,7 @@ public class NPC {
 	private float f_NPCpos_y;
 	private Rectangle bounding;
 	private static BufferedImage NPCSHOP; 
-	private boolean dialogAn=true;
+	public boolean dialogAn=true;
 
 	
 	static {
@@ -38,12 +38,12 @@ public class NPC {
 	}
 	public void update(float timeSinceLastFrame){
 		float entfernung=(float) Math.sqrt((PlayerIO.getBounding().x-f_NPCpos_x)*(PlayerIO.getBounding().x-f_NPCpos_x)+(PlayerIO.getBounding().y-f_NPCpos_y-128)*(PlayerIO.getBounding().y-f_NPCpos_y-128));
-       if (entfernung<100&&dialogAn){
-    	 
+       if (entfernung<100){
+    	   dialogAn=true;
  
 
     	   
-       }
+       }else{dialogAn=false;	}
 	}
 	
 	

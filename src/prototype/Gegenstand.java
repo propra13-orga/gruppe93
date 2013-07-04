@@ -52,14 +52,34 @@ public class Gegenstand {
 			Gegenstand e = gegenstaende.get(i);
 			
 			if(PlayerIO.getBounding().intersects(e.getBounding())){
-				if (e.getid()==1){
+				if (e.getid()==1&&PlayerIO.getgeld()>4){
 					PlayerIO.setlebenstrank(1);
+					PlayerIO.setgeld(-5);
+
+					gegenstaende.remove(i);
+					
 				}
-					if (e.getid()==2){
-						PlayerIO.setmanatrank(1);
+				if (e.getid()==2&&PlayerIO.getgeld()>4){
+					PlayerIO.setmanatrank(1);
+					PlayerIO.setgeld(-5);
+
+					gegenstaende.remove(i);
+					
+				}
+				if (e.getid()==3&&PlayerIO.getgeld()>19){
+					PlayerIO.setgeld(-20);
+
+					gegenstaende.remove(i);
+					
 				}
 				
-				gegenstaende.remove(i);
+				if (e.getid()==41&&PlayerIO.getgeld()>19){
+					PlayerIO.setgeld(-20);
+
+					gegenstaende.remove(i);
+					
+				}
+				
 				
 				
 			}
