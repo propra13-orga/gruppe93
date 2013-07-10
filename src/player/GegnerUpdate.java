@@ -53,7 +53,7 @@ class GegnerUpdate {
 		    	}
 		    	else
 		    	if (f.getid()==2){
-					e.setLeben(2);
+					e.setLeben(1);
 			    	}
 		    	else
 		    	if (f.getid()==4){

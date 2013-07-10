@@ -10,6 +10,7 @@ import player.PlayerIO;
 
 public class Gegner {
 	private static BufferedImage Gengar;
+	private static BufferedImage glumanda;
 	private static BufferedImage[] Dragoran= new BufferedImage[16];
 	private static BufferedImage[] Dragoranfly= new BufferedImage[16];
 	private float f_Gegnerposy_x;
@@ -34,10 +35,13 @@ public class Gegner {
 	private float phasecounter=0;
 	private float winkel=90; //steuert Streuung der Feuerbaelle von Dragoran in Grad
 	private float Dragorangeschossgeschwindigkeit=800;
+	private float glumandageschossfrequenz=1;
+	private float glumandageschossfrequenzzaehler=1;
 	private float speedchange=1;
 	static {
 		try {
 			Gengar = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/gengar.png"));
+			glumanda= ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/glumanda.png"));
 			Dragoran[0]  = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/1.png"));
 			Dragoran[1] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/2.png"));
 			Dragoran[2]= ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/3.png"));
@@ -89,6 +93,11 @@ public class Gegner {
 			leben=2000;
 			gegnergeschwindigkeit=40;
 			}
+		if (gegnerid==3){ //Attribute fuer Gegner 3 (glumanda)
+		     bounding = new Rectangle((int)Gegnerx, (int)Gegnery, Gengar.getWidth(), Gengar.getHeight());
+			leben=100;
+			gegnergeschwindigkeit=100;
+			}
 		this.Enemys=Enemys;
 	}
 	
@@ -111,6 +120,20 @@ public class Gegner {
 		            f_Gegnerposy_y=f_Gegnerposy_y+yadd*timeSinceLastFrame*gegnergeschwindigkeit*speedchange+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
 		            bounding.x = (int)f_Gegnerposy_x;
 		            bounding.y = (int)f_Gegnerposy_y;}
+		}
+		if (gegnerid==3){ //Bewegung glumanda
+	          if(entfernung<reichweite){
+	        	  glumandageschossfrequenzzaehler=glumandageschossfrequenzzaehler+timeSinceLastFrame;
+	        	  
+		            f_Gegnerposy_x= (f_Gegnerposy_x+xadd*timeSinceLastFrame*gegnergeschwindigkeit*speedchange+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4)); //-(x-2)^2+4
+		            f_Gegnerposy_y=f_Gegnerposy_y+yadd*timeSinceLastFrame*gegnergeschwindigkeit*speedchange+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
+		            bounding.x = (int)f_Gegnerposy_x;
+		            bounding.y = (int)f_Gegnerposy_y;
+	          if (glumandageschossfrequenzzaehler>glumandageschossfrequenz){
+		     		 Zaubern.add(new Zauber(f_Gegnerposy_x, f_Gegnerposy_y, xadd*800, yadd*800, 3, Zaubern));
+		     		glumandageschossfrequenzzaehler=0;
+              	}
+	          }
 		}
 		 //Animationsrichtung
 		 if(yadd<0&&xadd>0)animationsrichtung=2;
@@ -171,7 +194,9 @@ public class Gegner {
 	}
 	
 	public BufferedImage getLook(){
-		
+		if (gegnerid==3){
+			return glumanda;
+		}
 		if (gegnerid==2){
 			if(phasecounter<10){
 		if(Dragoran.length==0)return null;

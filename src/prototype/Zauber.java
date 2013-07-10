@@ -35,6 +35,8 @@ public class Zauber {
 					.getResourceAsStream("gfx/circle2.png"));
 			bimg5 = ImageIO.read(Zauber.class.getClassLoader()
 					.getResourceAsStream("gfx/circle3.png"));
+			bimg5 = ImageIO.read(Zauber.class.getClassLoader()
+					.getResourceAsStream("gfx/Dragoran/Dragoranspell2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
