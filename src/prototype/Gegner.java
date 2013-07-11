@@ -90,7 +90,7 @@ public class Gegner {
 		    }
 		if (gegnerid==2){ //Attribute fuer Gegner 2 (Dragoran)
 			bounding = new Rectangle((int)Gegnerx+10, (int)Gegnery+5, Dragoran[0].getWidth()-20, Dragoran[0].getHeight()-10);
-			leben=3000;
+			leben=6000;
 			gegnergeschwindigkeit=40;
 			}
 		if (gegnerid==3){ //Attribute fuer Gegner 3 (glumanda)
