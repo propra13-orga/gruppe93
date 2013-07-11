@@ -49,7 +49,7 @@ public class Zauber {
 					bimg.getHeight());
 		}
 		if (zauberid == 2) {
-			darfexistieren = (float) 8;
+			darfexistieren = (float) 3;
 			bounding = new Rectangle((int) x, (int) y, bimg2.getWidth(),
 					bimg2.getHeight());
 		}
@@ -59,7 +59,7 @@ public class Zauber {
 					bimg3.getWidth() - 10, bimg3.getHeight() - 10);
 		}
 		if (zauberid == 4) {
-			darfexistieren = (float) 3;
+			darfexistieren = (float) 8;
 			bounding = new Rectangle((int) x - 5, (int) y - 5,
 					bimg2.getWidth() - 10, bimg2.getHeight() - 10);
 		}
