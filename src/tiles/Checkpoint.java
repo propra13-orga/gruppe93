@@ -12,13 +12,13 @@ public class Checkpoint {
 	
 	
 	public static void setCheckpoint(int positionX, int positionY){
-		if(positionX!=Checkpoint.positionX&&positionY!=Checkpoint.positionY){
+//		if(positionX!=Checkpoint.positionX&&positionY!=Checkpoint.positionY){
 			Checkpoint.positionX=positionX;
 			Checkpoint.positionY=positionY;
 			Checkpoint.checkpointset = true;
 			
 			Checkpoint.mapname= Map.getCurrentMap();
-		}
+//		}
 	}
 
 
