@@ -68,7 +68,7 @@ public class  Schiessen implements MouseListener{
 			float Zauberrichtung_x=0;
 			float Zauberrichtung_y=0;
 			Zaubern.add(new Zauber(f_playposx, f_playposy, Zauberrichtung_x, Zauberrichtung_y,5, Zaubern));
-			mana -=200;
+			mana -=100;
 		}
 		if(Keyboard.isKeyDown(KeyEvent.VK_Q)&&lebenstrank>0&&abklingzeittrank>10)
 		{

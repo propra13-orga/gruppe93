@@ -49,7 +49,7 @@ class GegnerUpdate {
 		    if(e.getBounding().intersects(f.getBounding())){
 		    	if (f.getid()==1){
 				Zaubern.remove(a);
-				e.setLeben(40);
+				e.setLeben(80);
 		    	}
 		    	else
 		    	if (f.getid()==2){

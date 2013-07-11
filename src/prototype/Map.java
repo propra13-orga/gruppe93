@@ -2,7 +2,6 @@ package prototype;
 
 import tiles.*;
 import typen.Err;
-import typen.Wand;
 import typen.WinTile;
 import typen.tot;
 import typen.tot2;
@@ -38,10 +37,10 @@ public class Map
 		
 		// Zwangsrahmen
 		
-		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0].setTileTyp(new Wand());}
-		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1].setTileTyp(new Wand());}
-		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y].setTileTyp(new Wand());}
-		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y].setTileTyp(new Wand());}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][0].setTileTyp(new Err());}
+		for(int x = 0; x <= x_Tiles+1;x++){tiles[x][y_Tiles+1].setTileTyp(new Err());}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[0][y].setTileTyp(new Err());}
+		for(int y = 0; y <= y_Tiles+1;y++){tiles[x_Tiles+1][y].setTileTyp(new Err());}
 	}
 
 	//METHODEN

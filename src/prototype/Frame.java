@@ -254,9 +254,13 @@ public class Frame extends JFrame{
 
 			g.fillRect(643 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
 			g.fillRect(709 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
+		}
+		if (PlayerIO.getF_Mana()<100){ //Zauber werden grau hinterlegt wenn Manakosten>Manapool
+			g2d.setPaint(myColour);
 			g.fillRect(774 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080)) ;
 
 		}
+		
 		if (PlayerIO.getF_Mana()<30){ //Zauber werden grau hinterlegt wenn Manakosten>Manapool (fuer jeden Zauber gesondert mit unterschiedlichen Manakosten)
 			g2d.setPaint(myColour);
 

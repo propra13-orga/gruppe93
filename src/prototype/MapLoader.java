@@ -190,15 +190,15 @@ public class MapLoader {
 							gegenstaende.add(new Gegenstand(x*40+10, y*40+10,4,gegenstaende));
 							break;
 						case 71:
-							Map.tiles[x][y].setTileTyp(new Boden());
-							Licht licht=new Licht(x*40+10,y*40+10,200);
+							Map.tiles[x][y].setTileTyp(new Wand());
+							Licht licht=new Licht(x*40+10,y*40+10,300);
 							break;
 						case 72:
-							Map.tiles[x][y].setTileTyp(new Boden());
+							Map.tiles[x][y].setTileTyp(new Wand());
 							Licht licht2=new Licht(x*40+10,y*40+10,400);
 							break;
 						case 73:
-							Map.tiles[x][y].setTileTyp(new Boden());
+							Map.tiles[x][y].setTileTyp(new Wand());
 							Licht licht3=new Licht(x*40+10,y*40+10,600);
 							break;
 						case 81:

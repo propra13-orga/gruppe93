@@ -42,7 +42,7 @@ public class Licht {
 	    RadialGradientPaint rgp = new RadialGradientPaint(center, radius, focus, dist, colors, MultipleGradientPaint.CycleMethod.NO_CYCLE);
 	    gbi3.setPaint(rgp);
 	    gbi3.setComposite(AlphaComposite.DstOut);
-	    gbi3.fillRect(0,0, 2000, 2000);
+	    gbi3.fillRect(0,0, 4000, 4000);
 	    
 	    
 //	    Point2D center1 = new Point2D.Float(x-400, y-400);

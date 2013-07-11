@@ -34,7 +34,7 @@ public class Gegner {
 	private int phase=20; //Wechsel zwischen Flug- und Bodenphase in 20 Sekunden Rhythmus
 	private float phasecounter=0;
 	private float winkel=90; //steuert Streuung der Feuerbaelle von Dragoran in Grad
-	private float Dragorangeschossgeschwindigkeit=800;
+	private float Dragorangeschossgeschwindigkeit=500;
 	private float glumandageschossfrequenz=1;
 	private float glumandageschossfrequenzzaehler=1;
 	private float speedchange=1;
@@ -85,18 +85,18 @@ public class Gegner {
 		this.f_Gegnerposy_y = Gegnery;
 		if (gegnerid==1){   //Attribute fuer Gegner 1 (Gengar)
 		     bounding = new Rectangle((int)Gegnerx, (int)Gegnery, Gengar.getWidth(), Gengar.getHeight());
-		     leben=100;
+		     leben=200;
 		     gegnergeschwindigkeit=300;
 		    }
 		if (gegnerid==2){ //Attribute fuer Gegner 2 (Dragoran)
 			bounding = new Rectangle((int)Gegnerx+10, (int)Gegnery+5, Dragoran[0].getWidth()-20, Dragoran[0].getHeight()-10);
-			leben=2000;
+			leben=3000;
 			gegnergeschwindigkeit=40;
 			}
 		if (gegnerid==3){ //Attribute fuer Gegner 3 (glumanda)
 		     bounding = new Rectangle((int)Gegnerx, (int)Gegnery, Gengar.getWidth(), Gengar.getHeight());
-			leben=100;
-			gegnergeschwindigkeit=100;
+			leben=400;
+			gegnergeschwindigkeit=200;
 			}
 		this.Enemys=Enemys;
 	}
