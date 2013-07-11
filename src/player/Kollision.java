@@ -64,7 +64,7 @@ class Kollision {
 				}
 				// Teleporterpruefung
 				
-				if(map.getTile(tilex, tiley).getTranporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())){
+				if(map.getTile(tilex, tiley).getTranporter()&&bounding.intersects(map.getTile(tilex, tiley).getBounding())&&Player.getEnemys().size()<1){
 					Map.needPort = true; 
 				}
 				//Shoppruefung

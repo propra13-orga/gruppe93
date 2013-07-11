@@ -71,12 +71,14 @@ public class Gegenstand {
 
 					gegenstaende.remove(i);
 					
+					
 				}
 				
 				if (e.getid()==41&&PlayerIO.getgeld()>19){
 					PlayerIO.setgeld(-20);
 
 					gegenstaende.remove(i);
+					
 					
 				}
 				

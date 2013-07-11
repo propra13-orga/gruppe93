@@ -6,6 +6,8 @@ import prototype.Gegner;
 import prototype.Zauber;
 
 class GegnerUpdate {
+	private static float schadenserhoehung;
+	
 	
 	static void gegnerKolision()
 	{
