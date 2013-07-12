@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import prototype.Map;
 import typen.Boden;
 import typen.CheckpointTile;
+import typen.Err;
 import typen.Exit;
 import typen.Teleporter;
 import typen.Trap;
@@ -58,6 +59,10 @@ public class EditorMaus implements MouseListener{
 		if(EditorFrame.feldart==6){
 			System.out.println("Tür gesetzt");
 			map.getTile((int)(e.getX()+kamera.getX())/40, (int)(e.getY()+kamera.getY())/40).setTileTyp(new Teleporter());
+		}
+		if(EditorFrame.feldart==7){
+			System.out.println("Error gesetzt");
+			map.getTile((int)(e.getX()+kamera.getX())/40, (int)(e.getY()+kamera.getY())/40).setTileTyp(new Err());
 		}
 	}
 

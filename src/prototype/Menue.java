@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 public class Menue extends JFrame{
 	
-	JButton start, beenden;
+	JButton start, beenden, multiplayer;
 	boolean play;
 	
 	public Menue(){
@@ -28,11 +28,15 @@ public class Menue extends JFrame{
 		start.addActionListener(new ButtonListener());
 		add(start);
 		
-		
 		beenden = new JButton("Beenden");
 		beenden.setBounds(150, 60, 100, 30);
 		beenden.addActionListener(new ButtonListener());
 		add(beenden);
+		
+		multiplayer = new JButton("Multiplayer");
+		multiplayer.setBounds(30, 100, 100, 30);
+		multiplayer.addActionListener(new ButtonListener());
+		add(multiplayer);
 		
 		play = false;
 		
@@ -45,13 +49,17 @@ public class Menue extends JFrame{
 		
 		public void actionPerformed(ActionEvent e) {
 
-				if(e.getSource() == start){
-					play = true;
-					setVisible(false);	
+			if(e.getSource() == start){
+				play = true;
+				setVisible(false);	
 			}
 			if(e.getSource() == beenden){
 				System.exit(0);
 				
+			}
+			if(e.getSource()==multiplayer){
+				//hier kommt der Multiplayerstarter rein
+				dispose();
 			}
 		}
 	}

@@ -129,6 +129,7 @@ public class EditorFrame extends JFrame{
 		JMenuItem exit=new JMenuItem("Ausgang");
 		JMenuItem trap=new JMenuItem("Falle");
 		JMenuItem teleporter=new JMenuItem("Tür");
+		JMenuItem error=new JMenuItem("Error");
 		
 		feldtyp.add(wall1);
 		wall1.setToolTipText("Baut Objekte vom Typ Boden1.");
@@ -175,6 +176,14 @@ public class EditorFrame extends JFrame{
 		teleporter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				feldart=6;
+			}
+		});
+		
+		feldtyp.add(error);
+		error.setToolTipText("Baut Objekte vom Typ Error.");
+		error.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				feldart=7;
 			}
 		});
 		

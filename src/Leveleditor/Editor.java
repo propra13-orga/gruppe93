@@ -84,6 +84,9 @@ public class Editor {
 				}else
 				if(map.getTile(x, y).getTileTyp().getName()=="Teleporter"){
 					kartenString+="4 ";
+				}else
+				if(map.getTile(x, y).getTileTyp().getName()=="Error"){
+					kartenString+="0 ";
 				}
 			}
 		}
