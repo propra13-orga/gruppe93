@@ -50,8 +50,8 @@ public class Main {
 				MapLoader ml = new MapLoader(map, Enemys, Zaubern,Gegenstaende,npcs);
 
 
-				ml.lesen("maps/AktuelleMap.txt");
-//				ml.lesen("maps/Map1.txt");
+//				ml.lesen("maps/AktuelleMap.txt");
+				ml.lesen("maps/Map1.txt");
 
 				//Sound
 				boolean playMusic = false;
