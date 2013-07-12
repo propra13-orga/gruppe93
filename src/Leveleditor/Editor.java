@@ -58,20 +58,32 @@ public class Editor {
 	public static void speichern(Map map){
 		String kartenString=new String("");
 		
-		kartenString+=map.getXTiles()+" ";
-		kartenString+=map.getYTiles()+" ";
+		kartenString+=map.getXTiles()-1+" ";
+		kartenString+=map.getYTiles()-1+" ";
 		kartenString+="Hier Spielerstarpunkt dieser map eintragen (x y) ";
 		kartenString+="Hier Pfad der nächsten map eintragen ";
 		
-		for(int y= 1; y<=map.getXTiles();y++)
+		for(int y= 1; y<=map.getXTiles()-1;y++)
 		{
-			for(int x = 1; x<=map.getYTiles();x++)
+			for(int x = 1; x<=map.getYTiles()-1;x++)
 			{
 				if(map.getTile(x, y).getTileTyp().getName()=="Wand"){
 					kartenString+="2 ";
 				}else
 				if(map.getTile(x, y).getTileTyp().getName()=="Boden"){
 					kartenString+="1 ";
+				}else
+				if(map.getTile(x, y).getTileTyp().getName()=="Checkpoint"){
+					kartenString+="8 ";
+				}else
+				if(map.getTile(x, y).getTileTyp().getName()=="Exit"){
+					kartenString+="6 ";
+				}else
+				if(map.getTile(x, y).getTileTyp().getName()=="Falle"){
+					kartenString+="3 ";
+				}else
+				if(map.getTile(x, y).getTileTyp().getName()=="Teleporter"){
+					kartenString+="4 ";
 				}
 			}
 		}

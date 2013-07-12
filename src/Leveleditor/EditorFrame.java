@@ -125,6 +125,10 @@ public class EditorFrame extends JFrame{
 		
 		JMenuItem wall1=new JMenuItem("Wand1");
 		JMenuItem floor1=new JMenuItem("Boden1");
+		JMenuItem checkpoint=new JMenuItem("Checkpoint");
+		JMenuItem exit=new JMenuItem("Ausgang");
+		JMenuItem trap=new JMenuItem("Falle");
+		JMenuItem teleporter=new JMenuItem("Tür");
 		
 		feldtyp.add(wall1);
 		wall1.setToolTipText("Baut Objekte vom Typ Boden1.");
@@ -139,6 +143,38 @@ public class EditorFrame extends JFrame{
 		floor1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				feldart=1;
+			}
+		});
+		
+		feldtyp.add(checkpoint);
+		checkpoint.setToolTipText("Baut Objekte vom Typ Checkpoint.");
+		checkpoint.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				feldart=3;
+			}
+		});
+		
+		feldtyp.add(exit);
+		exit.setToolTipText("Baut Objekte vom Typ Ausgang.");
+		exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				feldart=4;
+			}
+		});
+		
+		feldtyp.add(trap);
+		trap.setToolTipText("Baut Objekte vom Typ Falle.");
+		trap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				feldart=5;
+			}
+		});
+		
+		feldtyp.add(teleporter);
+		teleporter.setToolTipText("Baut Objekte vom Typ Tür.");
+		teleporter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				feldart=6;
 			}
 		});
 		

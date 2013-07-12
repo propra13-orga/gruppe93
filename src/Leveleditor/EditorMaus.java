@@ -5,6 +5,10 @@ import java.awt.event.MouseListener;
 
 import prototype.Map;
 import typen.Boden;
+import typen.CheckpointTile;
+import typen.Exit;
+import typen.Teleporter;
+import typen.Trap;
 import typen.Wand;
 
 public class EditorMaus implements MouseListener{
@@ -38,6 +42,22 @@ public class EditorMaus implements MouseListener{
 		if(EditorFrame.feldart==2){
 			System.out.println("Wand gesetzt");
 			map.getTile((int)(e.getX()+kamera.getX())/40, (int)(e.getY()+kamera.getY())/40).setTileTyp(new Wand());
+		}
+		if(EditorFrame.feldart==3){
+			System.out.println("Checkpoint gesetzt");
+			map.getTile((int)(e.getX()+kamera.getX())/40, (int)(e.getY()+kamera.getY())/40).setTileTyp(new CheckpointTile());
+		}
+		if(EditorFrame.feldart==4){
+			System.out.println("Ausgang gesetzt");
+			map.getTile((int)(e.getX()+kamera.getX())/40, (int)(e.getY()+kamera.getY())/40).setTileTyp(new Exit());
+		}
+		if(EditorFrame.feldart==5){
+			System.out.println("Falle gesetzt");
+			map.getTile((int)(e.getX()+kamera.getX())/40, (int)(e.getY()+kamera.getY())/40).setTileTyp(new Trap());
+		}
+		if(EditorFrame.feldart==6){
+			System.out.println("Tür gesetzt");
+			map.getTile((int)(e.getX()+kamera.getX())/40, (int)(e.getY()+kamera.getY())/40).setTileTyp(new Teleporter());
 		}
 	}
 
