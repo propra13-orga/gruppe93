@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.swing.JInternalFrame;
 
+import multitools.AntiRossi;
+import multitools.MPlayServer;
+
 import player.PlayerIO;
 import player.Player;
 
@@ -27,7 +30,7 @@ public class Main {
 				Thread.sleep(100);
 			} catch (InterruptedException e1) {	e1.printStackTrace();}
 						
-			if(m.play){
+			if(m.play||m.multiplay){
 				//Start Einstellungen 
 				int startx = 0;
 				int starty = 0;
@@ -35,23 +38,22 @@ public class Main {
 				List<Gegner> Enemys= new LinkedList<Gegner>();
 				List<Gegenstand> Gegenstaende= new LinkedList<Gegenstand>();
 				List<NPC> npcs= new LinkedList<NPC>();
-				
-
-
-				int x_MapTiles = 32;
-				int y_MapTiles = 18;
 
 
 //				Initialisierung
-				Map map=new Map(x_MapTiles,y_MapTiles,null);		
+				Map map=new Map(1,1,null);	//da hier nie ne defaultmap zum einsatz kommt mach ich mal 1 und 1 draus..verbessert die übersicht	
 				Player player = new Player(startx,starty,map, Zaubern, Enemys);
-
+				if(m.multiplay){
+					AntiRossi anti=new AntiRossi();
+				}
 
 				MapLoader ml = new MapLoader(map, Enemys, Zaubern,Gegenstaende,npcs);
-
-
-//				ml.lesen("maps/AktuelleMap.txt");
-				ml.lesen("maps/Map1.txt");
+				if(m.play){
+					ml.lesen("maps/Map1.txt");
+				}else if(m.multiplay){
+					ml.lesen("maps/AktuelleMap.txt");
+				}
+				
 
 				//Sound
 				boolean playMusic = false;
@@ -149,9 +151,11 @@ public class Main {
 						try {Thread.sleep(15-berechnungsZeit);} 
 						catch (InterruptedException e) {e.printStackTrace();}
 					}
-				}
-			}//WHILE ENDE
+				}//WHILE ENDE
+			}//if play
 		}
+		
 	}//main Ende
-
+	
+	
 }

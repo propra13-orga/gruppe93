@@ -14,6 +14,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
+import multitools.AntiRossi;
+
 
 import player.PlayerIO;
 //import javax.swing.JLabel;
@@ -135,6 +137,9 @@ public class Frame extends JFrame{
 			}
 		}
 		
+		if(AntiRossi.getExistiert()){	//gegenspieler wird nur gemalt wenn er existiert
+			g.drawImage(AntiRossi.getBimg(),AntiRossi.getX()+xVerschiebung,AntiRossi.getY()+yVerschiebung,null);
+		}
 		g.drawImage(PlayerIO.getBimg(), (fensterbreite-PlayerIO.getBimg().getWidth())/2, (fensterhoehe-kugelgroesse-PlayerIO.getBimg().getHeight())/2+getInsets().top-getInsets().bottom, null);	//Player in der Mitte des Bildes
 		
 			

@@ -6,10 +6,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import multitools.MPlayServer;
+
 public class Menue extends JFrame{
 	
 	JButton start, beenden, multiplayer;
 	boolean play;
+	boolean multiplay;
+	
 	
 	public Menue(){
 		
@@ -39,6 +43,7 @@ public class Menue extends JFrame{
 		add(multiplayer);
 		
 		play = false;
+		multiplay=false;
 		
 	}
 
@@ -59,6 +64,7 @@ public class Menue extends JFrame{
 			}
 			if(e.getSource()==multiplayer){
 				//hier kommt der Multiplayerstarter rein
+				multiplay=true;
 				dispose();
 			}
 		}
