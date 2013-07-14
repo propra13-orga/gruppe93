@@ -137,7 +137,7 @@ public class Player {
 	/**
 	 * @return the map
 	 */
-	static Map getMap() {
+	public static Map getMap() {
 		return map;
 	}
 

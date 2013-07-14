@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.List;
 import javax.imageio.ImageIO;
 
+import player.Player;
+import player.PlayerIO;
+import tiles.Tile;
+
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -22,7 +26,12 @@ public class Zauber {
 	private float existiertseit = 0;
 	private float darfexistieren;
 	private int zauberid;
+	private int kartenPositionX;
+	private int kartenPositionY;
+	private int x_Tiles;
+	private int y_Tiles;
 	private static boolean besiegbar = true;
+	private Map map;
 	static {
 		try {
 			bimg = ImageIO.read(Zauber.class.getClassLoader()
@@ -78,6 +87,38 @@ public class Zauber {
 	}
 
 	public void update(float timeSinceLastFrame) {
+		if (zauberid==1 || zauberid==3)
+		{
+		
+		
+		map = Player.getMap();
+
+		kartenPositionX = (int) (f_playposx/Tile.getFeldGroesse());
+		kartenPositionY = (int) (f_playposy/Tile.getFeldGroesse());
+		x_Tiles = map.getXTiles();
+		y_Tiles = map.getYTiles();
+		
+	
+		for(int tilex = kartenPositionX; tilex <= kartenPositionX + 1; tilex++){//hier muss <= geprueft werden, damit an kartenposition+1 auch eine ueberpruefung stattfindet. an kartenpos -1 muss dafuer nix gemacht werden da wir die obere linke ecke sowieso als Ausgangsbasis nehmen
+			if(tilex<0)tilex=0;	//sorgt dafuer, daß beim ueberschreiten der levelgrenzen kein absturz auftritt
+			if(tilex>x_Tiles)break;
+			for(int tiley = kartenPositionY; tiley<= kartenPositionY + 1; tiley++){
+				if(tiley<0)tiley=0;
+				if(tiley>y_Tiles)break;
+				if(map.getTile(tilex, tiley).getBlockiert()&&bounding.intersects(map.getTile(tilex, tiley).getBounding()))//wenn hier abprallen gebrueft werden muss und die richtung nicht schon geaendert wurde
+				{
+					getZaubern().remove(this);
+
+				}
+			}
+		}
+		}
+		
+
+					
+					
+					
+					
 		existiertseit += timeSinceLastFrame;
 		if (existiertseit > darfexistieren) {
 			getZaubern().remove(this);
