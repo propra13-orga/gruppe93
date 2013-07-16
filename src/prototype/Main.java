@@ -1,6 +1,12 @@
 package prototype;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,6 +51,26 @@ public class Main {
 				Player player = new Player(startx,starty,map, Zaubern, Enemys);
 				if(m.multiplay){
 					AntiRossi anti=new AntiRossi();
+					//Jetzt kommt die Magie...
+					Socket socket = null;
+					PrintWriter out = null;
+					BufferedReader in = null;
+					try
+					  {
+					   socket = new Socket("25.199.201.255", 5000);
+					   out = new PrintWriter(socket.getOutputStream(), true);
+					   in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+					  }
+					  catch(UnknownHostException e)
+					  {
+					   System.out.println("Unknown or unreachable host 25.199.201.255 on port 5000");
+					   System.exit(1);
+					  }
+					  catch(IOException e)
+					  {
+					   System.out.println("I/O error");
+					   System.exit(1);
+					  }
 				}
 
 				MapLoader ml = new MapLoader(map, Enemys, Zaubern,Gegenstaende,npcs);

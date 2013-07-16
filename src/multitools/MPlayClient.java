@@ -6,8 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class MPlayClient extends Thread {
-	private int sessid;
-	private String username = "penisfiend";
+	private int sessid;	//die ID des Clients
 	private MPlayServer server;
 	private Socket socket;
 	private BufferedReader in;
@@ -71,22 +70,9 @@ public class MPlayClient extends Thread {
 		this.sessid = sessid;
 	}
  
- // Return username
-	public String getUsername()
-	{
-		return this.username;
-	}
-	
- // Change username
-	public void setUsername(String username)
-	{
-		this.username = username;
-	}
- 
  // Decide what to do from input
 	private void interpretData(String msg)
 	{
-		sendData(server.sess);
 		System.out.println("MplayClient " + sessid + "> " + msg);
 		server.sess=msg;
 //		sendData("welcome");

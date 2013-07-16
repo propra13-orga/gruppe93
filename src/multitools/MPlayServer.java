@@ -5,6 +5,8 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JFrame;
+
 
 public class MPlayServer {
 	private Map<Integer,MPlayClient> clients;
@@ -16,6 +18,11 @@ public class MPlayServer {
 	public MPlayServer(int port){
 		clients = new HashMap<Integer,MPlayClient>();
 		clientCount = 0;
+		JFrame frame = new JFrame("Server");
+		//Die kommenden 3 Zeilen dienen dazu den Server nicht zu vergessen
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(200, 50);
+		frame.setVisible(true);
   
 		try
 		{
@@ -80,7 +87,7 @@ public class MPlayServer {
  // Remove a client
 	public void removeMplayClient(int cid)
 	{
-		System.out.println("MPlayClient " + clients.get(cid).getUsername() + "(" + cid + ") removed");
+		System.out.println("MPlayClient " + cid + " removed");
 		clients.remove(cid);
 	}
 }

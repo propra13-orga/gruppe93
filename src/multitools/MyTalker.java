@@ -123,18 +123,15 @@ class MyTalker implements ActionListener
  
  public static void main(String[] args) throws IOException
  {
-  if (args.length < 0 || args.length > 2) System.out.println("Usage: java MyTalker [host] port\n\nExamples:\njava MyTalker 8087\njava MyTalker localhost 5000\njava MyTalker blakenet.no-ip.org 8087");
-  else	//längenabfrage auf <0 gesetzt von <1
-  {
-   String host = "localhost";
-   int port;
-//   if (args.length == 1) port = Integer.parseInt(args[0]);
-//   else{ host = args[0]; port = Integer.parseInt(args[1]); }
-   host = "25.199.201.255";
-   port = Integer.parseInt("5000");
+  
+   String host = "25.199.201.255";//die Hamachi IP vom Lorptorp
+   int port=5000;	//fester Port
+
+//   host = "25.199.201.255";
+//   port = Integer.parseInt("5000");
    
    MyTalker thisTalker = new MyTalker();
    thisTalker.init(host, port);
-  }
+  
  }
 }
