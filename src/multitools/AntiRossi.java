@@ -12,7 +12,7 @@ public class AntiRossi {
 	
 	public AntiRossi(){
 		try {
-			bimg= ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/Rossi.png"));
+			bimg= ImageIO.read(getClass().getClassLoader().getResourceAsStream("gfx/AntiRossi.png"));
 		} catch (IOException e) {e.printStackTrace();}
 	}
 	
