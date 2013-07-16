@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.swing.JInternalFrame;
 
@@ -49,12 +50,15 @@ public class Main {
 //				Initialisierung
 				Map map=new Map(1,1,null);	//da hier nie ne defaultmap zum einsatz kommt mach ich mal 1 und 1 draus..verbessert die übersicht	
 				Player player = new Player(startx,starty,map, Zaubern, Enemys);
+				
+				//Multigedöns
+				Socket socket = null;
+				PrintWriter out = null;
+				BufferedReader in = null;
+				String input="";
 				if(m.multiplay){
 					AntiRossi anti=new AntiRossi();
 					//Jetzt kommt die Magie...
-					Socket socket = null;
-					PrintWriter out = null;
-					BufferedReader in = null;
 					try
 					  {
 					   socket = new Socket("25.199.201.255", 5000);
@@ -112,6 +116,20 @@ public class Main {
 
 						//Updates der Objekte und Akteure
 					PlayerIO.playerUpdate(timeSinceLastFrame);
+					if(m.multiplay){
+						out.println(PlayerIO.getPlayerPositionX()+" "+PlayerIO.getPlayerPositionY());
+						System.out.println("test2");
+						try {
+							if(in.ready())input=in.readLine();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						Scanner s=new Scanner(input);
+						s.nextInt();	//um den sessid bestandteil des string zu überspringen
+						AntiRossi.setX(s.nextInt());
+						AntiRossi.setY(s.nextInt());
+					}
 					map.spielerTodAnimation(timeSinceLastFrame);
 					for(int i = 0; i<Zaubern.size(); i++){
 						Zaubern.get(i).update(timeSinceLastFrame);}

@@ -86,7 +86,7 @@ class MyTalker implements ActionListener
  
  private void sendMessage(String msg)
  {
-	 out.println(msg);
+	 out.println(msg);	//hier werden die Daten in den out gelegt. Die bearbeitung davon übernimmt der client
  }
  
  private void init(String host, int port) throws IOException

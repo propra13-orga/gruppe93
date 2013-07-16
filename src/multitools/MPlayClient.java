@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class MPlayClient extends Thread {
 	private int sessid;	//die ID des Clients
@@ -43,7 +44,7 @@ public class MPlayClient extends Thread {
 		try
 		{
 			String thismsg;
-			while ((thismsg = in.readLine()) != null) interpretData(thismsg);
+			while ((thismsg = in.readLine()) != null)System.out.println("test"); interpretData(thismsg);
 		}
 		catch(IOException e)
 		{
@@ -71,11 +72,18 @@ public class MPlayClient extends Thread {
 	}
  
  // Decide what to do from input
-	private void interpretData(String msg)
-	{
+	private void interpretData(String msg){
+		System.out.println("testttttttt");
+		if(server.sess!=null){
+		Scanner s=new Scanner(server.sess);	//die derzeit abgelegten daten werden geprüft
+		int a=s.nextInt();
+		if (a!=sessid){	//wenn sie nicht vom gleichen client kommen werden sie weitergegeben
+			sendData(server.sess);
+		}
+		}
 		System.out.println("MplayClient " + sessid + "> " + msg);
-		server.sess=msg;
-//		sendData("welcome");
+		server.sess=sessid+" "+msg;
+		System.out.println(server.sess);
 	}
  
  // Send data to the client

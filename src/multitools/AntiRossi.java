@@ -32,6 +32,14 @@ public class AntiRossi {
 		return yPos;
 	}
 	
+	public static void setX(int x){
+		xPos=x;
+	}
+	
+	public static void setY(int y){
+		yPos=y;
+	}
+	
 	public static boolean getExistiert(){
 		return existiert;
 	}
