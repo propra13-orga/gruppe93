@@ -23,7 +23,7 @@ class PlayerUpdate {
 		}
 			
 		if(Player.getF_mana()<1000)Player.setF_mana(Player.getF_mana()+manaRegenaration*frametime); // Verbrauchtes Mana wiederherstellen
-		//if(Player.getF_leben()<=0)spielerTot();														// Falls Spieler 0 Hp Tod abhandeln
+		if(Player.getF_leben()<=0)spielerTot();														// Falls Spieler 0 Hp Tod abhandeln
 		if(Player.getF_mana()>1000)Player.setF_mana(1000); //Falls Leben oder Mana das Maximum ueberschreiten
 		if(Player.getF_leben()>1000)Player.setF_leben(1000);
 	}
