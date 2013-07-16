@@ -118,17 +118,22 @@ public class Main {
 					PlayerIO.playerUpdate(timeSinceLastFrame);
 					if(m.multiplay){
 						out.println(PlayerIO.getPlayerPositionX()+" "+PlayerIO.getPlayerPositionY());
-						System.out.println("test2");
 						try {
 							if(in.ready())input=in.readLine();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						Scanner s=new Scanner(input);
-						s.nextInt();	//um den sessid bestandteil des string zu überspringen
-						AntiRossi.setX(s.nextInt());
-						AntiRossi.setY(s.nextInt());
+						if(input.contains("nepop")){
+							Scanner s=new Scanner(input);
+							if(s.hasNext()){
+//								System.out.println(s.next());
+								s.next();	//um den sessid bestandteil des string zu überspringen
+								AntiRossi.setX(s.nextInt());
+								AntiRossi.setY(s.nextInt());
+								s.close();
+							}
+						}
 					}
 					map.spielerTodAnimation(timeSinceLastFrame);
 					for(int i = 0; i<Zaubern.size(); i++){

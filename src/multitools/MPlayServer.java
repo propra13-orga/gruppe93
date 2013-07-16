@@ -12,7 +12,7 @@ public class MPlayServer {
 	private Map<Integer,MPlayClient> clients;
 	private int clientCount;
 	private ServerSocket server;
-	public String sess;
+	public String data1,data2;
  
  // Server constructor
 	public MPlayServer(int port){

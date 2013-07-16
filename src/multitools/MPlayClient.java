@@ -44,7 +44,7 @@ public class MPlayClient extends Thread {
 		try
 		{
 			String thismsg;
-			while ((thismsg = in.readLine()) != null)System.out.println("test"); interpretData(thismsg);
+			while ((thismsg = in.readLine()) != null)interpretData(thismsg);
 		}
 		catch(IOException e)
 		{
@@ -73,17 +73,19 @@ public class MPlayClient extends Thread {
  
  // Decide what to do from input
 	private void interpretData(String msg){
-		System.out.println("testttttttt");
-		if(server.sess!=null){
-		Scanner s=new Scanner(server.sess);	//die derzeit abgelegten daten werden geprüft
-		int a=s.nextInt();
-		if (a!=sessid){	//wenn sie nicht vom gleichen client kommen werden sie weitergegeben
-			sendData(server.sess);
+		if(sessid==1){
+			server.data1="nepop"+" "+msg;
+			sendData(server.data2);
+//		Scanner s=new Scanner(server.data1);	//die derzeit abgelegten daten werden geprüft
+//		int a=s.nextInt();
+//		if (a!=sessid){	//wenn sie nicht vom gleichen client kommen werden sie weitergegeben
+//			sendData(server.data1);
+//		}
+		}else if(sessid==2){
+			server.data2="nepop"+" "+msg;
+			sendData(server.data1);
 		}
-		}
-		System.out.println("MplayClient " + sessid + "> " + msg);
-		server.sess=sessid+" "+msg;
-		System.out.println(server.sess);
+		
 	}
  
  // Send data to the client
