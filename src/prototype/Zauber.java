@@ -32,6 +32,8 @@ public class Zauber {
 	private int y_Tiles;
 	private static boolean besiegbar = true;
 	private Map map;
+	private static boolean visible = true;
+	
 	static {
 		try {
 			bimg = ImageIO.read(Zauber.class.getClassLoader()
@@ -183,6 +185,15 @@ public class Zauber {
 
 	public static boolean getbesiegbar() {
 		return besiegbar;
+	}
+	public static boolean isvisible(){
+		return visible;
+	}
+	public static void setvisible(){
+		visible = false;
+	}
+	public void setbesiegbar(){
+		besiegbar = true;
 	}
 
 }

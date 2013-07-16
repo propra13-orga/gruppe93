@@ -38,6 +38,7 @@ public class Frame extends JFrame{
 	private static BufferedImage icon3; 
 	private static BufferedImage NPCDIALOG;
 	private static BufferedImage gold; 
+	private static BufferedImage status;
 	private int kugelgroesse=152;
 	public static int fensterbreite=0;
 	public static int fensterhoehe=0;
@@ -47,6 +48,15 @@ public class Frame extends JFrame{
 	private int altefensterhoehe; //
 	Color myColour = new Color(0, 0, 0, 180);
 	Color myColour2 = new Color(0, 0, 100, 180);
+	
+Color statusColor = new Color(171, 25, 84, 180);
+	
+	int level = 1;
+	int ep = 0;
+	boolean up1 = false;
+	boolean up2 = false;
+	Font f = new Font("Arial", Font.BOLD, 17);
+	
 	static {
 		try {
 			interface1 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/interface.png"));
@@ -58,6 +68,7 @@ public class Frame extends JFrame{
 			gold = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/gold.png"));
 			NPCDIALOG = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/NPCDIALOG.png"));
 
+			status = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/status.png"));
 
 			} catch (IOException e) {e.printStackTrace();}
         }
@@ -116,9 +127,12 @@ public class Frame extends JFrame{
 		
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
-			if (b.getid()==2|| b.getid()==4){
+			if ((b.getid()==2 && level >= 2)|| b.getid()==4){
 			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 			
+			}
+			else{
+				b.setvisible();
 			}
 		}
 		for(int i = 0; i<gegenstaende.size(); i++){
@@ -147,16 +161,26 @@ public class Frame extends JFrame{
 	
 		for(int i = 0; i<Enemys.size(); i++){
 			Gegner c = Enemys.get(i);
-			g.drawImage(c.getLook(), c.getX()+xVerschiebung, c.getY()+yVerschiebung, null);
+			if(c.visible() == true){
+				g.drawImage(c.getLook(), c.getX()+xVerschiebung, c.getY()+yVerschiebung, null);
+				}
+				if(c.visible() == false ){
+					ep = ep + 180*level;
+					c.remove();
+				}
 	    }
+		
 //		Effekte(g);
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
 			if (b.getid()==1 || b.getid()==3 ){
 			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 			}
-			if(b.getid()==5 ){
+			if(b.getid()==5 && level >= 3 ){
 				g.drawImage(b.getLook(), (fensterbreite-PlayerIO.getBimg().getWidth())/2-10, (fensterhoehe-kugelgroesse-PlayerIO.getBimg().getHeight())/2+getInsets().top-getInsets().bottom-15, null);	
+			}
+			else{
+				b.setbesiegbar();
 			}
 			
 		}
@@ -285,6 +309,21 @@ public class Frame extends JFrame{
 			g2d.setPaint(myColour);
 			g.fillRect(1130 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,125 * fensterbreite / 1920,(int) (64 * fensterhoehe / 1080 * (1 - PlayerIO.abklingzeittrank() / 10)));
 		}
+		
+		
+
+		//Status der Erfahrungspunkte
+		g2d.setFont(f);
+		g2d.drawImage(status,5,30, null);
+		g2d.setPaint(statusColor);
+		g2d.drawString("Name: Rossana", 130,60);
+		g2d.drawString("Level: " + level, 130, 85);
+		if(ep > 1000*level){
+			level++;
+			ep = ep % 1000;
+		}
+		g2d.drawString("EXP: " + ep, 130, 110);
+		
 	}
 	//	private void Effekte(Graphics g){
 //			Graphics2D g2d = (Graphics2D)g;

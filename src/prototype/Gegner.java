@@ -38,6 +38,7 @@ public class Gegner {
 	private float glumandageschossfrequenz=1;
 	private float glumandageschossfrequenzzaehler=1;
 	private float speedchange=1;
+	private boolean visible = true;
 	static {
 		try {
 			Gengar = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/gengar.png"));
@@ -176,9 +177,12 @@ public class Gegner {
 		
 		
 	    
+		  //wenn Gegner stirbt 
 	    if(leben<0){
 	    	PlayerIO.setgeld(1);
-			Enemys.remove(this);}
+	    	visible = false;
+			}
+	    
 	    //Animationszaehler
 		zeitBisZurNaechstenAnimation=zeitBisZurNaechstenAnimation+timeSinceLastFrame;
 		if(zeitBisZurNaechstenAnimation>Animationsdauer)zeitBisZurNaechstenAnimation = (float) -0.5;
@@ -243,5 +247,11 @@ public class Gegner {
 	public void setSpeed(float d) {
 		speedchange=d;
 		
+	}
+	public boolean visible(){
+		return visible;
+	}
+	public void remove(){
+		Enemys.remove(this);
 	}
 }
