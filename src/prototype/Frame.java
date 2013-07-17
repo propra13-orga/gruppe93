@@ -192,22 +192,23 @@ Color statusColor = new Color(171, 25, 84, 180);
 			}
 			
 		}
+
 		for(int i = 0; i<npcs.size(); i++){
 			NPC b = npcs.get(i);
 			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			if (b.dialogAn){
+				g.drawImage(NPCDIALOG2, b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			}
 			if (Map.getCurrentMap()=="maps/shop.txt"&&b.dialogAn){
 				g.drawImage(NPCDIALOG, b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 			}
 			if (Map.getCurrentMap()=="maps/Map1.txt"&&b.dialogAn){
 				g.drawImage(NPCDIALOG1, b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 			}
-			if (Map.getCurrentMap()=="maps/Map8.txt"&&b.dialogAn){
-				g.drawImage(NPCDIALOG2, b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
-			}
 		}
         
-			
 		g.drawImage(Licht.getLook(),xVerschiebung,yVerschiebung, null);
+
 
 		//am Ende, damit da nix druebermalt
 		dieKugelnUndLeiste(g);//wegen der Komplexitaet ist die Statusleiste in ihrer eigenen Funktion
