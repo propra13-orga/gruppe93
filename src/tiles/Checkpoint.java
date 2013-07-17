@@ -6,7 +6,7 @@ public class Checkpoint {
 	
 	private static int positionX;
 	private static int positionY;
-	private static String mapname;
+	public static String mapname;
 	private static boolean checkpointset = false;
 
 	

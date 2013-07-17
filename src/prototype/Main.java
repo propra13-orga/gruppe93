@@ -80,6 +80,8 @@ public class Main {
 				MapLoader ml = new MapLoader(map, Enemys, Zaubern,Gegenstaende,npcs);
 				if(m.play){
 					ml.lesen("maps/Map1.txt");
+		//			ml.lesen("maps/AktuelleMap.txt");
+					
 				}else if(m.multiplay){
 					ml.lesen("maps/AktuelleMap.txt");
 				}

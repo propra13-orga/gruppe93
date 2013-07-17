@@ -1,6 +1,7 @@
 package player;
 
 import prototype.Map;
+import tiles.Checkpoint;
 
 class PlayerUpdate {
 	
@@ -38,6 +39,9 @@ class PlayerUpdate {
 		gegneranzahl=Player.getEnemys().size();		// Festellung der Gegnerzahl
 		for(int i = 0; i<gegneranzahl; i++){		
 		Player.getEnemys().remove(0);}				// Gegner loeschen
+		if (Checkpoint.mapname==null){
+			System.exit(0);
+		}
 					
 	}
 	
