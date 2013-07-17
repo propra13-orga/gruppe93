@@ -79,7 +79,7 @@ public class Main {
 		//			ml.lesen("maps/AktuelleMap.txt");
 					
 				}else if(m.multiplay){
-					ml.lesen("maps/AktuelleMap.txt");
+					ml.lesen("maps/multi.txt");
 				}
 				
 
@@ -114,7 +114,7 @@ public class Main {
 
 						//Updates der Objekte und Akteure
 					PlayerIO.playerUpdate(timeSinceLastFrame);
-					if(m.multiplay){
+					if(m.multiplay){	//hier werden im multiplayermodus die daten an den server gesendet
 						out.println(PlayerIO.getPlayerPositionX()+" "+PlayerIO.getPlayerPositionY());
 						try {
 							if(in.ready())input=in.readLine();
