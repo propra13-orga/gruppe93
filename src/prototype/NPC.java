@@ -59,7 +59,7 @@ public class NPC {
 	public  BufferedImage getLook() {
 	    if(id==2){
 	    	return Storynpc;
-	    }
+	    }else
 			return NPCSHOP;
     }
 
