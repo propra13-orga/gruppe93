@@ -79,7 +79,7 @@ public class Main {
 		//			ml.lesen("maps/AktuelleMap.txt");
 					
 				}else if(m.multiplay){
-					ml.lesen("maps/multi.txt");
+					ml.lesen("maps/Map1.txt");
 				}
 				
 

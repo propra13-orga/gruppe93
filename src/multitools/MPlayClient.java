@@ -81,7 +81,7 @@ public class MPlayClient extends Thread {
  // Decide what to do from input
 	private void interpretData(String msg){
 		if(sessid==1){
-			server.data1="nepop"+" "+msg;
+			server.data1="nepop"+" "+msg;	//nepop bedeutet in dem fall nur, daß ich nicht abfragen konnte ob der string leer ist also frag ich ab ob nepop drin steht...so einfach ist das
 			sendData(server.data2);
 //		Scanner s=new Scanner(server.data1);	//die derzeit abgelegten daten werden geprüft
 //		int a=s.nextInt();
