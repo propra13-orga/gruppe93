@@ -17,6 +17,7 @@ public class Zauber {
 	private static BufferedImage bimg3;
 	private static BufferedImage bimg4;
 	private static BufferedImage bimg5;
+	private static BufferedImage bimg6;
 	private float f_Zaubergeschwindigkeitx;
 	private float f_Zaubergeschwindigkeity;
 	private Rectangle bounding;
@@ -46,6 +47,8 @@ public class Zauber {
 					.getResourceAsStream("gfx/circle2.png"));
 			bimg5 = ImageIO.read(Zauber.class.getClassLoader()
 					.getResourceAsStream("gfx/circle3.png"));
+			bimg6 = ImageIO.read(Zauber.class.getClassLoader()
+					.getResourceAsStream("gfx/Zauber2.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -56,29 +59,35 @@ public class Zauber {
 		this.zauberid = Zauberid;
 		if (zauberid == 1) {
 			darfexistieren = (float) 0.5;
-			bounding = new Rectangle((int) x, (int) y, bimg.getWidth(),
-					bimg.getHeight());
+			bounding = new Rectangle((int) x, (int) y, bimg.getWidth()- 10,
+					bimg.getHeight()- 10);
 		}
 		if (zauberid == 2) {
 			darfexistieren = (float) 3;
-			bounding = new Rectangle((int) x, (int) y, bimg2.getWidth(),
-					bimg2.getHeight());
+			bounding = new Rectangle((int) x, (int) y, bimg2.getWidth() - 10,
+					bimg2.getHeight()- 10);
 		}
 		if (zauberid == 3) {
 			darfexistieren = (float) 3;
-			bounding = new Rectangle((int) x - 5, (int) y - 5,
+			bounding = new Rectangle((int) x , (int) y ,
 					bimg3.getWidth() - 10, bimg3.getHeight() - 10);
 		}
 		if (zauberid == 4) {
 			darfexistieren = (float) 8;
-			bounding = new Rectangle((int) x - 5, (int) y - 5,
-					bimg2.getWidth() - 10, bimg2.getHeight() - 10);
+			bounding = new Rectangle((int) x , (int) y ,
+					bimg4.getWidth() - 10, bimg4.getHeight() - 10);
 		}
 		if (zauberid == 5) {
 			darfexistieren = (float) 3;
 			besiegbar = false;
-			bounding = new Rectangle((int) x - 5, (int) y - 5,
-					bimg.getWidth() - 10, bimg.getHeight() - 10);
+			bounding = new Rectangle((int) x , (int) y ,
+					bimg5.getWidth() - 10, bimg5.getHeight() - 10);
+
+		}
+		if (zauberid == 6) {
+			darfexistieren = (float) 0.5;
+			bounding = new Rectangle((int) x , (int) y ,
+					bimg6.getWidth() - 10, bimg6.getHeight() - 10);
 
 		}
 		this.f_playposx = x;
@@ -89,7 +98,7 @@ public class Zauber {
 	}
 
 	public void update(float timeSinceLastFrame) {
-		if (zauberid==1 || zauberid==3)
+		if (zauberid==1 || zauberid==3  || zauberid==6)
 		{
 		
 		
@@ -157,6 +166,9 @@ public class Zauber {
 		}
 		if (zauberid == 5) {
 			return bimg5;
+		}
+		if (zauberid == 6) {
+			return bimg6;
 		}
 		return bimg2;
 

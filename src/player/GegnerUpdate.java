@@ -6,6 +6,9 @@ import prototype.Gegner;
 import prototype.Zauber;
 
 class GegnerUpdate {
+	/*
+	 * 
+	 */
 	private static float schadenserhoehung;
 	
 	
@@ -51,8 +54,18 @@ class GegnerUpdate {
 		    if(e.getBounding().intersects(f.getBounding())){
 		    	if (f.getid()==1){
 				Zaubern.remove(a);
+				if (e.getid()!=3)
+				{
 				e.setLeben(80);
+				}
 		    	}
+		    	if (f.getid()==6){
+					Zaubern.remove(a);
+					if(e.getid()==3)
+					{
+					e.setLeben(80);
+					}
+			    	}
 		    	else
 		    	if (f.getid()==2){
 					e.setLeben(1);

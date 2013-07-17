@@ -7,6 +7,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
+
 import prototype.Frame;
 import prototype.Keyboard;
 import prototype.Main;
@@ -28,6 +31,8 @@ public class  Schiessen implements MouseListener{
 	private static int locationx;
 	private static int locationy;
 	private static boolean mouseclicked;
+	private static boolean rechtsklick;
+
 	
 	 static void schussGen (float frametime)
 	{
@@ -86,7 +91,7 @@ public class  Schiessen implements MouseListener{
 		    
 		    
 		}
-		if(mouseclicked&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>30){
+		if(mouseclicked&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>30&&rechtsklick==false){
 			 PointerInfo info = MouseInfo.getPointerInfo(); //Für spätere Steuerung mit der Maus
 			 Point location = info.getLocation();
 			 locationx=location.x-Main.point.x;
@@ -96,6 +101,19 @@ public class  Schiessen implements MouseListener{
 			float entfernung=(float) Math.sqrt((locationx-Frame.fensterbreite/2)*(locationx-Frame.fensterbreite/2)+(locationy-Frame.fensterhoehe/2+65)*(locationy-Frame.fensterhoehe/2+65));
 
 			Zaubern.add(new Zauber(f_playposx, f_playposy, (locationx-Frame.fensterbreite/2)/entfernung*1000 ,(locationy-Frame.fensterhoehe/2+65)/entfernung*1000,1,  Zaubern));
+			mana -= 30;
+			
+		}
+		if(mouseclicked&&ZeitSeitLetztemSchuss>schussfrequenz&&mana>30&&rechtsklick==true){
+			 PointerInfo info = MouseInfo.getPointerInfo(); //Für spätere Steuerung mit der Maus
+			 Point location = info.getLocation();
+			 locationx=location.x-Main.point.x;
+			 locationy=location.y-Main.point.y;	
+			 ZeitSeitLetztemSchuss = 0;
+		   
+			float entfernung=(float) Math.sqrt((locationx-Frame.fensterbreite/2)*(locationx-Frame.fensterbreite/2)+(locationy-Frame.fensterhoehe/2+65)*(locationy-Frame.fensterhoehe/2+65));
+
+			Zaubern.add(new Zauber(f_playposx, f_playposy, (locationx-Frame.fensterbreite/2)/entfernung*1000 ,(locationy-Frame.fensterhoehe/2+65)/entfernung*1000,6,  Zaubern));
 			mana -= 30;
 			
 		}
@@ -150,6 +168,7 @@ public class  Schiessen implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		mouseclicked=true;
+		rechtsklick=SwingUtilities.isRightMouseButton(e);
 		
 	}
 	@Override

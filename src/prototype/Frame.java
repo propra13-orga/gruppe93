@@ -33,6 +33,7 @@ public class Frame extends JFrame{
 	private static BufferedImage interface1; //unsklaliertes original interface.png
 	private static BufferedImage interface2; //Zwischenspeicher fuer skaliertes Interface
 	private static BufferedImage icon;
+	private static BufferedImage icon12;
 	private static BufferedImage icon1; 
 	private static BufferedImage icon2;
 	private static BufferedImage icon3; 
@@ -61,6 +62,7 @@ Color statusColor = new Color(171, 25, 84, 180);
 		try {
 			interface1 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/interface.png"));
 			icon = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon.png"));
+			icon12 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon12.png"));
 
 			icon1 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon1.png"));
 			icon2 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon2.png"));
@@ -173,7 +175,7 @@ Color statusColor = new Color(171, 25, 84, 180);
 //		Effekte(g);
 		for(int i = 0; i<Zaubern.size(); i++){
 			Zauber b = Zaubern.get(i);
-			if (b.getid()==1 || b.getid()==3 ){
+			if (b.getid()==1 || b.getid()==3 || b.getid()==6){
 			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 			}
 			if(b.getid()==5 && level >= 3 ){
@@ -248,6 +250,8 @@ Color statusColor = new Color(171, 25, 84, 180);
 			BufferedImage ergebnis = new BufferedImage(fensterbreite,fensterhoehe, BufferedImage.TYPE_INT_ARGB);
 			ergebnis.createGraphics().drawImage(interface1, 0, 0,fensterbreite, fensterhoehe, null);
 			ergebnis.createGraphics().drawImage(icon,982 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+			ergebnis.createGraphics().drawImage(icon12,1049 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
+
 			ergebnis.createGraphics().drawImage(icon1,643 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 			ergebnis.createGraphics().drawImage(icon2,709 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
 			ergebnis.createGraphics().drawImage(icon3,774 * fensterbreite / 1920,fensterhoehe - 72 * fensterhoehe / 1080,64 * fensterbreite / 1920, 64 * fensterhoehe / 1080, null);
@@ -276,6 +280,7 @@ Color statusColor = new Color(171, 25, 84, 180);
 			g.fillRect(643 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080) * (1 - 2.5 * PlayerIO.getZeitSeitLetztemSchuss())));
 			g.fillRect(709 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080) * (1 - 2.5 * PlayerIO.getZeitSeitLetztemSchuss())));
 			g.fillRect(982 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080)* (1 - 2.5 * PlayerIO.getZeitSeitLetztemSchuss()))) ;
+			g.fillRect(1049 * fensterbreite / 1920, fensterhoehe - 72* fensterhoehe / 1080 - getInsets().bottom,64 * fensterbreite / 1920,(int) ((int) (64 * fensterhoehe / 1080)* (1 - 2.5 * PlayerIO.getZeitSeitLetztemSchuss()))) ;
 
 		}
 		if (PlayerIO.getF_Mana()<200){ //Zauber werden grau hinterlegt wenn Manakosten>Manapool
