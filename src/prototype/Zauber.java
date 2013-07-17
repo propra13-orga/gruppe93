@@ -5,7 +5,6 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import player.Player;
-import player.PlayerIO;
 import tiles.Tile;
 
 import java.awt.Rectangle;

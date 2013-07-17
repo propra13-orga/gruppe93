@@ -10,12 +10,8 @@ import java.net.UnknownHostException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.swing.JInternalFrame;
-
 import multitools.AntiRossi;
 import multitools.MPlayServer;
-
 import player.PlayerIO;
 import player.Player;
 
