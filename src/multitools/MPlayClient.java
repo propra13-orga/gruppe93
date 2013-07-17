@@ -1,4 +1,11 @@
-package multitools;
+/*	Wird vom Server angelegt und verwaltet einen einzelnen verbundenen Mitspieler. 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */package multitools;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

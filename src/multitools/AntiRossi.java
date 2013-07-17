@@ -1,4 +1,11 @@
-package multitools;
+/*	Dient zur Darstellung des jeweiligen Gegenspielers.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */package multitools;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

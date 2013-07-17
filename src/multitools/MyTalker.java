@@ -1,4 +1,11 @@
-package multitools;
+/*	Ohne Funktion. Jediglich zum Vergl. für ähnliche Methoden, die in der Main benötigt werden.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */package multitools;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;

@@ -1,3 +1,11 @@
+/*	Diese Klasse dient dazu, die sich auf den Socket Verbindenden zu verwalten und die entsprechenden Clients anzulegen.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
 package multitools;
 import java.io.IOException;
 import java.net.ServerSocket;
