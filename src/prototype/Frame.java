@@ -37,6 +37,8 @@ public class Frame extends JFrame{
 	private static BufferedImage icon2;
 	private static BufferedImage icon3; 
 	private static BufferedImage NPCDIALOG;
+	private static BufferedImage NPCDIALOG1;
+	private static BufferedImage NPCDIALOG2;
 	private static BufferedImage gold; 
 	private static BufferedImage status;
 	private int kugelgroesse=152;
@@ -68,6 +70,8 @@ Color statusColor = new Color(171, 25, 84, 180);
 			icon3 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/icon3.png"));
 			gold = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/gold.png"));
 			NPCDIALOG = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/NPCDIALOG.png"));
+			NPCDIALOG1 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/NPCDIALOG1.png"));
+			NPCDIALOG2 = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/NPCDIALOG2.png"));
 
 			status = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/status.png"));
 
@@ -150,6 +154,9 @@ Color statusColor = new Color(171, 25, 84, 180);
 			if (b.getid()==4){
 				g.drawImage(Gegenstand.getLook4(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 			}
+			if (b.getid()==5){
+				g.drawImage(Gegenstand.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+				}
 		}
 		
 		if(AntiRossi.getExistiert()){	//gegenspieler wird nur gemalt wenn er existiert
@@ -188,10 +195,16 @@ Color statusColor = new Color(171, 25, 84, 180);
 		for(int i = 0; i<npcs.size(); i++){
 			NPC b = npcs.get(i);
 			g.drawImage(b.getLook(), b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
-			if (b.dialogAn){g.drawImage(NPCDIALOG, b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			if (Map.getCurrentMap()=="maps/shop.txt"&&b.dialogAn){
+				g.drawImage(NPCDIALOG, b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			}
+			if (Map.getCurrentMap()=="maps/Map1.txt"&&b.dialogAn){
+				g.drawImage(NPCDIALOG1, b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
+			}
+			if (Map.getCurrentMap()=="maps/Map8.txt"&&b.dialogAn){
+				g.drawImage(NPCDIALOG2, b.getX()+xVerschiebung, b.getY()+yVerschiebung, null);
 			}
 		}
-		
         
 			
 		g.drawImage(Licht.getLook(),xVerschiebung,yVerschiebung, null);

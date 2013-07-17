@@ -15,6 +15,7 @@ public class NPC {
 	private float f_NPCpos_y;
 	private Rectangle bounding;
 	private static BufferedImage NPCSHOP; 
+	private static BufferedImage Storynpc; 
 	public boolean dialogAn=true;
 
 	
@@ -22,7 +23,8 @@ public class NPC {
 		try {
 			
 			NPCSHOP = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/NPCSHOP.png"));
-		
+			Storynpc = ImageIO.read(Zauber.class.getClassLoader().getResourceAsStream("gfx/Storynpc.png"));
+
 
 
 			} catch (IOException e) {e.printStackTrace();}
@@ -55,7 +57,9 @@ public class NPC {
 		return bounding;
 	}
 	public  BufferedImage getLook() {
-	
+	    if(id==2){
+	    	return Storynpc;
+	    }
 			return NPCSHOP;
     }
 

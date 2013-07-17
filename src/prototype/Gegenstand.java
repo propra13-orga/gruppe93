@@ -66,6 +66,13 @@ public class Gegenstand {
 					gegenstaende.remove(i);
 					
 				}
+				if (e.getid()==5){
+					PlayerIO.setlebenstrank(1);
+
+
+					gegenstaende.remove(i);
+					
+				}
 				if (e.getid()==3&&PlayerIO.getgeld()>19){
 					PlayerIO.setgeld(-20);
 
