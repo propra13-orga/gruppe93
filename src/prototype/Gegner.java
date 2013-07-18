@@ -10,7 +10,9 @@ import player.PlayerIO;
 
 public class Gegner {
 	private static BufferedImage Gengar;
+	private static BufferedImage mewtwo;
 	private static BufferedImage glumanda;
+	private static BufferedImage camaub;
 	private static BufferedImage[] Dragoran= new BufferedImage[16];
 	private static BufferedImage[] Dragoranfly= new BufferedImage[16];
 	private float f_Gegnerposy_x;
@@ -21,6 +23,7 @@ public class Gegner {
 	private float gegnergeschwindigkeit;
 	private float zufallszahl; //fuer zufallsbasierte Bewegung 
 	private float zufallszahl2;//fuer  zufallsbasierte Geschosse
+	private float zufallszahl3;//fuer  zufallsbasierten Gegnerspawn (mewtwo)
 	private float reichweite=700; //legt fast ab welcher Entfernung zum Spieler die Gegner angreifen
 	float leben; 
 	private List<Gegner> Enemys;
@@ -38,10 +41,14 @@ public class Gegner {
 	private float glumandageschossfrequenz=1;
 	private float glumandageschossfrequenzzaehler=1;
 	private float speedchange=1;
+	private float gegnerspawnfrequenz; //fuer Mewtwo
+	private double spawnspeedup=0; //spawns werden immer schnell bei Mewtwo
 	private boolean visible = true;
 	static {
 		try {
 			Gengar = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/gengar.png"));
+			mewtwo = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/mewtwo.png"));
+			camaub = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/camaub.png"));
 			glumanda= ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/glumanda.png"));
 			Dragoran[0]  = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/1.png"));
 			Dragoran[1] = ImageIO.read(Gegner.class.getClassLoader().getResourceAsStream("gfx/Dragoran/2.png"));
@@ -99,6 +106,11 @@ public class Gegner {
 			leben=400;
 			gegnergeschwindigkeit=200;
 			}
+		if (gegnerid==4){ //Attribute fuer Gegner 4 (mewtwo)
+		     bounding = new Rectangle((int)Gegnerx, (int)Gegnery, mewtwo.getWidth(), mewtwo.getHeight());
+			leben=4000;
+			gegnergeschwindigkeit=0;
+			}
 		this.Enemys=Enemys;
 	}
 	
@@ -112,10 +124,31 @@ public class Gegner {
 
 		xadd=(PlayerIO.getBounding().x-f_Gegnerposy_x)/entfernung;
 	    yadd=(PlayerIO.getBounding().y-f_Gegnerposy_y)/entfernung;
-		
+	    
+	    
+	    if (gegnerid==4){ //Mwetwo
+			gegnerspawnfrequenz+=timeSinceLastFrame;
+			if (gegnerspawnfrequenz>(4.6-spawnspeedup)){
+				zufallszahl3=(float)(Math.random());
+				if (zufallszahl3>0.5){
+					Enemys.add(new Gegner((float) (Math.abs(zufallszahl3-0.5))*40*60+40, (float) (Math.abs(zufallszahl3-0.5))*40*46+40,1, Enemys,Zaubern));
+					
+				}else{
+					Enemys.add(new Gegner((float) (Math.abs(zufallszahl3-0.5))*40*60+40, (float) (Math.abs(zufallszahl3-0.5))*40+40,3, Enemys,Zaubern));
+
+				}
+				gegnerspawnfrequenz=0;
+				spawnspeedup=spawnspeedup+0.1;
+
+				
+			}
+
+	        
+		}
 		
 		
 		if (gegnerid==1){ //Bewegung Gengar
+			
 	          if(entfernung<reichweite){
 		            f_Gegnerposy_x= (f_Gegnerposy_x+xadd*timeSinceLastFrame*gegnergeschwindigkeit*speedchange+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4)); //-(x-2)^2+4
 		            f_Gegnerposy_y=f_Gegnerposy_y+yadd*timeSinceLastFrame*gegnergeschwindigkeit*speedchange+zufallszahl*(-((existiertseit-2)*(existiertseit-2))+4);
@@ -153,7 +186,7 @@ public class Gegner {
 //		            if(yadd>0&&xadd<0)animationsrichtung=0;
 //		            if(yadd>0&&xadd>0)animationsrichtung=1;
 		            //zufallsbasierte Geschossrichtung
-		            if (zeitBisZurNaechstenAnimation>0.1){
+		            if (zeitBisZurNaechstenAnimation>0.15){
 		            	zufallszahl2=(float)(Math.random()*winkel-winkel/2);
 		            	if(phasecounter<10){
 		            		gegnergeschwindigkeit=40;	
@@ -200,6 +233,9 @@ public class Gegner {
 	public BufferedImage getLook(){
 		if (gegnerid==3){
 			return glumanda;
+		}
+		if (gegnerid==4){
+			return mewtwo;
 		}
 		if (gegnerid==2){
 			if(phasecounter<10){

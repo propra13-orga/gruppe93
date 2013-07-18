@@ -173,6 +173,10 @@ public class MapLoader {
 							Map.tiles[x][y].setTileTyp(new Boden());
 							Enemys.add(new Gegner(x*40+10, y*40+10,3, Enemys,Zaubern));
 							break;
+						case 54:
+							Map.tiles[x][y].setTileTyp(new Boden());
+							Enemys.add(new Gegner(x*40+10, y*40+10,4, Enemys,Zaubern));
+							break;
 						case 61:
 							Map.tiles[x][y].setTileTyp(new Boden());
 							gegenstaende.add(new Gegenstand(x*40+10, y*40+10,1,gegenstaende));
